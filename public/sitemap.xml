@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://www.thesubtlety.com/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</loc>
+    <lastmod>2014-12-20T22:03:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</loc>
+    <lastmod>2014-03-15T00:57:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/just-the-basics/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/bsidesdc-badge/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</loc>
+    <lastmod>2013-10-19T02:41:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/career-readme-txt/</loc>
+    <lastmod>2013-04-04T00:50:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</loc>
+    <lastmod>2013-02-22T01:12:37+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</loc>
+    <lastmod>2012-09-15T22:22:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/breaking-into-security/</loc>
+    <lastmod>2012-06-25T18:21:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/random-ramblings/</loc>
+    <lastmod>2012-01-04T21:12:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/about/</loc>
+    <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+  </url>
+  
+</urlset>

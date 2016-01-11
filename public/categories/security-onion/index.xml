@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security Onion on The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/security-onion/</link>
+    <description>Recent content in Security Onion on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Oct 2013 02:41:57 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/categories/security-onion/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Security Onion Network Configuration and Install</title>
+      <link>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</link>
+      <pubDate>Sat, 19 Oct 2013 02:41:57 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</guid>
+      <description>
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://www.thesubtlety.com/img/theonion-wait-what-150x150.jpeg&#34; alt=&#34;With apologies to The Onion&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;p&gt;
+        With apologies to The Onion
+        
+            
+        
+        &lt;/p&gt; 
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;I&amp;rsquo;ve played around with &lt;a href=&#34;http://securityonion.blogspot.com/&#34;&gt;Security Onion&lt;/a&gt; in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices. I also had a laptop lying around, not being frequently used; perfect for dedicated monitoring. So I finally got around to working through the details and going through the setup and configuration. This is a little essay on how I did that.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t go into much detail in the configuration of Security Onion and subsequent tools, as the &lt;a href=&#34;http://code.google.com/p/security-onion/wiki/Installation&#34;&gt;Install Wiki&lt;/a&gt; and &lt;a href=&#34;http://www.irongeek.com/i.php?page=videos/basic-setup-of-security-onion-snort-snorby-barnyard-pulledpork-daemonlogger&#34;&gt;Iron Geek&amp;rsquo;s video&lt;/a&gt; do a fantastic job of that, but the following is a brief overview of how I set things up. For more background, the Security Onion &lt;a href=&#34;http://code.google.com/p/security-onion/w/list&#34;&gt;Wiki&lt;/a&gt; has a ton of great resources, a few of which I&amp;rsquo;ll refer to in a bit, IronGeek&amp;rsquo;s video walkthrough mentioned above, Doug Burk&amp;rsquo;s &lt;a href=&#34;http://www.irongeek.com/i.php?page=videos/derbycon2/2-2-9-doug-burks-security-onion-network-security-monitoring-in-minutes&#34;&gt;talk&lt;/a&gt; and the very detailed &lt;a href=&#34;http://code.google.com/p/security-onion/wiki/IntroductionWalkthrough&#34;&gt;walkthrough&lt;/a&gt; on the Security Onion Wiki give tons of detailed info on setup and configuration.&lt;/p&gt;
+
+&lt;p&gt;Useful things before starting, depending on use case:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Dedicated machine(s) for Security Onion&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Router/gateway supporting iptables&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;VirtualBox or VMware&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;First things first, a little research&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;I was somewhat at a loss on how to configure the actual network and mirror/span traffic to my laptop and Security Onion with only a simple Router. I&amp;rsquo;m running DD-WRT, but the router itself has no physical span ports. The Security Onion Wiki has a &lt;a href=&#34;http://code.google.com/p/security-onion/wiki/Hardware&#34;&gt;Hardware page&lt;/a&gt; which has a few links to cheap taps, but I didn&amp;rsquo;t necessarily want to go that route for a simple operation like this. After watching Iron Geek&amp;rsquo;s video, I was surprised I hadn&amp;rsquo;t realized the solution earlier. iptables can copy all traffic (via -tee). And if you have iptables on the router, voila.&lt;/p&gt;
+
+&lt;p&gt;I wanted something like this. Actually, this is a dumb diagram, mostly I just wanted to use &lt;a href=&#34;http://www.asciiflow.com&#34;&gt;asciiflow.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                             +-------------+
+                             | Ze Internet |
+                             +------+------+
+                                    |
+                              +-----v-----+       +------------+
+                              |  Router   |       | Security   |
+                              |           +------&amp;gt;| Onion      |
+                              +-----+-----+       +------------+
+                                    ^     xx
+                    +---------------+------+x
+                    |               |       xx
+            +-----+------+   +------+---+    xx
+            |  Desktop   |   | Laptop   |  Tablet, Phone, etc
+            +------------+   +----------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Let&amp;rsquo;s Get Going Already!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Still doing some prep work, I had to get Security Onion installed on my laptop and since I didn&amp;rsquo;t want to lose my existing setup I chose to install in a VM. But before actually starting this goodness that is Security Onion, there is some configuration to do. We need lots of disk space, and a good amount of ram. We also need to configure our network adapter settings. As you will see while reading the Installation directions, Security Onion needs two NICs: one for monitoring, and one for management (wireless in my case). In the VM settings, I set Adapter 1 to bridge with my wired connection, and used Promiscuous Mode: All. I set Adapter 2 to bridge with my wireless connection and Promiscuous Mode: Deny. You can read a lot more info on that and VM networking settings &lt;a href=&#34;http://www.virtualbox.org/manual/ch06.html#network_bridged.&#34;&gt;here.&lt;/a&gt; I&amp;rsquo;m certain there are more ways to configure this, but this works.&lt;/p&gt;
+
+&lt;p&gt;Once your VM settings are good, you&amp;rsquo;re left with actually installation and configuration. Installation itself is not too difficult if you can read directions. Lengthy and very detailed installation doc on the Security Onion &lt;a href=&#34;http://code.google.com/p/security-onion/wiki/Installation&#34;&gt;Install Wiki &lt;/a&gt;as well as the &lt;a href=&#34;http://code.google.com/p/security-onion/wiki/IntroductionWalkthrough&#34;&gt;walkthrough&lt;/a&gt;. Further configuration of tools and alerts takes more time, and some of that is nicely covered in Iron Geek&amp;rsquo;s video.&lt;/p&gt;
+
+&lt;p&gt;Now that we have Security Onion set up and configured, lets point all the traffic towards it. As mentioned before, I&amp;rsquo;m going to do that with iptables as referenced &lt;a href=&#34;http://www.myopenrouter.com/article/10917/Port-Mirroring-Span-Port-Monitor-Port-with-iptables-on-NETGEAR-WGR614L/&#34;&gt;here&lt;/a&gt;. In DD-WRT, this can be done via ssh or Admin &amp;gt; Commands and entering:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iptables -A PREROUTING -t mangle -j ROUTE --gw &amp;lt;IP of Sec Onion box&amp;gt; --tee    
+iptables -A POSTROUTING -t mangle -j ROUTE --gw &amp;lt;IP of Sec Onion box&amp;gt; --tee
+
+Note: I&#39;m actually using the host&#39;s bridged wired interface here as Security 
+      Onion&#39;s monitoring interface is not assigned an IP address.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save Firewall and test things out!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Causing High Severity Incidents&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;A simple ping from one of your devices to the router should show up, or a more sure-fire way to see an event is to go to, or &lt;em&gt;curl&lt;/em&gt; &lt;em&gt;http:/testmyids.com,&lt;/em&gt; which simply returns _uid=0(root) gid=0(root) groups=0(root). _In Snorby you should see a Sev 2 &amp;ldquo;GPL ATTACK_RESPONSE id check returned root&amp;rdquo; event, from which you can dig into further and see Payload, the Snort rule, and so on.&lt;/p&gt;
+
+&lt;p&gt;If so, things are good! If not, there are lots of great resources out there, not least the &lt;a href=&#34;http://code.google.com/p/security-onion/w/list.&#34;&gt;Wiki pages  &lt;/a&gt;I&amp;rsquo;m off to test things out; Security Onion has a ton of tools to get to know. Good luck!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,94 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Renewing your StartCom SSL Cert &middot; The Subtlety </title>
+
+  
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/poole.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/syntax.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="The Subtlety" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+      
+
+      <li><a href="https://www.thesubtlety.com/about/">About</a> </li>
+      
+    </ul>
+
+    
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29425132-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>Renewing your StartCom SSL Cert</h1>
+			  <span class="post-date">Sat, Mar 15, 2014</span>
+			      <p>Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.</p>
+
+<ol>
+<li><p>Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.</p></li>
+
+<li><p>Generate a key and CSR on the server with the following two commands
+<code>openssl genrsa -out ./www.thesubtlety.com.key 2048</code> 
+<code>openssl req -new -key www.thesubtlety.com.key -out www.thesubtlety.com.csr</code></p></li>
+
+<li><p>Once your domain is validated by StartSSL, you need to request a new certificate which is pretty self explanatory. Use the Certificate Wizard, follow the prompts, and paste in the CSR where asked.</p></li>
+
+<li><p>Once you&rsquo;ve got that, copy it to a .crt file on the server.</p></li>
+
+<li><p>Don&rsquo;t forget the chain file. This can be created by cat-ing the files ca.pem and sub.class1.server.ca.pem <a href="https://www.startssl.com/certs/">here</a> into a .chn file.</p></li>
+</ol>
+
+<p>The NFS SSL help and request link is here: <a href="https://members.nearlyfreespeech.net/username/support/assist?tag=ssl">https://members.nearlyfreespeech.net/username/support/assist?tag=ssl</a></p>
+
+<p>And finally, verify the newly installed cert is updated with a new expiration date.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

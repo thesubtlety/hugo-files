@@ -1,0 +1,131 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Building a Web App in Rails &middot; The Subtlety </title>
+
+  
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/poole.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/syntax.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="The Subtlety" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+      
+
+      <li><a href="https://www.thesubtlety.com/about/">About</a> </li>
+      
+    </ul>
+
+    
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29425132-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>Building a Web App in Rails</h1>
+			  <span class="post-date">Fri, Apr 11, 2014</span>
+			      <p>A brilliant <a href="http://blaedj.github.io/">software engineering friend</a> and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&rsquo; productivity. A win win situation if there ever was one.</p>
+
+<p>So we set about the process of building a web application in Ruby on Rails. And several weeks later, we had one completed. It&rsquo;s nothing too fancy, but one that is being used in production and is adding business value. And it was an awesome learning experience. I just wanted to highlight some of what we encountered, how we went about the task, and a few lessons learned along the way.</p>
+
+<p>Said friend and I had tinkered with Ruby on Rails before, but never to any great extent, nor had we worked with a business customer in this fashion by building a product to solve a problem, so I&rsquo;m quite pleased with the way our stabbings in the dark went.</p>
+
+<p>We had gotten okay requirements with the first discussions, and putting our collective heads together to make a small pile of rocks, we discussed how long this would take, what tools, libraries, and third party applications to use, where we would be hosting, understanding how we would actually solve the problem, and what to charge. Mutual friend agreed, and off we went.</p>
+
+<p><strong>Working remotely</strong></p>
+
+<p>We worked together remotely on this project. Skype and Google hangouts worked well when our schedules coincided. Starting out, we worked in tandem to get the foundation
+down and a workflow established, and as we became more proficient, our productivity increased as we worked in parallel on different issues. Git, Github, and Heroku make for incredibly painless collaboration. I learned that git is a stupid content tracker, and a great tool. And for small deployments like this one, Heroku&rsquo;s robustness and free-ness were awesome.</p>
+
+<p><strong>On Building</strong></p>
+
+<p>As we hadn&rsquo;t used RoR too much beyond tutorials, we bootstrapped using <a href="http://ruby.railstutorial.org/">Michael Hartl&rsquo;s tutorial</a> to get us started. Unlike many online tutorials, this one has great explanations and security hygiene and explained in great detail the user authentication and authorization pieces (among many others). And gems like bcrypt&rsquo;s has_secure_token for example, makes the implementation of secure passwords brain-dead simple. Rails make things very easy implement. Almost too easy. That opinion is likely due to not having worked too in depth with PHP, Apache, and MySQL. And now that I begin to recall the school projects of years past, RoR is quite nice indeed.</p>
+
+<p>Our requirements didn&rsquo;t have us do anything too difficult, although we certainly had our share of hurdles; both in learning how the framework works and actually solving design problems. Working our way through various database relationships was a challenge, and pretty rewarding once we came up with solutions. Proper inheritance, indexing, and scoping all gave cause for some extra reading. Heroku makes things incredibly easy as far as using APIs, so incorporating email was no problem either.</p>
+
+<p>UI and UX is always interesting. I hate poorly thought out UIs with a passion, so building a sensible interface was important. Yet css, javascript, html, and various cross-platform and browser (in)compatibilities can easily drive one nuts. And since I have no desire to wander about in insanity, we ended up using Bootstrap and HTML5 to keep things simple. And simple is beautiful.</p>
+
+<p><strong>On Changing requirements</strong></p>
+
+<p>And just like any other project, we had multiple feature requests as the weeks went by. All honored because we are kind and generous souls. These things had impacts on our initial estimates, but understandably so from our wonderful customer&rsquo;s perspective.</p>
+
+<p><strong>A Few Lessons Learned</strong></p>
+
+<ul>
+<li><p>Requirements are very important. More time spent at the beginning better understanding how users interact with and use an application is essential.</p></li>
+
+<li><p>Understanding the various differences between mobile and desktop and between various browser rendering is pretty important. For example, we initially used Chrome for testing purposes with things working great. When we got reports back saying dates don&rsquo;t work we were initially baffled. Apparently Firefox doesn&rsquo;t render the date drop down and requires a very specific format.</p></li>
+
+<li><p>Helpful error messages and graceful error handling is paramount to ease user experience.</p></li>
+
+<li><p>Logging and alerting is essential. Multiple times we have been immediately alerted when things break or user experience is poor, allowing us to investigate and resolve.</p></li>
+
+<li><p>Tests are essential. Refactoring a feature should never break existing functionality.</p></li>
+</ul>
+
+<p><strong>On Securing</strong></p>
+
+<p>Fortunately Rails 4 comes with many secure defaults such as protect_from_forgery for example, which adds csrf tokens to forms automatically. There are many great resources out there to help secure web apps. <a href="http://brakemanscanner.org/">Brakeman</a> and <a href="https://github.com/codesake/codesake-dawn">Dawn by Codesake</a> both caught a number of issues that were remediated. And while <a href="https://www.owasp.org/images/8/89/Rails_Security_2.pdf">this</a> resource is aging, and many of the issues outlined in it are remediated in later versions of Ruby, it is a great guide explaining what to look for, why various practices are poor, their consequences, and how to remediate them.</p>
+
+<p>No mention of app sec should be without reference to OWASP. The <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top Ten</a> and <a href="https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet">Secure SDLC</a> have a plethora of good resources for Builders, Breakers, and Defenders. While this project was fairly ad-hoc, there are enough resources on OWASP for another post and give rise to more than a few questions and places for improvement going forward. The <a href="https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet">OWASP RoR Cheatsheet</a> is a good resource as well. And another: The <a href="http://guides.rubyonrails.org/security.html">RoR Security Guide</a>. There is no end to good resources out there.</p>
+
+<p>Yet another well written and mildly humourous post by Honeybadger is <a href="http://www.honeybadger.io/blog/guides/2013/03/09/ruby-security-tutorial-and-rails-security-guide">here</a> which contains wise advice such as the following.
+<code>match &quot;/launch_all_the_missiles&quot;, to: &quot;missiles#launch_all&quot;
+Conclusion: PANIC!</code></p>
+
+<p>And Kalzumeus&rsquo;s awesome blog and excellent <a href="http://www.kalzumeus.com/2013/01/31/what-the-rails-security-issue-means-for-your-startup/">post</a> on Rails security and startups has a ton of all around great advice.</p>
+
+<p><strong>In Conclusion</strong></p>
+
+<p>While this post is fairly short, I learned an incredible amount from completing this project. From both the technical aspects of working with Ruby on Rails, git, various APIs, and Heroku to the business and customer aspects, this was challenging, fun, and rewarding. And getting to delve into the web app sec world in more detail and have a postive impact on a business application is a reward in its own. Of course maintaining a production web application means the work is never done, so there is that as well. A little lesson all in it&rsquo;s own, I suppose.</p>
+
+<p>Thanks for reading.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,161 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.15" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> The OSCP | Penetration Testing With Kali Linux &middot; The Subtlety </title>
+
+  
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/poole.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/syntax.css">
+  <link rel="stylesheet" href="https://www.thesubtlety.comcss/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="The Subtlety" />
+</head>
+
+	<body class="">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+      
+
+      <li><a href="https://www.thesubtlety.com/about/">About</a> </li>
+      
+    </ul>
+
+    
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-29425132-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    
+
+    <p>&copy; 2016. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>The OSCP | Penetration Testing With Kali Linux</h1>
+			  <span class="post-date">Sat, Dec 20, 2014</span>
+			      
+<figure >
+    
+        <img src="https://www.thesubtlety.com/img/pwk-box-small-128x150.png" />
+    
+    
+</figure>
+
+
+<p>I&rsquo;ve spent the last few months working through the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-kali-linux/">Penetration Testing with Kali Linux</a> course by Offensive Security which has been an awesome <a href="http://www.offensive-security.com/documentation/penetration-testing-with-kali.pdf">learning</a> experience.</p>
+
+<p>Much has been said on this course and I&rsquo;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.</p>
+
+<ul>
+<li>Review by <a href="https://blog.g0tmi1k.com/2011/07/pentesting-with-backtrack-pwb/">g0tmi1k</a></li>
+<li>Review by <a href="http://fourfourfourfour.co/2014/04/20/oscp-review/">recrudesce</a></li>
+<li>Review from <a href="http://buffered.io/posts/oscp-and-me/">Buffered.io</a></li>
+<li>Review from <a href="http://www.iodigitalsec.com/offensive-security-pwb-course-and-oscp-certification-review/">IODigitalSec</a></li>
+<li>Review from <a href="http://www.securitysift.com/offsec-pwb-oscp/">SecuritySift</a></li>
+</ul>
+
+<p><br/>
+For a little preview of what&rsquo;s involved, check out the free <a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a> course.</p>
+
+<p><strong>Material, Course, and Exam</strong></p>
+
+<p>After completing the 300+ page <a href="http://www.offensive-security.com/documentation/penetration-testing-with-kali.pdf">pdf material</a>, <a href="http://www.offensive-security.com/about-us/">muts</a>-narrated videos and exercises, I
+focused my attention on the lab. It is at this point, when the course turns from a more academic focus to an applied and practical nature, that the magnitude of what one is learning begins to sink in. A lab with nearly fifty diverse machines across multiple networks awaits with no further instructions. But with enumeration comes vulnerable machines, and each machine is different. Some are simple to exploit, some are difficult, some are incredibly frustrating. Every one is rewarding.</p>
+
+<p>Several months later, after getting root or system access on nearly every machine, and completing a final lab penetration test report of over two hundred pages, I felt ready for the 24 hour exam. Exam day had me giddy as a little kid and went smoothly. Ten hours in I had enough points to pass but I spent another eight hours attempting to privilege escalate my way to system on one remaining machine. I eventually succumbed to exhaustion knowing I had more than enough points to pass and wishing to be functional the next day to write up my exam report.</p>
+
+<p>Several days after submitting the exam report along with my final lab report, I received the much-anticipated email stating that I had passed the exam and now held my Offensive Security Certified Professional certification. I have mixed feelings about the value of certifications since just about anyone can take a test and pass. But this one - this one a person has to work for.</p>
+
+<p><strong>A few take aways</strong></p>
+
+<p>Document, document, document</p>
+
+<ul>
+<li>I used Keepnote on my host machine to track everything. It&rsquo;s certainly not without its frustrations, but it does the job. Don&rsquo;t forget to back everything up!</li>
+<li>Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&rsquo;t include some small issue is frustrating.</li>
+</ul>
+
+<p><br/>
+Enumeration is key</p>
+
+<ul>
+<li>Every single machine is vulnerable and exploitable, it&rsquo;s simply a matter of finding it.</li>
+<li>Reset boxes before attempting them, especially Windows. I spent many an unneeded hour working through possible exploits when a SMB service had simply
+been crashed by a previous student and Metasploit would have gotten me in immediately.</li>
+<li>Privilege escalation provides lessons in patience. The following resources were invaluable.
+
+<ul>
+<li><a href="http://www.greyhathacker.net/?p=738">http://www.greyhathacker.net/?p=738</a></li>
+<li><a href="http://www.fuzzysecurity.com/tutorials/16.html">http://www.fuzzysecurity.com/tutorials/16.html</a></li>
+<li><a href="http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a><br /></li>
+</ul></li>
+</ul>
+
+<p><br/>
+Post exploitation is paramount</p>
+
+<ul>
+<li>Multiple boxes include passwords, scripts, and log files which will provide access or attack vectors to other machines.</li>
+<li>Missing one thing can lead to wasted time chasing down red herrings.</li>
+</ul>
+
+<p><br/>
+Utilize the admins</p>
+
+<ul>
+<li>Make use of the admins on IRC at #offsec. While they won&rsquo;t give you the answer, they often ask questions which get you thinking in a certain way, and simply explaining what steps you have taken can lead to other paths for success.</li>
+</ul>
+
+<p><br/>
+Commit the time</p>
+
+<ul>
+<li>The material covered in this course is not terribly difficult, but it does take practice. And practice requires time. I spent at least fifteen hours every week in the labs over the course of a few months.<br /></li>
+</ul>
+
+<p><br/>
+I think the only dissatisfaction I experienced was while working on a exploiting a machine while another student was attempting to do the same and continually reset the box wiping out any steps taken to obtain a shell for instance. This was rare, though.</p>
+
+<p>Overall, this was an awesome learning experience. If you&rsquo;re thinking about doing it, and you have the time to dedicate, there is no question: just do it. If you actually want to learn and understand the material, rather than just memorize a bunch of information as is the case with so many other certifications, this is for you. It&rsquo;s affordable, lab time is easily extended, admins are almost always available, and the cost is not prohibitive.</p>
+
+<p>Thanks Offensive Security and team for putting together such a fantastic course.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bsides on The Subtlety</title>
+    <link>https://www.thesubtlety.com/tags/bsides/</link>
+    <description>Recent content in Bsides on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Oct 2013 01:19:19 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/bsides/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>BSidesDC Badge </title>
+      <link>https://www.thesubtlety.com/post/bsidesdc-badge/</link>
+      <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/bsidesdc-badge/</guid>
+      <description>&lt;p&gt;I recently attended my first security conference: BSidesDC. This isn&amp;rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by &lt;a href=&#34;https://twitter.com/grecs&#34;&gt;@grecs&lt;/a&gt; was &lt;a href=&#34;https://www.novainfosec.com/2013/10/19/malware-analysis-slides-from-bsidesdc/&#34;&gt;Malware Analysis 101&lt;/a&gt;. Very well presented with lots of great getting started material.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://www.thesubtlety.com/img/bsides-150x150.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded &lt;a href=&#34;https://en.wikipedia.org/wiki/Binary_code&#34;&gt;binary&lt;/a&gt;. The message is trivially found via google, but where&amp;rsquo;s the fun in that? And wanting to play around with Python some more I decided to write something that could decode the binary. My first stab looks like this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/python
+# This was a quick and dirty excercise in Python without googling the answer. 
+# No error checking, etc... Check out the Python unicode page and the BitManipulation
+# page for more info and probably the proper way to do this. 
+
+import argparse
+
+def main():
+
+    #argparse is overkill for this, but was fun to play around with
+    parser = argparse.ArgumentParser(description=&amp;quot;Convert between ascii and binary &amp;quot;
+                                                  and vice verse.&amp;quot;)
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(&#39;--to_binary&#39;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;ascii&amp;quot;, nargs=&amp;quot;+&amp;quot;)
+    group.add_argument(&#39;--to_ascii&#39;, action=&amp;quot;store&amp;quot;, dest=&amp;quot;bin&amp;quot;, nargs=&amp;quot;+&amp;quot;)
+    args = parser.parse_args()
+
+    #Sends user input to the appropriate function
+    if args.ascii is not None:
+        to_binary(args.ascii)
+    elif args.bin is not None:
+        to_ascii(args.bin)
+
+def to_binary(args):
+    chars_bin = [bin(ord(each)) for each in [item for sublist in args for item in \
+                sublist]] 
+    print &amp;quot; &amp;quot;.join([each[2:].zfill(8) for each in chars_bin])
+    ### The Stack Overflow way
+    ### print &#39;&#39;.join(&#39;{:08b}&#39;.format(ord(each)) for each in args) 
+
+def to_ascii(args):
+    print &amp;quot;&amp;quot;.join([(chr(int(str(each),2))) for each in args])
+    ### The Stack Overflow way
+    ### print &amp;quot;&amp;quot;.join(chr(args[i:i+8],2)) for i in xrange(0, len(args), 8)) 
+
+if __name__ == &amp;quot;__main__&amp;quot;: main()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And running this with our badge&amp;rsquo;s binary:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python binary_ascii.py --to_ascii 01101001 01101110 01100010 01100101 01100101 \
+01110010 01110111 01100101 01110100 01101000 01101001 01110010 01110011 01110100 
+inbeerwethirst
+
+python binary_ascii.py --to_ascii 01100010 01110011 01101001 01100100 01100101 \
+01110011 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 
+bsidessecurity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Much cleverness by the organizers. One side says &amp;ldquo;BSides Security&amp;rdquo; and the other &amp;ldquo;In Beer We Thirst&amp;rdquo;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

