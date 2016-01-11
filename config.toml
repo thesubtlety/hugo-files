@@ -1,4 +1,4 @@
-baseurl = "https://www.thesubtlety.com"
+baseurl = "https://thesubtlety.github.io/"
 languageCode = "en-us"
 title = "The Subtlety"
 canonifyurls = "false"
