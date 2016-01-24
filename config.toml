@@ -1,7 +1,7 @@
 baseurl = "https://www.thesubtlety.com/"
 languageCode = "en-us"
 title = "The Subtlety"
-canonifyurls = "false"
+canonifyurls = "true"
 
 
 [taxonomies]
