@@ -1,8 +1,8 @@
 ---
-draft: true
+draft: false
 author: noah
 comments: false
-date: 2016-12-15 17:23:00+00:00
+date: 2016-12-19T17:19:40-08:00
 layout: post
 slug: persistent-dnscat2
 title: Persistent C2 with dnscat2
