@@ -1,8 +1,9 @@
----
-draft: true
++++
+title = "persistent dnscat2"
+draft = true
 author: noah
 comments: false
-date: 2016-12-15 17:23:00+00:00
+date = "2016-12-19T17:14:38-08:00"
 layout: post
 slug: persistent-dnscat2
 title: Persistent C2 with dnscat2
@@ -11,7 +12,7 @@ categories:
 - PenTesting
 tags:
 - pentesting
----
++++
 
 Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don't currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.
 
@@ -94,10 +95,10 @@ Configure `cron` to check every five minutes if `dnscat2` is running and start i
     #!/bin/bash
 
     if ! $(ps aux | grep -i "[t]mux" > /dev/null); then
-    	echo "[!] Starting dnscat2..."
+      echo "[!] Starting dnscat2..."
             /home/rpi/start_dnscat2
     else
-    	echo "[+] dnscat2 is running..."
+      echo "[+] dnscat2 is running..."
     fi
 
     $crontab -e
