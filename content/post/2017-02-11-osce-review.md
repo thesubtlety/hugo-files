@@ -5,7 +5,7 @@ date = "2017-02-11T13:05:48-08:00"
 
 +++
 
-![ctp](../img/ctp-boxes-small.png#floatright)
+![ctp](/img/ctp-boxes-small.png#floatright)
 I recently took the [CTP course](https://www.offensive-security.com/information-security-training/cracking-the-perimeter/) by Offensive Security and passed the OSCE exam. Now there are a few dozen [reviews](https://www.google.com/search?q=osce+exam+review) on this thing, but I'll add my own take here anyway. 
 
 ### Pre Course
