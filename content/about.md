@@ -6,4 +6,6 @@ categories = "misc"
 
 I’m just this guy, y’know? All things infosec interest me.
 
+[@thesubtlety](https://twitter.com/thesubtlety)
+
 https://github.com/thesubtlety
