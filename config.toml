@@ -3,7 +3,6 @@ languageCode = "en-us"
 title = "The Subtlety"
 canonifyurls = "true"
 
-
 [taxonomies]
   category = "categories"
   tag = "tags"
