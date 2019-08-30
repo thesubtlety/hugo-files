@@ -1,7 +1,7 @@
 ---
 title: "Empire Python Implant on Windows"
 date: 2019-08-29T16:40:37-07:00
-draft: true
+draft: false 
 ---
 
 A while back I was playing around with Empire (before it was shuttered, RIP) and bypassing a certain antivirus software. There were decent signatures for the basic powershell usage, but knowing Python was installed on the target Windows endpoints, I tried to run the Empire Python payload on Windows. It didn't work. Turns out, it's trivial to get things working again.
