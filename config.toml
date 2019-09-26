@@ -2,6 +2,7 @@ baseurl = "https://www.thesubtlety.com/"
 languageCode = "en-us"
 title = "The Subtlety"
 canonifyurls = "true"
+googleAnalytics = "UA-29425132-1"
 
 [taxonomies]
   category = "categories"
@@ -10,5 +11,4 @@ canonifyurls = "true"
 [params]
   description = "Indiscriminate Idiotropics on Infosec"
   AuthorName = "Noah"
-  google_analytics_tracking_id = "UA-29425132-1"
   googleAnalytics = "UA-29425132-1"
