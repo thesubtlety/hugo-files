@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Empire Python Implant on Windows &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Empire Python Implant on Windows</h1>
+  <time datetime=2019-08-29T16:40:37-0700 class="post-date">Thu, Aug 29, 2019</time>
+  <p>A while back I was playing around with Empire (before it was shuttered, RIP) and bypassing a certain antivirus software. There were decent signatures for the basic powershell usage, but knowing Python was installed on the target Windows endpoints, I tried to run the Empire Python payload on Windows. It didn't work. Turns out, it's trivial to get things working again.</p>
+<p>If you generate a basic Python stager with stock Empire, we see an initial checkin to the server</p>
+<p><code>(Empire: stager/multi/launcher) &gt; [*] Sending PYTHON stager (stage 1) to 192.168.107.4</code></p>
+<p>But on the client, things aren't so good and the agent fails immediately with an <code>ImportError</code>.</p>
+<p><img src="https://www.thesubtlety.com/img/python-importerror.png" alt=""></p>
+<p>After spending a few minutes looking at the python imports and googling, you can quickly see a few libraries which are only supported on Linux. But if we're not too worried about perfection we can hack these things out and get an Empire Python implant working on Windows fairly quickly.</p>
+<p>The <a href="https://docs.python.org/2/library/pwd.html">pwd</a> and <a href="https://docs.python.org/2/library/grp.html">grp</a> modules are Unix specific and provide user account and password data and group information. These modules do not exist in the Windows implementation of Python and Empire isn't expecting a Windows host, so we need to fix that.</p>
+<p>As I mentioned this is a quick and dirty implementation to get a callback so this isn't going to be pretty. To test this I simply commented out references or hardcoded values as I saw fit. In my testing I saw two files needed to be modified.</p>
+<pre><code>data/agent/agent.py
+data/agent/stagers/common/get_sysinfo.py
+</code></pre><p>Going through those files and replacing or updating references to those libraries with generic Python calls or simply hardcoding values seems to do the trick. Here is a simple example of replacing owner and group info with <code>unknown</code>.
+<img src="https://www.thesubtlety.com/img/replace-grp-pwd.png" alt=""></p>
+<p>With all the references to the <code>grp</code> and <code>pwd</code> modules fixed up, we can restart Empire, execute our listener, and generate a new stager. So now when we launch <code>C:\Python27\python.exe -c &quot;import base64 etc etc&quot;</code>, we get a successful callback as can be seen below.</p>
+<p><img src="https://www.thesubtlety.com/img/checkin-success.png" alt="">
+<img src="https://www.thesubtlety.com/img/sysinfo.png" alt=""></p>
+<p>The checkin doesn't look super pretty but it is functional! And while there are virtually no modules written specifically for Windows, at least one works along with straight up <code>shell</code> commands, uploads, and downloads for all your basic Empire C2 needs. And as an added benefit, antivirus didn't mind C2 running in Python in this case.
+<img src="https://www.thesubtlety.com/img/module.png" alt=""></p>
+<p>This is a bad hack and there are a million reasons to use <a href="https://github.com/cobbr/Covenant">a</a> <a href="https://github.com/Ne0nd0g/merlin">different</a> <a href="https://github.com/its-a-feature/Apfell">C2</a> <a href="https://github.com/BishopFox/sliver">framework</a> but maybe you'll find it useful.</p>
+<p><a href="https://github.com/thesubtlety/Empire/tree/dev">https://github.com/thesubtlety/Empire/tree/dev</a></p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

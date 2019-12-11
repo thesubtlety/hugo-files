@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Using subTee&#39;s katz to Reflectively Load an exe &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Using subTee&#39;s katz to Reflectively Load an exe</h1>
+  <time datetime=2017-04-19T18:19:01-0700 class="post-date">Wed, Apr 19, 2017</time>
+  <p>I haven't seen this specifically outlined anywhere so I figured I'd write a short post to go over using subTee's <a href="https://github.com/subTee/Utils">Katz2.0</a> program to create a custom binary that loads mimikatz (or whatever executable you'd like) into memory. Casey Smith (<a href="https://github.com/subTee">subTee</a>) and company have created some incredible tools that have made my life easier, so hats off to them.</p>
+<h3 id="reflective-injection">Reflective Injection</h3>
+<p>The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through <a href="https://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell/">reflective PE injection</a>.</p>
+<ol>
+<li>Compile <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a> for release - remember it's architecture specific so you'll probably want to compile both or download the binaries</li>
+<li>Download subTee's <a href="https://github.com/subTee/Utils">Katz2.0</a>. <a href="https://github.com/thesubtlety/Utils/blob/master/katz2.0.cs">My fork</a> simply makes the encryption method easier to access and outputs the base64. The following is based on that.</li>
+<li>Open in Visual Studio</li>
+<li>Find/Replace &ldquo;password&rdquo; with something more subtle like &ldquo;WaitForSingleObject&rdquo;</li>
+<li>Find &ldquo;SALT&rdquo; and replace those bytes with <code>0xde 0xad 0xbe 0xef</code> and so on.</li>
+<li>Compile Katz2.0</li>
+<li>And run the resulting binary pointing to your mimikatz executable</li>
+<li><code>c:\&gt;katz.exe encrypt c:\path\to\mimikatz64.exe | clip</code></li>
+<li>If you <code>clip</code>d from before this will be in your clipboard, otherwise copy the output string from newly created <code>file.b64</code></li>
+<li>Paste that string into the <code>filex64</code> variable (at the bottom of Katz2.0.cs)</li>
+<li>And now rebuild Katz2.0 again</li>
+<li>Note that you could/should repeat this process for the x86 mimikatz binary</li>
+</ol>
+<p>Now when you run the katz2.0 binary without any arguments, mimikatz should be loaded into memory and run without issue. This will get by most AV out there although some programs may flag some mimikatz functionality (e.g. dumping <code>sekurlsa::logonpasswords</code>).</p>
+<h3 id="similar-projects">Similar projects</h3>
+<ul>
+<li>
+<p><a href="https://github.com/Cn33liz/p0wnedShell">p0wnedShell</a> is pretty sweet, and does a similar thing although it's considerably larger including more tools</p>
+</li>
+<li>
+<p>Customize mimikatz to reflectively load the DLL into memory - great post <a href="https://clymb3r.wordpress.com/2013/04/09/modifying-mimikatz-to-be-loaded-using-invoke-reflectivedllinjection-ps1/">here</a></p>
+</li>
+<li>
+<p>Similar work by subTee lets you execute shellcode using JScript <a href="https://subt0x10.blogspot.com/2017/04/using-dotnettojscript-working-example.html">here</a></p>
+</li>
+<li>
+<p>For more fully featured obfuscation, <a href="https://cobbr.io/ObfuscatedEmpire.html">ObfuscatedEmpire</a> is an awesome integration of Invoke-Obfuscation and Empire. Highly recommend checking it out.</p>
+</li>
+<li>
+<p>Similar but using <code>Invoke-Mimikatz</code> - simply make a few string modifications to slip by AV - <a href="http://www.blackhillsinfosec.com/?p=5555">BHIS</a></p>
+</li>
+<li>
+<p>Powershell without powershell.exe - <a href="http://www.blackhillsinfosec.com/?p=5257">Also by BHIS</a></p>
+</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

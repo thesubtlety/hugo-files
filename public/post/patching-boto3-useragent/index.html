@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Monkeying Around: Patching the boto3 User-Agent &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Monkeying Around: Patching the boto3 User-Agent</h1>
+  <time datetime=2019-02-16T16:32:17-0800 class="post-date">Sat, Feb 16, 2019</time>
+  <p>I was recently doing some testing in AWS with some &ldquo;obtained&rdquo; access keys. Part of this engagement was to identify some threshold at which the blue team was noticing and engaging with suspicious activity and as such we were running some automated tooling. In AWS this can mean bruteforcing services and creating quite a bit of logs.</p>
+<p>After not so long we got a request asking if we were up to anything - success! Blue had noticed something was up! But to be honest, I hadn't expected them to be on to us so quickly. And when we debriefed we discovered Amazon GuardDuty had alerted that someone was making requests from Kali (<a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_pentest.html"><code>PenTest:IAMUser/KaliLinux</code></a>). This feature was released late December, 2018. Now how did GuardDuty know this? Their documentation states the following.</p>
+<blockquote>
+<p>This finding informs you that a machine running Kali Linux is making API calls using credentials that belong to your AWS account. Your credentials might be compromised. Kali Linux is a popular penetration testing tool that security professionals use to identify weaknesses in EC2 instances that require patching. Attackers also use this tool to find EC2 configuration weaknesses and gain unauthorized access to your AWS environment. For more information, see Remediating Compromised AWS Credentials.</p>
+</blockquote>
+<p>If you look at your traffic running any AWS tools which use the <code>boto3</code> library you'll see the issue pretty quickly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">POST https://sts.amazonaws.com/ HTTP/1.1
+Host: sts.amazonaws.com
+Accept-Encoding: identity
+Content-Length: 43
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Authorization: AWS4-HMAC-SHA256 Credential=AKIAICFBINBSWOTRB123/20190207/us-east-1/sts/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=123ab1c26b2850431123abcd33d28051f8ab12303as32a23d44ab123ac313a42a
+X-Amz-Date: 20190207T203132Z
+<span style="display:block;width:100%;background-color:#3c3d38">User-Agent: Boto3/1.7.29 Python/2.7.6 Linux/4.14.0-kali3-amd64 Botocore/1.10.29
+</span>
+Action=GetCallerIdentity&amp;Version=2011-06-15</code></pre></div>
+<p>That looks like a Linux kernel version and release. The keyword <code>kali</code> is included in the release and so it gets added to the User Agent itself which could be how Amazon thinks this is suspicious. How? After some digging with <code>pdb.set_trace()</code> I found the relevant bit of code which you can view on <a href="https://github.com/boto/botocore/blob/develop/botocore/session.py#L451">Github</a>.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># botocore/session.py</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">user_agent</span>(self):
+    base <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> Python/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>user_agent_name,
+		self<span style="color:#f92672">.</span>user_agent_version,
+		platform<span style="color:#f92672">.</span>python_version(),
+		platform<span style="color:#f92672">.</span>system(),
+		platform<span style="color:#f92672">.</span>release())
+	<span style="color:#66d9ef">return</span> base</code></pre></div></p>
+<p>Fire up python and you can confirm what you're seeing in the User Agent. Also, <code>aws --version</code> will probably give you the same info.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">import</span> sys<span style="color:#f92672">,</span> platform
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> platform<span style="color:#f92672">.</span>python_version()
+<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">2.7.6</span><span style="color:#e6db74">&#39;</span>
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> platform<span style="color:#f92672">.</span>system()
+<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Linux</span><span style="color:#e6db74">&#39;</span>
+<span style="color:#f92672">&gt;&gt;</span><span style="color:#f92672">&gt;</span> platform<span style="color:#f92672">.</span>release()
+<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">4.14.0-kali3-amd64</span><span style="color:#e6db74">&#39;</span></code></pre></div></p>
+<p>Of course I want the option of continuing to use AWS tools on Kali without disclosing the fact. As far as I can tell, <code>platform</code> is calling <code>uname</code>. This is a syscall in Linux (so changing <code>/bin/uname</code> won't do any good) and while there may be a way around it with <code>LD_PRELOAD</code>, my (lack of) skills and lack of desire to spoof whatever struct was being expected, I decided to see what could be done with Python.</p>
+<h4 id="patching">Patching</h4>
+<p>After identifying the <code>session.py</code> file imported with the <code>boto3</code> libary, and setting <code>pdb.set_trace()</code> in the relevant <code>user_agent</code> functions I found the file I was looking for when <code>import botocore.session</code> was called. Yours will differ but mine was living at <code>/usr/local/lib/python2.7/dist-packages/botocore-1.12.89-py2.7.egg/botocore/session.py</code>.</p>
+<p>In a naiive test, I simply overwrote the user agent info in <code>base</code> right before the return.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">base <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> Python/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>user_agent_name,
+	self<span style="color:#f92672">.</span>user_agent_version,
+	platform<span style="color:#f92672">.</span>python_version(),
+	platform<span style="color:#f92672">.</span>system(),
+	platform<span style="color:#f92672">.</span>release())
+<span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">AWS_EXECUTION_ENV</span><span style="color:#e6db74">&#39;</span>) <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+	base <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> exec-env/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> os<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">AWS_EXECUTION_ENV</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>user_agent_extra:
+	base <span style="color:#f92672">+</span><span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> self<span style="color:#f92672">.</span>user_agent_extra
+base <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Boto3/1.9.89 Python/2.7.12 Linux/4.1.2-34-generic</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">return</span> base</code></pre></div></p>
+<p>And sure enough, after restarting the interpreter and configuring a client session, my spoofed user agent was used.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">s <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>Session(profile_name<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">test</span><span style="color:#e6db74">&#34;</span>)
+c <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>client(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">sts</span><span style="color:#e6db74">&#39;</span>, verify<span style="color:#f92672">=</span>False)  <span style="color:#75715e"># user agent spoofed here</span></code></pre></div>
+<p>If you want to hardcode this for work in the REPL or any tools using your installed <code>boto3</code> library, you can patch the source simply enough. Below might work but it's a hack, so maybe do it manually.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># This probably won&#39;t work for you. Don&#39;t do this.</span>
+<span style="color:#75715e"># Find where your botocore sessions.py file is living and patch</span>
+F<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>python -v -c <span style="color:#e6db74">&#34;import boto3&#34;</span> 2&gt;&amp;<span style="color:#ae81ff">1</span> &gt; /dev/null| grep -i <span style="color:#e6db74">&#39;botocore/session.py$&#39;</span> 2&gt;/dev/null | cut -d<span style="color:#e6db74">&#39; &#39;</span> -f4<span style="color:#66d9ef">)</span>
+sed -i <span style="color:#e6db74">&#39;s/        return base/        base = &#34;Boto3\/1.9.89 Python\/2.7.12 Linux\/4.2.0-42-generic&#34;\n        return base/&#39;</span> $F</code></pre></div></p>
+<h4 id="monkey-patching">Monkey Patching</h4>
+<p>So now we know how to spoof this manually, how can we override this automatically? I don't know much about Python, but I do know you can overwrite a method, and Stack Overflow lets any fool (yours truly) cobble things together (that shouldn't be cobbled, really). First I tried to override the imported Session class method with a custom function, but that seemed to break my client call. I found that using the <code>monkeypatch</code> module of the <code>pytest</code> library let me correctly overwrite the function and things continued to work. I'm sure this can be done without a library, but this seems to work nicely.</p>
+<p>First we install <code>pytest</code> and then in the following snippet we import <code>monkeypatch</code>, create our custom <code>my_user_agent</code> function, and patch the original <code>user_agent</code> with our custom one.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> _pytest.monkeypatch <span style="color:#f92672">import</span> MonkeyPatch
+monkeypatch <span style="color:#f92672">=</span> MonkeyPatch()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_user_agent</span>(self):
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Boto3/1.9.89 Python/2.7.12 Linux/4.2.0-42-generic</span><span style="color:#e6db74">&#34;</span>
+
+monkeypatch<span style="color:#f92672">.</span>setattr(botocore<span style="color:#f92672">.</span>session<span style="color:#f92672">.</span>Session, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">user_agent</span><span style="color:#e6db74">&#39;</span>, my_user_agent)</code></pre></div></p>
+<p>And now when we run configure a <code>boto3</code> client session, things will work as expected without having to patch the source code itself.</p>
+<p>So if we are running <a href="https://github.com/RhinoSecurityLabs/pacu">Pacu</a> for example, a really cool tool for all things AWS penetration testing and we want to do the above, it ends up being pretty simple. Within <a href="https://github.com/RhinoSecurityLabs/pacu/blob/master/pacu.py">pacu.py</a> in the first try/except block where things are being imported, we simply add the following (directly before the <code>except</code>).</p>
+<p><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> _pytest.monkeypatch <span style="color:#f92672">import</span> MonkeyPatch
+
+monkeypatch <span style="color:#f92672">=</span> MonkeyPatch()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_user_agent</span>(self):
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Boto3/1.9.89 Python/2.7.12</span>
+	        Linux<span style="color:#f92672">/</span><span style="color:#ae81ff">4.2</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0</span><span style="color:#f92672">-</span><span style="color:#ae81ff">42</span><span style="color:#f92672">-</span>generic<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span>
+
+monkeypatch<span style="color:#f92672">.</span>setattr(botocore<span style="color:#f92672">.</span>session<span style="color:#f92672">.</span>Session, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">user_agent</span><span style="color:#e6db74">&#39;</span>, my_user_agent)</code></pre></td></tr></table>
+</div>
+</div>
+Now when you run Pacu, you'll have spoofed your user agent as we can see in the following screenshot.</p>
+<p><img src="https://www.thesubtlety.com/img/boto3-request-pacu.jpg" alt="spoof"></p>
+<p>If you want to add debugging, follow these <a href="https://stackoverflow.com/questions/10588644/how-can-i-see-the-entire-http-request-thats-being-sent-by-my-python-application">Stack Overflow directions</a> and add that code directly following the above monkey patch.</p>
+<p>Of course, they're packaging <code>botocore</code> in the repo so you could simply patch the correct file again, but where's the fun in that? It's worth noting Pacu has some User Agent spoofing functionality in the <a href="https://github.com/RhinoSecurityLabs/pacu/wiki/Advanced-Capabilities">PacuProxy feature</a> (which I haven't yet used) and may be worthy of further reading.</p>
+<p>So there we go - a quick few lines are all that is needed to use AWS libraries on Kali without triggering GuardDuty <code>PenTest:IAMUser/KaliLinux</code> alerts. Disclaimer: Probably. Only very brief testing of this theory performed. YMMV. Recommended reading: <a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_trojan.html">Amazon GuardDuty Findings</a>.</p>
+<p>We always say &ldquo;know your tools&rdquo; and &ldquo;test before you execute&rdquo;, and while we might have a good idea of what's happening under the hood and have done basic testing we commonly make assumptions about how things are working or miss a new defense that is released; just like in this case. Lesson learned.</p>
+<p>Thanks for reading!</p>
+<h3 id="post-script">Post Script</h3>
+<p>A more complete example with logging so you can verify everything is working as expected. Good for copy paste in the interpreter.</p>
+<script type="application/javascript" src="https://gist.github.com/thesubtlety/495c08cc37b799b1f5451cce9d255c91.js"></script>
+
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

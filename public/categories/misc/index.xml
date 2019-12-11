@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>misc on The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/misc/</link>
+    <description>Recent content in misc on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2012 00:00:00 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.thesubtlety.com/categories/misc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>https://www.thesubtlety.com/about/</link>
+      <pubDate>Sun, 01 Jan 2012 00:00:00 -0500</pubDate>
+      
+      <guid>https://www.thesubtlety.com/about/</guid>
+      <description>I am a security professional with over seven years of experience and have held roles troubleshooting large networks and securing web and mobile applications. For the last three years I have been red teaming at several Fortune 500s across multiple industries.
+I have a strong track record of applying creative thinking and determination to solve technical challenges. I contribute to open source software including the Metasploit framework1 and enjoy sharing my technical learning experiences through this blog.</description>
+    </item>
+    
+  </channel>
+</rss>
