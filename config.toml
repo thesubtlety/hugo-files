@@ -12,3 +12,8 @@ googleAnalytics = "UA-29425132-1"
   description = "Indiscriminate Idiotropics on Infosec"
   AuthorName = "Noah"
   googleAnalytics = "UA-29425132-1"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
