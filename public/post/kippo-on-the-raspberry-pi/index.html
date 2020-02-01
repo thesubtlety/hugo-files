@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kippo on the Raspberry Pi &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Kippo on the Raspberry Pi</h1>
+  <time datetime=2013-05-07T01:43:15Z class="post-date">Tue, May 7, 2013</time>
+  <p>I recently bought a Raspberry Pi and installed <a href="http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2">Arch Linux ARM</a> on it. I came across a rather amusing blog post of someone using the <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)">honeypot</a> <a href="https://code.google.com/p/kippo/">Kippo</a> and thought what fun. See <a href="http://www.iwatchedyourhack.org/">here</a> to watch elite hackers and their mad skillz. That's the great thing about Kippo - it records user sessions for playback.</p>
+<p>Anyways, this post basically walks through what I did to get Kippo and <a href="http://bruteforce.gr/kippo-graph">kippo-graph</a> up and running on my RPi. This isn't a walk-you-through-every-step guide, so if you're following along your mileage may vary. Of course, the <a href="https://code.google.com/p/kippo/w/list">Wiki pages</a> over on Google Code are a good place to start. Or <a href="http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html">here</a>. Or <a href="http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html">here</a>. Everyone's done this! But without further adieu&hellip;</p>
+<p>Install all the dependencies. You need svn to pull the source which is easy enough, and Kippo has several dependencies as well. These would Python 2.5+, Twisted 8+, PyCrypto, and Zope-interface. Don't do like I did and install the default Python 3+. Apparently there was a change to the print statement (become a function) and I was getting syntax errors. Downgraded and all was peachy. Rename the kippo.cfg.dist file to kippo.cfg and make changes as you please.</p>
+<p>Kippo runs on port 2222 by default and you can probably leave this as is. There are a <a href="https://code.google.com/p/kippo/wiki/MakingKippoReachable">couple</a> methods to get Kippo running on port 22, and I chose to use iptables. I'll come back to that. I also wanted to be able to access my RPi using SSH, and if we have iptables pointing port 22 to Kippo, well that's no good. Let's <code>sudo vi /etc/ssh/sshd_config </code> and change the default port to something else, like 2220 or something and restart sshd.</p>
+<p>Next, we want packets destined for port 22 to be redirected to Kippo. This can be accomplished using the iptables command</p>
+<pre><code>~#iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
+</code></pre>
+<p>And saving with <code>iptables-save &gt; /etc/iptables/iptables.rules</code>. You may need to <code> sudo -i</code> first as piping to output runs as the current user. Kippo isn't running as root is it? No, of course not, you wouldn't do that.</p>
+<p>Cool. Now start Kippo. Running netstat on the RPi should show Kippo (seen below as python2) listening on 2222 and SSH listening on 2220.</p>
+<pre><code>[pi@myRPi kippo]$ sudo netstat -antp
+Active Internet connections (servers and established)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 0.0.0.0:2220           0.0.0.0:*               LISTEN      113/sshd            
+tcp        0      0 0.0.0.0:2222           0.0.0.0:*               LISTEN      266/python2                          
+tcp        0      0 192.168.1.229:2222     192.168.10.199:42451    ESTABLISHED 208/sshd: pi [priv]
+</code></pre>
+<p>And running nmap on my RPi from my desktop shows that port 22 is also listening, so we know iptables is properly accepting and forwarding packets. Note the ssh-hostkey is the same for both ports 22 and 2222.</p>
+<pre><code>np@whereami [03:26:17] [~] 
+-&gt; % sudo nmap -A -sS myRPi -p 1-2222
+Starting Nmap 6.25 ( http://nmap.org ) at 2013-05-04 15:26 EDT
+Nmap scan report for myRPi (192.168.10.229)
+Host is up (0.00045s latency).
+Not shown: 22220 closed ports
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 5.1p1 Debian 5 (protocol 2.0)
+|_ssh-hostkey: 1024 50:d3:4e:ac:6d:2e:94:66:ac:02:ce:9b:f9:b7:cd:69 (RSA)
+2222/tcp open  ssh     OpenSSH 5.1p1 Debian 5 (protocol 2.0)
+|_ssh-hostkey: 1024 50:d3:4e:ac:6d:2e:94:66:ac:02:ce:9b:f9:b7:cd:69 (RSA)
+2220/tcp open  ssh     OpenSSH 6.2 (protocol 2.0)
+| ssh-hostkey: 1024 e3:9c:96:42:e6:4c:f0:53:d4:44:31:cd:f3:e5:35:89 (DSA)
+| 2048 85:38:a1:25:da:9f:8d:d7:24:f7:ed:37:ae:76:e3:43 (RSA)
+|_256 39:34:f2:83:ac:a4:43:ff:d0:4b:9d:3b:ac:d0:bf:48 (ECDSA)
+MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
+</code></pre>
+<p>You can test logging into both regular SSH via <code> ssh -p 2220 user@RPi</code> or to Kippo using <code>ssh root@RPi</code> which will default to port 22.</p>
+<p>Not quite finished, though. We need to make port 22 available to the world, and this can be accomplished by port forwarding at the router. My RPi has a static IP address, so logging into my router, I simply forwarded port 22 to my RPi's port 22. If you want to check and see if this is working, something like <a href="http://www.yougetsignal.com/tools/open-ports/">You Get Signal</a> can tell you if it's open or not.</p>
+<p>Kippo's logs can be viewed in the installation folders /log/kippo.log. This is raw output, though and I wanted something prettier. As I alluded to earlier, I used <a href="http://bruteforce.gr/kippo-graph">Kippo-graph</a>. Kippo-graph requires running an apache server, MariaDB (MySQL drop-in), and PHP, so those will need installed as well. I used the mysql_secure_installation and <a href="http://bruteforce.gr/logging-kippo-events-using-mysql-db.html">this guide</a> for basic configuration of the database and Kippo's configuration. And this <a href="https://wiki.archlinux.org/index.php/LAMP">fantastic Arch guide</a> to get Apache and PHP configured. Pay attention to the PHP config file and ensure the correct modules are enabled. I missed un-commenting and was getting a blank screen when I tried to generate graphs. Also note that graphs will appear broken until the database has something captured.</p>
+<p>Once everything is configured, restart the httpd service and browse to wherever you've hosted those files, e.g. <code>http://myRPi:80</code> and peruse away. Of course there won't be much to peruse initially, but all in good time my friend. </p>
+<p>Now to let this thing run for a bit and see what it catches!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

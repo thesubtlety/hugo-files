@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2019-12-07-how-to-use-shodan-api-at-scale/</loc>
+    <lastmod>2019-12-10T18:07:57-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/</loc>
+    <lastmod>2019-12-10T18:07:57-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/</loc>
+    <lastmod>2019-12-10T18:07:57-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/</loc>
+    <lastmod>2019-09-23T20:52:14-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/empire-python-implant-on-windows/</loc>
+    <lastmod>2019-08-29T16:40:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/patching-boto3-useragent/</loc>
+    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/</loc>
+    <lastmod>2017-06-21T23:07:11-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/</loc>
+    <lastmod>2017-04-19T18:19:01-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/</loc>
+    <lastmod>2017-03-13T23:17:52-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2017-02-11-osce-review/</loc>
+    <lastmod>2017-02-11T13:05:48-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/</loc>
+    <lastmod>2017-01-25T21:06:57-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/development/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/pentesting/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/pentesting/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/persistent-dnscat2/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/miscellany/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/opendns/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/owasp/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/training/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/pen-testing/</loc>
+    <lastmod>2014-12-20T22:03:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</loc>
+    <lastmod>2014-12-20T22:03:29+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/develop/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/projects/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/projects/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/ruby/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/ruby-on-rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</loc>
+    <lastmod>2014-03-15T00:57:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/basics/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/just-the-basics/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/metasploit/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/sguil/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/snort/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/bsides/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/bsidesdc-badge/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/python/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/security-onion/</loc>
+    <lastmod>2013-10-19T02:41:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</loc>
+    <lastmod>2013-10-19T02:41:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/honeypot/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/honeypot/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/kippo/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/career-readme-txt/</loc>
+    <lastmod>2013-04-04T00:50:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/careers/</loc>
+    <lastmod>2013-04-04T00:50:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</loc>
+    <lastmod>2013-02-22T01:12:37+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</loc>
+    <lastmod>2012-09-15T22:22:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/breaking-into-security/</loc>
+    <lastmod>2012-06-25T18:21:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/random-ramblings/</loc>
+    <lastmod>2012-01-04T21:12:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/about/</loc>
+    <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/misc/</loc>
+    <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+  </url>
+  
+</urlset>

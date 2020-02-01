@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development on The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/development/</link>
+    <description>Recent content in Development on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Dec 2016 17:19:40 -0800</lastBuildDate>
+    
+	<atom:link href="https://www.thesubtlety.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Persistent C2 with dnscat2</title>
+      <link>https://www.thesubtlety.com/post/persistent-dnscat2/</link>
+      <pubDate>Mon, 19 Dec 2016 17:19:40 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/persistent-dnscat2/</guid>
+      <description>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&#39;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</description>
+    </item>
+    
+    <item>
+      <title>OpenDNS&#39;s AppSec Training Lab</title>
+      <link>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</link>
+      <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</guid>
+      <description>I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&#39;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
+Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code.</description>
+    </item>
+    
+    <item>
+      <title>The OSCP | Penetration Testing With Kali Linux</title>
+      <link>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</link>
+      <pubDate>Sat, 20 Dec 2014 22:03:29 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</guid>
+      <description>I&#39;ve spent the last few months working through the Penetration Testing with Kali Linux course by Offensive Security which has been an awesome learning experience.
+Much has been said on this course and I&#39;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.
+ Review by g0tmi1k Review by recrudesce Review from Buffered.io Review from IODigitalSec Review from SecuritySift   For a little preview of what&#39;s involved, check out the free [Metasploit Unleashed](http://www.</description>
+    </item>
+    
+    <item>
+      <title>Building a Web App in Rails</title>
+      <link>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</link>
+      <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</guid>
+      <description>A brilliant software engineering friend and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&amp;rsquo; productivity. A win win situation if there ever was one.</description>
+    </item>
+    
+  </channel>
+</rss>

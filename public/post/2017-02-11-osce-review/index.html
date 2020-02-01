@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>The OSCE | Cracking the Perimeter Review &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>The OSCE | Cracking the Perimeter Review</h1>
+  <time datetime=2017-02-11T13:05:48-0800 class="post-date">Sat, Feb 11, 2017</time>
+  <p><img src="https://www.thesubtlety.com/img/ctp-boxes-small.png#floatright" alt="ctp">
+I recently took the <a href="https://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP course</a> by Offensive Security and passed the OSCE exam. Now there are a few dozen <a href="https://www.google.com/search?q=osce+exam+review">reviews</a> on this thing, but I'll add my own take here anyway.</p>
+<h3 id="pre-course">Pre Course</h3>
+<p>You can't just register for the CTP - you need to solve a small challenge first: <a href="http://fc4.me/">http://fc4.me/</a>. When I initially thought about taking this course, part of this challenge was beyond me. But to quote <a href="https://blog.g0tmi1k.com/2013/08/cracking-perimeter-ctp-offensive/">g0tmi1k</a>:</p>
+<blockquote>
+<p>&ldquo;There isn't any shame in not being able to complete this. It simply means you're not ready&hellip; yet! If you look up the solution online, you're just cheating yourself and wasting both time and money. It's been put there for a reason. Offsec is trying to protect you from yourself (in their own frustrating but necessary way!).&rdquo;</p>
+</blockquote>
+<p>And so I began my prep for the course. Corelan's <a href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/">exploit dev tutorials</a>, Fuzzysec's <a href="https://www.fuzzysecurity.com/tutorials.html">tutorials</a>, and Stephen Bradshaw's <a href="http://www.thegreycorner.com/2010/12/introducing-vulnserver.html">Vulnserver</a> helped immensely. Having gone through, played with, and poked at that material, I was able to solve the initial challenge and set a course start date.</p>
+<h3 id="course">Course</h3>
+<p>The CTP syllabus is available <a href="https://www.offensive-security.com/documentation/cracking-the-perimiter-syllabus.pdf">here</a> and gives a high level overview of what is covered. If you've taken the OSCP, it doesn't cover nearly as much ground, and is much more focused on the following topics.</p>
+<p><strong>Web Application Angle</strong> - The two modules covered here are a bit more complex that what you'd find in the OSCP but nothing too ground breaking. XSS, CSRF, LFI are covered but the scenarios are more real world than trivial examples I've seen elsewhere. Still valuable.</p>
+<p><strong>Backdooring and AV Bypass</strong> - I hadn't done this before and thought these modules were pretty fun. I fully realized that AV today is &hellip; less than perfect and is really only catching the known bad. There are a billion ways to bypass even heuristics, especially if you can write just the smallest amount of code.</p>
+<p><strong>0 Day Angle</strong> - These modules cover fuzzing and the infamous HP Openview NNM exploit. NNM is usually what people talk about when they bring up the course. Muts actually covers this crazy exploit at Defcon 16 in this <a href="https://www.youtube.com/watch?v=gHISpAZiAm0">video</a>. This module makes up a larger portion of the course work and was pretty enjoyable. I must say having read <em>Hacking: The Art of Exploitation</em> and having some of those code samples available was also helpful to me here.</p>
+<p><strong>Networking Angle</strong> - Spoofing SNMP and GRE tunnels. I barely recall this module. Although though seeing how devastating (and relatively straight forward) a MiTM attack can be at the infrastructure level was certainly eye opening.</p>
+<p>I learned a ton in this course. Definitely realized that the amount I don't know about exploit development is pretty staggering. This is supposed to be an intermediate course but looking at the amount of research out there, some of this feels pretty entry level as the heap and ROP aren't even mentioned. That said, the scope of the CTP is a bit wider than just exploit development, so maybe that's a bit unfair, and I still found the course challenging. Several reviews do mention the dated material and that may be true, but I felt what was taught was entirely foundational. A person must walk before they run and the CTP course does an excellent job doing just that.</p>
+<p>Of course even excellent courses can be improved, and one thing that gave a bit of dissatisfaction was the lack of Extra Mile exercises going through the course like the OSCP course did. It seemed you could complete a module easily enough following the directions, have an basic starting point of where to research more, and then it was off to the next chapter. And perhaps this is by design, but I think I learned more while practicing for the exam than during the course itself. The course material gave me starting points, skeletons to work from, ideas to use, and from there I was able to fill in the blanks through additional research and practice.</p>
+<h3 id="exam">Exam</h3>
+<p>The 48 hour exam was not easy. The number of times I thought I was completely screwed, unprepared, and guaranteed failure was more than a few. And it was still somehow enjoyable! In general I found myself realizing I needed to think laterally, to take a step back and look at the big picture. The feeling of accomplishment after hours working through various potential paths and finally succeeding is hard to beat. I felt the OSCE exam had the perfect level of challenge and frustration without that feeling of impossibility. While everything on the exam is covered in the the course in principle, OffSec will never let you simply follow the directions to success. They teach principles and techniques and let you apply them creatively.</p>
+<p>I spent around sixteen hours on the exam the first day with quick breaks for coffee and lunch and forced myself to go to sleep before 1 am. I got around seven hours of sleep and then did another sixteen hours the next day before successfully completing all the challenges for full points. I strongly recommend getting a good night's rest the first night and come back the next day planning on working late if need be.</p>
+<p>All in all, the CTP course was informative and valuable and the exam enjoyably challenging. Highly recommended.</p>
+<h3 id="helpful-resources">Helpful Resources</h3>
+<ul>
+<li><a href="https://github.com/jhaddix/tbhm">Web - Jason Haddix Bug Hunting Guide</a></li>
+<li><a href="http://packetstorm.foofus.com/papers/virus/BypassAVDynamics.pdf">AV Bypass Techniques</a></li>
+<li><a href="https://pentest.blog/art-of-anti-detection-2-pe-backdoor-manufacturing/">AV Bypass and PE Backdoors</a></li>
+<li><a href="https://packetstormsecurity.com/papers/virus/Taking_Back_Netcat.pdf">AV Bypass - Taking Back Netcat</a></li>
+<li><a href="https://github.com/secfigo/Awesome-Fuzzing">Fuzzing - Awesome-Fuzzing on Github</a></li>
+<li><a href="http://resources.infosecinstitute.com/fuzzing-vulnserver-discovering-vulnerable-commands-part-1/">Fuzzing - Vulnserver Intro</a></li>
+<li><a href="http://www.thegreycorner.com/2010/12/introducing-vulnserver.html">Fuzzing and Exploit Dev - Vulnserver</a></li>
+<li><a href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/">Exploit Dev - Corelan Tutorials</a></li>
+<li><a href="https://raw.githubusercontent.com/corelan/wallpapers/master/corelan_wallpaper_dark_1920-1080.png">Exploit Dev - Corelan Wallpaper</a></li>
+<li><a href="https://www.fuzzysecurity.com/tutorials.html">Exploit Dev - FuzzySec Windows Exploit Development Tutorial Series</a></li>
+<li><a href="https://github.com/enddo/awesome-windows-exploitation">Exploit Dev - Awesome Windows Explation on Github</a></li>
+<li><a href="http://www.vividmachines.com/shellcode/shellcode.html">Exploit Dev - How To Shellcode</a></li>
+<li><a href="http://www.gosecure.it/blog/art/452/sec/create-a-custom-shellcode-using-system-function/">Exploit Dev - Shellcode with System()</a></li>
+<li><a href="https://github.com/JohnTroony/HTAOE/blob/master/printable_helper.c">Exploit Dev - ASCII Sub Generator</a></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

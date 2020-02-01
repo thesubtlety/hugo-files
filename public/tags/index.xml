@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on The Subtlety</title>
+    <link>https://www.thesubtlety.com/tags/</link>
+    <description>Recent content in Tags on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Dec 2016 17:19:40 -0800</lastBuildDate>
+    
+	<atom:link href="https://www.thesubtlety.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>pentesting</title>
+      <link>https://www.thesubtlety.com/tags/pentesting/</link>
+      <pubDate>Mon, 19 Dec 2016 17:19:40 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/pentesting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>opendns</title>
+      <link>https://www.thesubtlety.com/tags/opendns/</link>
+      <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/opendns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>owasp</title>
+      <link>https://www.thesubtlety.com/tags/owasp/</link>
+      <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/owasp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>training</title>
+      <link>https://www.thesubtlety.com/tags/training/</link>
+      <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/training/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>develop</title>
+      <link>https://www.thesubtlety.com/tags/develop/</link>
+      <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/develop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>projects</title>
+      <link>https://www.thesubtlety.com/tags/projects/</link>
+      <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rails</title>
+      <link>https://www.thesubtlety.com/tags/rails/</link>
+      <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ruby</title>
+      <link>https://www.thesubtlety.com/tags/ruby/</link>
+      <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>basics</title>
+      <link>https://www.thesubtlety.com/tags/basics/</link>
+      <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/basics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>metasploit</title>
+      <link>https://www.thesubtlety.com/tags/metasploit/</link>
+      <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/metasploit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sguil</title>
+      <link>https://www.thesubtlety.com/tags/sguil/</link>
+      <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/sguil/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>snort</title>
+      <link>https://www.thesubtlety.com/tags/snort/</link>
+      <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/snort/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BSides</title>
+      <link>https://www.thesubtlety.com/tags/bsides/</link>
+      <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/bsides/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://www.thesubtlety.com/tags/python/</link>
+      <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>honeypot</title>
+      <link>https://www.thesubtlety.com/tags/honeypot/</link>
+      <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/honeypot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kippo</title>
+      <link>https://www.thesubtlety.com/tags/kippo/</link>
+      <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/kippo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberry pi</title>
+      <link>https://www.thesubtlety.com/tags/raspberry-pi/</link>
+      <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

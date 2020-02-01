@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Informacast Singlewire Insecure JMX Config to RCE &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Informacast Singlewire Insecure JMX Config to RCE</h1>
+  <time datetime=2017-03-13T23:17:52-0700 class="post-date">Mon, Mar 13, 2017</time>
+  <p>I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the <a href="https://www.singlewire.com/informacast-desktop-notifier.html">Informacast Singlewire Desktop Notifier</a> v2.0 application. It allows organizations &ldquo;to display a pop-up window on top of other running applications to inform users of important information&rdquo; or to send desktop alerts to users in geographic regions.</p>
+<p>After some enumeration, it looked like it was exposing a <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html">JMX Remote management</a> port of we'll say port 42424. Nmap won't identify the service version in a normal scan, but if you request <code>--version-all</code>, you should see the port listed as rmiregistry.</p>
+<p><code>#nmap -p 42424 -sV --version-all 172.16.42.42</code></p>
+<pre><code>PORT 	  STATE     SERVICE 	VERSION
+42424/tcp open	    rmiregistry	Java RMI
+</code></pre><p>You can connect to the service legitimately with <code>jconsole</code> available in Kali to verify the service as well. This will get you Java debug info, the hostname, username, and the ability to invoke various functions with <code>jconsole ip.add.re.ss:42424</code>. Nmap also has the <code>rmi-dumpregistry</code> script to gather more information.</p>
+<p><img src="https://www.thesubtlety.com/img/s1.png" alt="jconsole"></p>
+<p>As we'll later discover, the application was running with some suspect options:</p>
+<pre><code>-Dcom.sun.management.jmxremote.port=42424 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.ssl=false 
+com.berbee.ippaging.desktop.SpelDesktopAgent
+</code></pre><p>Unfortunately for this organization, the fine folks at Optiv (Braden Thomas) had done a bit of <a href="https://www.optiv.com/blog/exploiting-jmx-rmi">research</a> extending an insecure <a href="https://www.rapid7.com/db/modules/exploit/multi/misc/java_rmi_server">Java RMI configuration</a> exploit which led to the creation of the <a href="https://www.exploit-db.com/exploits/36101/">Java JMX Insecure Configuration</a> Metasploit module to abuse this insecure configuration. With authentication disabled and an application using poor secure coding practices, this exploit respectfully offers up a user shell.</p>
+<pre><code>#msfconsole
+&gt;use exploit/multi/misc/java_jmx_server
+..set RHOST and LPORT
+&gt;exploit
+</code></pre><p><img src="https://www.thesubtlety.com/img/s2.png" alt="jconsole"></p>
+<p>And since this was deployed to the entire Windows fleet, all machines had this nice little backdoor installed. Fortunately this product version is end of life'd but there is no mention of the issue in any Informacast documentation. The word I heard back from the vendor was to &ldquo;update to the latest version&rdquo; which apparently has no Java dependencies.</p>
+<p><a href="http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/">Bytes Darkly</a> has some IOCs written up on the Metasploit payload which are worth checking out as well.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.optiv.com/blog/exploiting-jmx-rmi">https://www.optiv.com/blog/exploiting-jmx-rmi</a></li>
+<li><a href="http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/">http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/</a></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>
