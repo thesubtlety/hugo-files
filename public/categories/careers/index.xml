@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>careers on The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/careers/</link>
+    <description>Recent content in careers on The Subtlety</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Apr 2013 00:50:49 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.thesubtlety.com/categories/careers/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Career README.txt</title>
+      <link>https://www.thesubtlety.com/post/career-readme-txt/</link>
+      <pubDate>Thu, 04 Apr 2013 00:50:49 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/career-readme-txt/</guid>
+      <description>I read this article by Patrick McKenzie a while back, came across it again, and decided it&#39;s worth reading weekly. I&#39;ve pulled out some of his bolded points. But seriously, read the article in it&#39;s entirety. Again. And again.
+Don&#39;t Call Yourself a Programmer, And Other Career Advice
+  Modesty is not a career enhancing character trait
+  Network. In person.
+  Learn how to negotiate
+  Get good at Enterprise Sales</description>
+    </item>
+    
+    <item>
+      <title>Rob Fuller on Getting a Job in InfoSec</title>
+      <link>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</link>
+      <pubDate>Fri, 22 Feb 2013 01:12:37 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</guid>
+      <description>I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&#39;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&#39;s not InfoSec.
+In my search for ways to break into InfoSec, I&#39;ve come across numerous posts, advice, and tips to do just that.</description>
+    </item>
+    
+    <item>
+      <title>On the Dumbest Ideas in Computer Security</title>
+      <link>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</link>
+      <pubDate>Sat, 15 Sep 2012 22:22:40 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</guid>
+      <description>The other day I came across an article by Marcus J Ranum on the six dumbest ideas in computer security which were very simple yet struck me as profound. I&#39;ll summarize them here for future reference.
+ Default Permit  Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &amp;ldquo;default permit.&amp;rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes.</description>
+    </item>
+    
+    <item>
+      <title>Breaking into Security</title>
+      <link>https://www.thesubtlety.com/post/breaking-into-security/</link>
+      <pubDate>Mon, 25 Jun 2012 18:21:26 +0000</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/breaking-into-security/</guid>
+      <description>This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from Krebs on Security, who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.
+  Learn how to program.</description>
+    </item>
+    
+  </channel>
+</rss>

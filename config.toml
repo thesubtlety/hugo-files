@@ -17,3 +17,10 @@ googleAnalytics = "UA-29425132-1"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[Menus]
+  main = [
+      {Name = "About", URL = "https://www.thesubtlety.com/about/"},
+      {Name = "Github", URL = "https://github.com/thesubtlety/"},
+      {Name = "Twitter", URL = "https://twitter.com/thesubtlety"}
+  ]

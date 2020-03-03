@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to Write a Hashcat Module &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>How to Write a Hashcat Module</h1>
+  <time datetime=2020-03-02T16:30:56-0800 class="post-date">Mon, Mar 2, 2020</time>
+  <p>There's not a lot written about creating new <a href="https://hashcat.net/hashcat/">Hashcat</a> modules. This is a brief tour of how I went about adding a new module and something I wish I had available a week ago. Hopefully after reading this you have a better understanding of how the pieces work and will enable you to more easily add new Hashcat modules.</p>
+<p>For what it's worth, this is written from the perspective of someone who care barely read C. And while I refer to OpenCL a few times, if your crypto primitives aren't supported already, this article probably won't help you.</p>
+<h2 id="389ds-password-hashes">389-DS Password Hashes</h2>
+<pre><code>{PBKDF2_SHA256}AACkEGhlaiBqZW5z/jtuSox0CrtV9SHiVFjYeHpQ/ki2kwDrQeSqiiTn8LOmpPCw3r6TK/JDfl+ZAXRoc3VidGxldHllIXuxBDl6ItQOMupkRn+hzi/LEdr62a7B9sNOo8BPL9Z2nOi/m9AI+nAd/qwpLD1fbeDgs2DdpCZ4QfljuCLRBdURZV3HcXDUjD7PZ1CQcIOv9VbFlbu0IBmiU7ccMyb/qoxi+rPMqE4U8f6hL0TQjTjlOzU9MpPYS+WfztpYy7lEN6QghhOz0xe+0y2rDoK+yCS4PykkNS4FFc+xeiT6SNy3r7m+0teyaQKOExLrjogWkj+t+e4bMpHNx/FL3jkjCsuZnhq/t8eshG9DKmeD9b/QMkqT8dxe0jmr0s4+GnmHpMQMAxYW3pg70TluiDp3kJrDr1/d8OQerkQRevNx
+</code></pre><p>I previously <a href="https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/">wrote about</a> cracking Red Hat's <a href="https://directory.fedoraproject.org/">389-DS</a> hashes in PBKDF2_SHA256 format and was under the impression that cracking those hashes required the same Netscape Security Services libraries that 389-DS used behind the scenes to recreate the key material. After some additional testing, I realized they were simply using the standard &ldquo;Password-Based Cryptography Specification&rdquo; as defined in PKCS#5 <a href="https://tools.ietf.org/html/rfc2898">RFC2898</a>.</p>
+<p>Since these PKCS5 libraries are supported in multiple languages including Perl, which is what Hashcat's test modules use, the PBKDF2-HMAC-SHA256 primitives are already supported in Hashcat, and I wouldn't need to write any OpenCL code, I dived into adding a new module.</p>
+<p>If we look at the the <a href="https://pagure.io/389-ds-base/blob/542287c/f/ldap/servers/plugins/pwdstorage/pbkdf2_pwd.c">implemention</a> we see that it refers to PKCS5 and PKCS11 to get key data.
+<figure>
+    <img src="https://www.thesubtlety.com/img/PKCS5.jpg"/> 
+</figure>
+</p>
+<p>Since we know how to extract the necessary components from a password hash from <a href="https://github.com/thesubtlety/389-ds-password-check/blob/master/389ds-pwdcheck.py">prior work</a>, we can easily plug the key material into a standard implementation of Python's <code>hashlib</code> or Perl's <code>Crypt::PBKDF2</code> library. To briefly recap, the hash is composed of <code>base64(ntohl(iterations)[4] + salt[64] + digest[256])</code></p>
+<p>First we create a key and extract the values.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/create-a-key.jpg"/> 
+</figure>
+
+<p>Then plug those values into python's hashlib library. If the underlying implementation is the same we should see the same key value created.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/create-a-key-hashlib.jpg"/> 
+</figure>
+
+<p>And sure enough, the keys match, starting with <code>\xcd\x02\xd3</code>. So no more needing to use the NSS libraries as I initially thought.</p>
+<p>Since Hashcat has OpenCL support for hashlib <a href="https://github.com/hashcat/hashcat/blob/master/OpenCL/m10900-pure.cl">PBKDF2-HMAC-SHA256</a> it provides a good starting point to jump off from.</p>
+<h1 id="getting-started">Getting Started</h1>
+<p>While not much is written about creating hashcat modules, there are a few resources. <a href="https://dualuse.io/blog/xenforo/">Dualuse</a> has a write up about adding a new OpenCL kernel but it refers to Hashcat code that has since been refactored. And in this case we won't be writing a kernel.</p>
+<p>Andrew Ruddick wrote a great paper &ldquo;<a href="https://www.usenix.org/system/files/conference/woot16/woot16-paper-ruddick.pdf">&hellip;what is inside the black-box of oclHashcat</a>&rdquo; which provides a good intro to crypto primitives and OpenCL along with some good references at the end.</p>
+<p>And <a href="https://twitter.com/hashcat">Jens Steube</a>, author of Hashcat, has some <a href="https://hashcat.net/events/p13/js-ocohaaaa.pdf">interesting slides</a> covering how these algorithms can be optimized with impressive performance improvements. If you take away nothing else, &ldquo;from the computer's view, passwords are just numbers&rdquo;.</p>
+<p>Essentially, I just started by using similar modules as templates, looking through past pull requests, and copy pasting.</p>
+<h1 id="building-and-debugging">Building and Debugging</h1>
+<h2 id="building-on-linux">Building on linux</h2>
+<p>Developing on a native Linux machine is straightforward.</p>
+<pre><code>$ git clone https://github.com/hashcat/hashcat.git
+$ make
+</code></pre><p>If you're running in a VM without native access to your GPU, you'll also want to be able to tell hashcat to use the CPU so install these additional libraries.</p>
+<pre><code>sudo apt install libhwloc-dev ocl-icd-dev ocl-icd-opencl-dev
+sudo apt install pocl-opencl-icd
+</code></pre><p>And then use the <code>--force</code> flag in hashcat.</p>
+<p>Also, if you're building for Windows on WSL you may run into issues with <code>iconv</code>. The steps outlined at <a href="https://github.com/hashcat/hashcat/issues/2253">this issue</a> worked for me:</p>
+<pre><code>sudo git clone https://github.com/win-iconv/win-iconv
+sudo mv /opt/win-iconv/ /opt/win-iconv-64/
+sudo patch /opt/win-iconv-64/Makefile -i ~/hashcat/tools/win-iconv-64.diff
+sudo make
+sudo mkdir /opt/win-iconv-64/lib
+sudo cp /opt/win-iconv-64/lib* /opt/win-iconv-64/lib/
+cd ~/hashcat
+sudo make win
+</code></pre><h2 id="debugging">Debugging</h2>
+<p>I used VSCode and GDB for building and debugging which worked quite nicely. There are two VSCode Tasks that make this seamless.</p>
+<p>First is to create a Build Task (Terminal &gt; Configure Tasks) which runs hashcat's Makefile:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;tasks&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;shell&#34;</span>,
+            <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;Build Debug&#34;</span>,
+            <span style="color:#f92672">&#34;command&#34;</span>: <span style="color:#e6db74">&#34;make -f ${workspaceFolder}/Makefile DEBUG=1&#34;</span>,
+            <span style="color:#f92672">&#34;group&#34;</span>: {
+                <span style="color:#f92672">&#34;kind&#34;</span>: <span style="color:#e6db74">&#34;build&#34;</span>,
+                <span style="color:#f92672">&#34;isDefault&#34;</span>: <span style="color:#66d9ef">true</span>
+            },
+            <span style="color:#f92672">&#34;presentation&#34;</span>: {
+                <span style="color:#f92672">&#34;reveal&#34;</span>: <span style="color:#e6db74">&#34;always&#34;</span>,
+                <span style="color:#f92672">&#34;panel&#34;</span>: <span style="color:#e6db74">&#34;new&#34;</span>
+            },
+            <span style="color:#f92672">&#34;problemMatcher&#34;</span>: [
+                <span style="color:#e6db74">&#34;$gcc&#34;</span>
+            ]
+        }
+    ],
+    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.0.0&#34;</span>
+}
+</code></pre></div><p>And the second is to create a Task to run gdb after running make. This allows you to set a breakpoint, save, hit F5 and be dropped into a debugging session automatically.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.2.0&#34;</span>,
+    <span style="color:#f92672">&#34;configurations&#34;</span>: [
+        {
+            <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;gcc build and debug active file&#34;</span>,
+            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;cppdbg&#34;</span>,
+            <span style="color:#f92672">&#34;request&#34;</span>: <span style="color:#e6db74">&#34;launch&#34;</span>,
+            <span style="color:#f92672">&#34;program&#34;</span>: <span style="color:#e6db74">&#34;${workspaceRoot}/hashcat&#34;</span>,
+            <span style="color:#f92672">&#34;args&#34;</span>: [<span style="color:#e6db74">&#34;-a&#34;</span>, <span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;-m&#34;</span>, <span style="color:#e6db74">&#34;23911&#34;</span>, <span style="color:#e6db74">&#34;test.hash&#34;</span>, <span style="color:#e6db74">&#34;dictionary&#34;</span>, <span style="color:#e6db74">&#34;--force&#34;</span>],
+            <span style="color:#f92672">&#34;stopAtEntry&#34;</span>: <span style="color:#66d9ef">false</span>,
+            <span style="color:#f92672">&#34;cwd&#34;</span>: <span style="color:#e6db74">&#34;${workspaceFolder}&#34;</span>,
+            <span style="color:#f92672">&#34;environment&#34;</span>: [],
+            <span style="color:#f92672">&#34;externalConsole&#34;</span>: <span style="color:#66d9ef">false</span>,
+            <span style="color:#f92672">&#34;MIMode&#34;</span>: <span style="color:#e6db74">&#34;gdb&#34;</span>,
+            <span style="color:#f92672">&#34;setupCommands&#34;</span>: [
+                {
+                    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Enable pretty-printing for gdb&#34;</span>,
+                    <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;-enable-pretty-printing&#34;</span>,
+                    <span style="color:#f92672">&#34;ignoreFailures&#34;</span>: <span style="color:#66d9ef">true</span>
+                }
+            ],
+            <span style="color:#f92672">&#34;preLaunchTask&#34;</span>: <span style="color:#e6db74">&#34;Build Debug&#34;</span>,
+            <span style="color:#f92672">&#34;miDebuggerPath&#34;</span>: <span style="color:#e6db74">&#34;/usr/bin/gdb&#34;</span>
+        }
+    ]
+}
+</code></pre></div><p>Another handy tip while debugging is to add a variable to Watch. By default VSCode shows decimal values but if you want the hex output, append <code>,x</code> to the variable. If you want to see 64 bytes at some pointer address, append <code>*(char(*)[64])</code> to the variable name and combine with appending <code>,x</code> to see the hex values at a pointer location.</p>
+<h1 id="use-the-source">Use the Source</h1>
+<h2 id="layout">Layout</h2>
+<p>If you're looking at the hashcat working folder, there are a few folders we're interested in:</p>
+<pre><code>OpenCL/ 		&lt;-- OpenCl kernels for crypto primitives
+src/modules/ 		&lt;-- Hashcat modules
+tools/test_modules/ 	&lt;-- Perl test modules
+</code></pre><p>A key point to know is that <a href="https://en.wikipedia.org/wiki/OpenCL">OpenCL</a> is its own language based on C. The OpenCL kernels (.cl files) contains the code that actually does the heavy lifting of computing hashes. In OpenCL nomenclature, a kernel is simply code run on an OpenCL device (your video card). In this case we're going to use an existing kernel which supports PBKDF2-HMAC-SHA256 and that is the <a href="https://github.com/hashcat/hashcat/blob/master/OpenCL/m10900-pure.cl">m10900-pure kernel</a>. The magic happening there might come from the specs defined in the <a href="https://tools.ietf.org/html/rfc2898#section-5.2">RFC</a> but that's beyond the scope of this article.</p>
+<p>Searching the repo for references to 10900 there are four hashcat modules using this kernel. One is for Python's hashlib (<a href="https://github.com/hashcat/hashcat/blob/master/src/modules/module_20300.c">20300</a>), Django, IOS, and a generic function. All of these are good references but I'll use the 20300 hashlib module as a template. Doing some additional digging, the Atlassian module (<a href="https://github.com/hashcat/hashcat/blob/master/src/modules/module_12001.c">12001</a>) has a very similar hash but is using a different kernel. We can borrow some code from there too.</p>
+<h2 id="hashcat-modules">Hashcat Modules</h2>
+<p>If you look at any module in <code>src/modules</code> you see they all start in the same way. At this point I'll walk through the module I ended up writing.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/module23911.jpg"/> 
+</figure>
+
+<p>These initial declarations tell hashcat about the module, its name, the OpenCL kernel it should use, optimization types to use, and a password and hash to be used in a kernel self test run before cracking begins. The only change of significance I made other than the name was to the <code>DGST_SIZE</code>. 389-DS has a 256 <em>byte</em> key so I changed that to <code>DGST_SIZE_4_64</code> as defined in <a href="https://github.com/thesubtlety/hashcat/blob/master/include/types.h#L446">types.h</a>.</p>
+<p>Further down are some structs to hold salt and hmac information which is handed to the kernel. No need for making changes here since we're using the same primitives defined in the 10900 kernel and 20300 module.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/structs.jpg"/> 
+</figure>
+
+<p>The next few functions (<code>module_esalt_size</code>, <code>module_tmp_size</code>, <code>module_pw_max</code>) won't need changed in this case.</p>
+<p>Next comes the functions <code>module_hash_decode</code> and <code>module_hash_encode</code>. This is where you define how Hashcat should parse out salts, iterations, and keys/digests from a hash and how to rebuild the hash.</p>
+<p>And finally at the bottom is a <code>module_init</code> section which I made no changes to as the defaults were appropriate.</p>
+<h3 id="decoding">Decoding</h3>
+<p>The <code>module_hash_decode</code> function is run after hashcat reads a hash value.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/decode-token.jpg"/> 
+</figure>
+
+<p><strong>Tokenizing</strong></p>
+<p>A builtin <code>token</code> struct allows for easy parsing of a hash. For example, the hash <code>algorithm$iterations$salt$digest</code> would have the salt available in <code>token.buf[2]</code>. The token struct also allows for easy validation of attributes with for example <code>token.attr[1] = TOKEN_ATTR_VERIFY_BASE64A</code> to validate the second piece of the hash was indeed Base64 encoded.</p>
+<p>In the case of 389-DS, hashes contain a 15 character signature followed by 432 characters of base64. As can be seen in the above picture, those lengths are specified and hashcat automatically does the verification upon loading the hashes.</p>
+<pre><code>{PBKDF2_SHA256}AACkEGhlaiBqZW5z/jtuSox0CrtV9S...QRevNx
+</code></pre><p>Once the major pieces of the hash are obtained, <code>input_tokenizer</code> verifies things are okay.</p>
+<p><strong>Buffering the Hash</strong></p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/reading-hash.jpg"/> 
+</figure>
+
+<p>At this point our tasks is to extract the various elements from the hash. The second token buffer (in <code>token.buf[1]</code>) contains the hash without the signature. We create a new buffer to hold our base64 decoded bytes and decode them followed by a sanity check. The 389-DS hash should contain 4 bytes for iterations plus 64 bytes of salt plus 256 bytes of key material.</p>
+<p>With <code>tmp_buf</code> containing our decoded hash, we can now parse out the iterations, salt, and digest.</p>
+<p><strong>Identifying the Iterations</strong></p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/getting-iterations.jpg"/> 
+</figure>
+
+<p>The first four bytes contain the iteration count so we set our iterator at the beginning of the buffer, create a new variable to hold the iterations and <code>memcpy</code> the data over. The 389-DS implementation does a <code>ntohl</code> on the iteration count so we do that here with Hashcat's <code>byte_swap_32</code> function. One thing that threw me for a loop was the requirement to subtract one from the count. My C skills are non-existant so this may be a well known thing but it tripped me up until I realized a number of other modules were doing the same.</p>
+<p><strong>Selecting the Salt</strong></p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/getting-salt.jpg"/> 
+</figure>
+
+<p>Here we copy the next 64 bytes of salt into both the <code>salt-&gt;salt_buf</code> and <code>pbkdf2_sha256-&gt;salt_buf</code> structures.</p>
+<p><strong>Catching the Key</strong></p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/getting-key.jpg"/> 
+</figure>
+
+<p>And finally we copy the next 256 key bytes into <code>digest</code>. As this is written to memory in little endian format, but we want to preserve the order of the bytes, each 4 bytes of uint32 needs to account for that with the <code>byte_swap_32</code> hashcat function. Since there are 256 bytes of keys we do this <code>256/4 = 64</code> times.</p>
+<h3 id="encoding">Encoding</h3>
+<figure>
+    <img src="https://www.thesubtlety.com/img/encode.jpg"/> 
+</figure>
+
+<p>After the kernel computes a digest and finds a matching digest from a guessed password, hashcat passes the information to <code>module_hash_encode</code> which encodes a new hash which should match the original.</p>
+<p>We fix the digest endianness by byte swapping again and do the same for the iteration count to account for the way 389-DS stores the value in the hash. Finally, we create a new buffer, copy these values into it (<code>iteration|salt|digest</code>) and base64 the bytes.</p>
+<p>The signature is prepended to the resulting base64 output and <code>snprintf</code>'d.</p>
+<h1 id="testing">Testing</h1>
+<p>Assuming all that goes well, hashcat has some test modules which are written in Perl and can be found in <code>tools/test_modules/</code>. These modules are independent from the <code>src/modules</code>. You may first want to install Perl and Python depedencies with <a href="https://github.com/hashcat/hashcat/blob/master/tools/install_modules.sh">install_modules.sh</a>.</p>
+<p>The <a href="https://github.com/hashcat/hashcat/blob/master/tools/test_modules/README.md">readme </a> is a good place to start. In essence there are three functions in a test module: a constraints function, a generate hash module, and a verify hash module each of which is fairly self explanatory.</p>
+<p><code>module_verify_hash</code> takes in a line <code>hash:password</code> and you define how to extract the necessary values, passing the appropriate data to <code>module_generate_hash</code>. Generate takes those values, creates a new hash from them, and returns it.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/test-generate.jpg"/> 
+</figure>
+
+<p>There are a few test scripts in the <a href="https://github.com/hashcat/hashcat/tree/master/tools">tools directory</a> including <a href="https://github.com/hashcat/hashcat/blob/master/tools/test.pl#L576-L593">test.pl</a> which among other things will use the test module to create password hashes, and check that passwords create the appropriate hashes.</p>
+<p>Test.sh runs through numerous testing types and should be run to ensure your module is running as expected.</p>
+<pre><code>./tools/test.sh -m 42000 -a all -t all
+</code></pre><p>Note that running a benchmark won't invoke the OpenCL kernel, so you'll need to specify your module and a password to crack. If it fails immediately with a <code>ATTENTION! OpenCL kernel self-test failed</code> error, your decode module is probably passing incorrect values to the OpenCL kernel. When Hashcat starts it will initially try to crack the example hash and password specified in <code>ST_HASH</code> and <code>ST_PASS</code>, so those must be valid as well.</p>
+<h1 id="and-after-all-that">And after all that</h1>
+<p>When I initially wrote a multi threaded python script to guess passwords I was getting &lt; 100 guesses per second.</p>
+<pre><code>C:\Users\thesubtlety\hashcat-master&gt;.\hashcat.exe -a 0 -m 23911 test.hashes ..\rockyou.txt --username
+hashcat (v5.1.0) starting...
+Session..........: hashcat
+Status...........: Running
+Hash.Name........: RedHat 389-DS LDAP (PBKDF2-HMAC-SHA256)
+Hash.Target......: test.hashes
+Time.Started.....: Sat Feb 29 18:25:56 2020 (1 min, 10 secs)
+Time.Estimated...: Mon Mar 02 02:52:06 2020 (1 day, 8 hours)
+Guess.Base.......: File (..\rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:    88451 H/s (8.72ms) @ Accel:4 Loops:128 Thr:1024 Vec:1
+Recovered........: 0/720 (0.00%) Digests, 0/720 (0.00%) Salts
+Progress.........: 6144000/10328357520 (0.06%)
+Rejected.........: 0/6144000 (0.00%)
+Restore.Point....: 0/14344941 (0.00%)
+Restore.Sub.#1...: Salt:100 Amplifier:0-1 Iteration:4224-4352
+Candidates.#1....: Passw0rd!23 -&gt; 030403
+Hardware.Mon.#1..: Temp: 73c Fan: 49% Util: 99% Core:1898MHz Mem:3802MHz Bus:16
+
+{PBKDF2_SHA256}AACkEGhlaiBqZW5z/jtuSox0CrtV9SHiVFjYeHpQ/ki2kwDrQeSqiiTn8LOmpPCw3r6TK/JDfl+ZAXRoc3VidGxldHllIXuxBDl6ItQOMupkRn+hzi/LEdr62a7B9sNOo8BPL9Z2nOi/m9AI+nAd/qwpLD1fbeDgs2DdpCZ4QfljuCLRBdURZV3HcXDUjD7PZ1CQcIOv9VbFlbu0IBmiU7ccMyb/qoxi+rPMqE4U8f6hL0TQjTjlOzU9MpPYS+WfztpYy7lEN6QghhOz0xe+0y2rDoK+yCS4PykkNS4FFc+xeiT6SNy3r7m+0teyaQKOExLrjogWkj+t+e4bMpHNx/FL3jkjCsuZnhq/t8eshG9DKmeD9b/QMkqT8dxe0jmr0s4+GnmHpMQMAxYW3pg70TluiDp3kJrDr1/d8OQerkQRevNx:hashcat
+</code></pre><p>And now we're a few orders of magnitude beyond that! Thanks for reading!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

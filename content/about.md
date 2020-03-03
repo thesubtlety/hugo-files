@@ -4,13 +4,13 @@ title = "About"
 categories = "misc"
 +++
 
-I am a security professional with over seven years of experience and have held roles troubleshooting large networks and securing web and mobile applications. For the last three years I have been red teaming at several Fortune 500s across multiple industries.
+Noah is an offensive security engineer with experience red teaming at several Fortune 500 companies in software and financial industries.
 
-I have a strong track record of applying creative thinking and determination to solve technical challenges.
-I contribute to open source software including the Metasploit framework<sup>1</sup> and enjoy sharing my
-technical learning experiences through this blog. I hold a few certificates including the OSCE, OSCP, and GXPN.
+With varied experience leading and managing operations including social engineering and covert physical entry into office buildings to stealthily gaining access to high value financial systems, to troubleshooting corporate networks, to securing web and mobile applications, Noah has a strong track record of applying creative thinking and determination to solve challenging technical problems.
 
-I'm always interested in challenging new opportunities.
+His open source software contributions include merged Metasploit framework modules<sup>1</sup> among others. He holds several certificates including the OSCE, OSCP, and GXPN.
+
+Looking for an experienced offensive security engineer to help secure your company? Contact him.
 
 [1] [Jenkins Post Module](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/multi/gather/jenkins_gather.rb)
 
