@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.60.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Go Decrypt Jenkins &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2020. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Go Decrypt Jenkins</h1>
+  <time datetime=2020-06-16T18:59:49-0700 class="post-date">Tue, Jun 16, 2020</time>
+  <p>Over the past few years I've run into vulnerable Jenkins backups with anywhere from half a dozen to several hundred encrypted passwords, secrets, and keys to critical infrastructure. While there are a multitude of tools out there none of them behaved quite like I wanted, so I wrote my own and learned some Golang in the process.</p>
+<p>The tool isn't groundbreaking but it does do something I haven't seen available else where, and that is the ability to decrypt files encrypted with Jenkins&rsquo;  <code>SecretBytes</code> implementation offline - not using the Groovy console.</p>
+<p>Go-Decrypt-Jenkins is on Github - <a href="https://github.com/thesubtlety/go-decrypt-jenkins">https://github.com/thesubtlety/go-decrypt-jenkins</a>.</p>
+<h3 id="masterkey-encrypts-hudsonutilsecret">master.key encrypts hudson.util.Secret</h3>
+<p>Back in 2014 someone did some code spelunking and reverse engineering and <a href="https://web.archive.org/web/20190916195518/http://xn--thibaud-dya.fr/jenkins_credentials.html">documented</a> how Jenkins credentials were being encrypted along with a decryption script. That script is still being used today.</p>
+<p>Basically, Jenkins has a <code>master.key</code> file which it uses to encrypt an secondary key. The secondary key is used to encrypt secret values. In the case of most Jenkins encrypted values, the secondary <code>hudson.util.Secret</code> key is used for encryption.</p>
+<h3 id="and-also-encrypts-secretbyteskey">&hellip;and also encrypts SecretBytes.KEY</h3>
+<p>But in the case of files uploaded to the Credentials Manager in Jenkins, a different algorithm and secret key are used. The <code>master.key</code> is still used but the secondary key it encrypts is <code>com.cloudbees.plugins.credentials.SecretBytes.KEY</code> which is then used for file encryption.</p>
+<p>Files encrypted with <code>SecretBytes</code> are tagged as such in <code>credentials.xml</code>. Searching Github shows the algorithms used for encryption and decryption in <a href="https://github.com/jenkinsci/credentials-plugin/blob/master/src/main/java/com/cloudbees/plugins/credentials/SecretBytes.java#L95-L121">SecretBytes.java</a>.</p>
+<p>That <code>SecretBytes</code> implementation uses <code>CredentialsConfidentialKey</code> to create the cipher data as seen in the <code>createCipher</code> implementation <a href="https://github.com/jenkinsci/credentials-plugin/blob/master/src/main/java/com/cloudbees/plugins/credentials/CredentialsConfidentialKey.java#L150">here</a>.</p>
+<h3 id="decrypt-all-the-things">Decrypt all the things</h3>
+<p>And after working to understand how those algorithms worked, I rewrote them in Go.</p>
+<p>Prior to this the easiest way to decrypt files encrypted with <code>SecretBytes</code> was to use the Groovy Console and run something like</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">println<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>com<span style="color:#f92672">.</span><span style="color:#a6e22e">cloudbees</span><span style="color:#f92672">.</span><span style="color:#a6e22e">plugins</span><span style="color:#f92672">.</span><span style="color:#a6e22e">credentials</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SecretBytes</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{....}&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getPlainData</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ASCII&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span>
+</code></pre></div><p>Now this can be done offline. Just point at a directory and go-decrypt-jenkins will do the rest.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">%</span> .<span style="color:#f92672">/</span><span style="color:#66d9ef">go</span><span style="color:#f92672">-</span><span style="color:#a6e22e">decrypt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">jenkins</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span> <span style="color:#a6e22e">jenkinsbackup</span><span style="color:#f92672">/</span>
+<span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
+<span style="color:#a6e22e">id</span>: <span style="color:#ae81ff">42e60</span><span style="color:#a6e22e">ee3</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fe19</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4e3</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">9</span><span style="color:#a6e22e">eec</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fec91e96e92e</span>
+<span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">jenkin</span>
+<span style="color:#a6e22e">privateKey</span>: <span style="color:#f92672">--</span><span style="color:#f92672">--</span><span style="color:#f92672">-</span><span style="color:#a6e22e">BEGIN</span> <span style="color:#a6e22e">RSA</span> <span style="color:#a6e22e">PRIVATE</span> <span style="color:#a6e22e">KEY</span><span style="color:#f92672">--</span><span style="color:#f92672">--</span><span style="color:#f92672">-</span>
+<span style="color:#a6e22e">MIIEpAIBAAKCAQEAx5T0czKNmNkA7k0mbBJkl8hTLAzy</span><span style="color:#f92672">...</span>
+
+<span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
+<span style="color:#a6e22e">id</span>: <span style="color:#a6e22e">al2e8dee</span><span style="color:#f92672">-</span><span style="color:#a6e22e">afe1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">e3be</span><span style="color:#f92672">-</span><span style="color:#a6e22e">b5e1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">7e797</span><span style="color:#a6e22e">e9a9ede</span>
+<span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">admin</span>
+<span style="color:#a6e22e">password</span>: <span style="color:#a6e22e">Password123</span></code></pre></div>
+<p><a href="https://github.com/thesubtlety/go-decrypt-jenkins">https://github.com/thesubtlety/go-decrypt-jenkins</a></p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-29425132-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  </body>
+</html>

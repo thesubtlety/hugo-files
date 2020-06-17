@@ -6,10 +6,20 @@
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Mar 2020 16:30:56 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2020 18:59:49 -0700</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go Decrypt Jenkins</title>
+      <link>https://www.thesubtlety.com/post/go-decrypt-jenkins/</link>
+      <pubDate>Tue, 16 Jun 2020 18:59:49 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/go-decrypt-jenkins/</guid>
+      <description>Over the past few years I&#39;ve run into vulnerable Jenkins backups with anywhere from half a dozen to several hundred encrypted passwords, secrets, and keys to critical infrastructure. While there are a multitude of tools out there none of them behaved quite like I wanted, so I wrote my own and learned some Golang in the process.
+The tool isn&#39;t groundbreaking but it does do something I haven&#39;t seen available else where, and that is the ability to decrypt files encrypted with Jenkins&amp;rsquo; SecretBytes implementation offline - not using the Groovy console.</description>
+    </item>
     
     <item>
       <title>How to Write a Hashcat Module</title>
