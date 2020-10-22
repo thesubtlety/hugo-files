@@ -6,10 +6,21 @@
     <description>Recent content in Posts on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jun 2020 18:59:49 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2020 19:44:32 -0700</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Sublime Office Sandbox Bypass</title>
+      <link>https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/</link>
+      <pubDate>Wed, 21 Oct 2020 19:44:32 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/</guid>
+      <description>If an unwitting user runs a malicious macro-enabled document on a macOS system that has Sublime Text installed, an attacker can seamlessly escape the Office sandbox.
+In effect
+ The MS Office sandbox allows writing files to arbitrary locations as long as they begin with ~$, with some exceptions The Sublime Text editor automatically loads (outside the sandbox) Python plugins from a user writable file path  After reading Patrick Wardle&#39;s Office Drama on macOS which outlined a persistence method leveraging a sandbox escaped discovered by Adam Chester (see Escaping the Microsoft Office Sandbox), I did some rudimentary experimenting.</description>
+    </item>
     
     <item>
       <title>Go Decrypt Jenkins</title>
