@@ -6,10 +6,20 @@
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Oct 2020 19:44:32 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2020 20:38:34 -0800</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Getting Started With Golang Windows APIs</title>
+      <link>https://www.thesubtlety.com/post/getting-started-golang-windows-apis/</link>
+      <pubDate>Thu, 12 Nov 2020 20:38:34 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/getting-started-golang-windows-apis/</guid>
+      <description>This post covers some notes on writing a small Go program to getsystem using named pipe impersonation.
+If calling Windows APIs from Golang is relatively new to you, this Breaking All the Rules: Using Go to Call Windows API is basically required reading. This how to is a good intro as well. I also appreciate ropnop&#39;s blog on Hosting CLR in GoLang both for its technical info and his willingness to show his learning progression.</description>
+    </item>
     
     <item>
       <title>A Sublime Office Sandbox Bypass</title>

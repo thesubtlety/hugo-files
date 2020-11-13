@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/</loc>
-    <lastmod>2020-10-21T19:44:32-07:00</lastmod>
+    <loc>https://www.thesubtlety.com/post/getting-started-golang-windows-apis/</loc>
+    <lastmod>2020-11-12T20:38:34-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.thesubtlety.com/post/</loc>
-    <lastmod>2020-10-21T19:44:32-07:00</lastmod>
+    <lastmod>2020-11-12T20:38:34-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.thesubtlety.com/</loc>
+    <lastmod>2020-11-12T20:38:34-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/</loc>
     <lastmod>2020-10-21T19:44:32-07:00</lastmod>
   </url>
   
@@ -238,12 +243,12 @@
   </url>
   
   <url>
-    <loc>https://www.thesubtlety.com/categories/kippo/</loc>
+    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
+    <loc>https://www.thesubtlety.com/categories/kippo/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url>
   
