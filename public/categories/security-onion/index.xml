@@ -6,11 +6,7 @@
     <description>Recent content in Security Onion on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Oct 2013 02:41:57 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.thesubtlety.com/categories/security-onion/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 19 Oct 2013 02:41:57 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/categories/security-onion/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Security Onion Network Configuration and Install</title>
       <link>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</link>
@@ -18,7 +14,7 @@
       
       <guid>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</guid>
       <description>With apologies to The Onion
-  I&#39;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices.</description>
+  I&amp;rsquo;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices.</description>
     </item>
     
   </channel>

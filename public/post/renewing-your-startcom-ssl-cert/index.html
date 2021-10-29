@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.60.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,7 +52,7 @@
     <div class="post">
   <h1>Renewing your StartCom SSL Cert</h1>
   <time datetime=2014-03-15T00:57:49Z class="post-date">Sat, Mar 15, 2014</time>
-  <p>Since I've forgotten how to do this over the past year, here are the directions for posterity.</p>
+  <p>Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.</p>
 <ol>
 <li>
 <p>Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.</p>
@@ -66,10 +66,10 @@
 <p>Once your domain is validated by StartSSL, you need to request a new certificate which is pretty self explanatory. Use the Certificate Wizard, follow the prompts, and paste in the CSR where asked.</p>
 </li>
 <li>
-<p>Once you've got that, copy it to a .crt file on the server.</p>
+<p>Once you&rsquo;ve got that, copy it to a .crt file on the server.</p>
 </li>
 <li>
-<p>Don't forget the chain file. This can be created by cat-ing the files ca.pem and sub.class1.server.ca.pem <a href="https://www.startssl.com/certs/">here</a> into a .chn file.</p>
+<p>Don&rsquo;t forget the chain file. This can be created by cat-ing the files ca.pem and sub.class1.server.ca.pem <a href="https://www.startssl.com/certs/">here</a> into a .chn file.</p>
 </li>
 </ol>
 <p>The NFS SSL help and request link is here: <a href="https://members.nearlyfreespeech.net/username/support/assist?tag=ssl">https://members.nearlyfreespeech.net/username/support/assist?tag=ssl</a></p>

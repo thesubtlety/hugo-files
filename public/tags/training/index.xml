@@ -6,18 +6,14 @@
     <description>Recent content in training on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.thesubtlety.com/tags/training/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/tags/training/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenDNS&#39;s AppSec Training Lab</title>
       <link>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</link>
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</guid>
-      <description>I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&#39;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
+      <description>I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&amp;rsquo;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
 Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code.</description>
     </item>
     

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.60.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,12 +52,12 @@
     <div class="post">
   <h1>Using subTee&#39;s katz to Reflectively Load an exe</h1>
   <time datetime=2017-04-19T18:19:01-0700 class="post-date">Wed, Apr 19, 2017</time>
-  <p>I haven't seen this specifically outlined anywhere so I figured I'd write a short post to go over using subTee's <a href="https://github.com/subTee/Utils">Katz2.0</a> program to create a custom binary that loads mimikatz (or whatever executable you'd like) into memory. Casey Smith (<a href="https://github.com/subTee">subTee</a>) and company have created some incredible tools that have made my life easier, so hats off to them.</p>
+  <p>I haven&rsquo;t seen this specifically outlined anywhere so I figured I&rsquo;d write a short post to go over using subTee&rsquo;s <a href="https://github.com/subTee/Utils">Katz2.0</a> program to create a custom binary that loads mimikatz (or whatever executable you&rsquo;d like) into memory. Casey Smith (<a href="https://github.com/subTee">subTee</a>) and company have created some incredible tools that have made my life easier, so hats off to them.</p>
 <h3 id="reflective-injection">Reflective Injection</h3>
 <p>The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through <a href="https://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell/">reflective PE injection</a>.</p>
 <ol>
-<li>Compile <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a> for release - remember it's architecture specific so you'll probably want to compile both or download the binaries</li>
-<li>Download subTee's <a href="https://github.com/subTee/Utils">Katz2.0</a>. <a href="https://github.com/thesubtlety/Utils/blob/master/katz2.0.cs">My fork</a> simply makes the encryption method easier to access and outputs the base64. The following is based on that.</li>
+<li>Compile <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a> for release - remember it&rsquo;s architecture specific so you&rsquo;ll probably want to compile both or download the binaries</li>
+<li>Download subTee&rsquo;s <a href="https://github.com/subTee/Utils">Katz2.0</a>. <a href="https://github.com/thesubtlety/Utils/blob/master/katz2.0.cs">My fork</a> simply makes the encryption method easier to access and outputs the base64. The following is based on that.</li>
 <li>Open in Visual Studio</li>
 <li>Find/Replace &ldquo;password&rdquo; with something more subtle like &ldquo;WaitForSingleObject&rdquo;</li>
 <li>Find &ldquo;SALT&rdquo; and replace those bytes with <code>0xde 0xad 0xbe 0xef</code> and so on.</li>
@@ -73,7 +73,7 @@
 <h3 id="similar-projects">Similar projects</h3>
 <ul>
 <li>
-<p><a href="https://github.com/Cn33liz/p0wnedShell">p0wnedShell</a> is pretty sweet, and does a similar thing although it's considerably larger including more tools</p>
+<p><a href="https://github.com/Cn33liz/p0wnedShell">p0wnedShell</a> is pretty sweet, and does a similar thing although it&rsquo;s considerably larger including more tools</p>
 </li>
 <li>
 <p>Customize mimikatz to reflectively load the DLL into memory - great post <a href="https://clymb3r.wordpress.com/2013/04/09/modifying-mimikatz-to-be-loaded-using-invoke-reflectivedllinjection-ps1/">here</a></p>

