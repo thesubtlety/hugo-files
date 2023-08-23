@@ -14,7 +14,7 @@
       
       <guid>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</guid>
       <description>With apologies to The Onion
-  I&amp;rsquo;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices.</description>
+I&amp;rsquo;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices. I also had a laptop lying around, not being frequently used; perfect for dedicated monitoring.</description>
     </item>
     
   </channel>

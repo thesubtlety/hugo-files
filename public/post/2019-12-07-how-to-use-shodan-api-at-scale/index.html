@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.88.1" />
+  <meta name="generator" content="Hugo 0.117.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2023. All rights reserved. </p>
   </div>
 </aside>
 
@@ -177,17 +177,17 @@ $shodan convert file_name.json.gz csv
 </code></pre><p>Keep in mind, this is all in Python so the CLI tools can be trivially modified - find where your shodan.py files are installed and modify as you please. For example, <code>shodan scan list</code> only returns the last 10 results, but if you go look at <a href="https://github.com/achillean/shodan-python/blob/166597f4a9756dc38ed2077d8df73340efaa8eb4/shodan/cli/scan.py#L36">the source</a>, you&rsquo;ll see you can quickly make changes to the REST calls (at <code>~/.local/lib/python3.6/site-packages/shodan/cli/scan.py</code> on my system).</p>
 <h3 id="downloading-data-with-the-api">Downloading data with the API</h3>
 <p>There&rsquo;s a pretty basic API example in the <a href="https://help.shodan.io/guides/how-to-download-data-with-api#programming-with-the-shodan-api">Shodan API Guide</a> to get you started. In my case I had thousands of IPs and ranges I was looking at and the <code>api.host()</code> <a href="https://help.shodan.io/developer-fundamentals/looking-up-ip-info#bulk-lookups">bulk lookup function</a> was useful as it can take in array of 100 IPs per request. Note this feature requires a Corporate API plan.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> shodan
-api <span style="color:#f92672">=</span> shodan<span style="color:#f92672">.</span>Shodan(<span style="color:#e6db74">&#39;YOUR CORPORATE API KEY&#39;</span>)
-
-hosts <span style="color:#f92672">=</span> api<span style="color:#f92672">.</span>host([
-    <span style="color:#e6db74">&#39;8.8.8.8&#39;</span>,
-    <span style="color:#e6db74">&#39;8.8.4.4&#39;</span>,
-])
-
-<span style="color:#66d9ef">for</span> info <span style="color:#f92672">in</span> hosts:
-    print(info[<span style="color:#e6db74">&#39;ip_str&#39;</span>])
-</code></pre></div><p>Once data has been downloaded, you can use the CLI to parse, but additional processing with Python can be useful. There are a few built in helper functions outlined on the <a href="https://help.shodan.io/mastery/working-with-shodan-data-files#custom-analysis">Working with Shodan Data Files</a> page. I ended up just writing my own, dumping the json in a format that still allowed the CLI to parse it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> shodan
+</span></span><span style="display:flex;"><span>api <span style="color:#f92672">=</span> shodan<span style="color:#f92672">.</span>Shodan(<span style="color:#e6db74">&#39;YOUR CORPORATE API KEY&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hosts <span style="color:#f92672">=</span> api<span style="color:#f92672">.</span>host([
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;8.8.8.8&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;8.8.4.4&#39;</span>,
+</span></span><span style="display:flex;"><span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> info <span style="color:#f92672">in</span> hosts:
+</span></span><span style="display:flex;"><span>    print(info[<span style="color:#e6db74">&#39;ip_str&#39;</span>])
+</span></span></code></pre></div><p>Once data has been downloaded, you can use the CLI to parse, but additional processing with Python can be useful. There are a few built in helper functions outlined on the <a href="https://help.shodan.io/mastery/working-with-shodan-data-files#custom-analysis">Working with Shodan Data Files</a> page. I ended up just writing my own, dumping the json in a format that still allowed the CLI to parse it.</p>
 <p>The following scripts should help get you started with downloading data from Shodan, start scans, and parse out some CVEs from the downloaded data files.</p>
 <p><strong>Download Shodan Data from a list of CIDRs or IPs</strong>
 <script type="application/javascript" src="https://gist.github.com/thesubtlety/fb99a033981eb5091384de316507cca6.js"></script>

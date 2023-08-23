@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.88.1" />
+  <meta name="generator" content="Hugo 0.117.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2023. All rights reserved. </p>
   </div>
 </aside>
 
@@ -122,7 +122,7 @@ smb: \&gt; ls
   .X11-unix
   4608.jsvc_up
 </code></pre>
-<p>If we access this  share, we only see the /tmp directory and nothing more. But if the samba configuration allows &lsquo;wide links&rsquo; (which allow symbolic links to be added to a share) and allows write access to a directory, this is &lsquo;exploitable&rsquo; by linking the file system to a directory in /tmp. A decent explanation how this works is on <a href="https://www.samba.org/samba/news/symlink_attack.html">Samba.org</a> and the <a href="http://lists.grok.org.uk/pipermail/full-disclosure/2010-February/072944.html">mailing list.</a></p>
+<p>If we access this  share, we only see the /tmp directory and nothing more. But if the samba configuration allows &lsquo;wide links&rsquo; (which allow symbolic links to be added to a share) and allows write access to a directory, this is &rsquo;exploitable&rsquo; by linking the file system to a directory in /tmp. A decent explanation how this works is on <a href="https://www.samba.org/samba/news/symlink_attack.html">Samba.org</a> and the <a href="http://lists.grok.org.uk/pipermail/full-disclosure/2010-February/072944.html">mailing list.</a></p>
 <p>Manually, you simply connect via <code>smbclient //192.168.100.192/tmp' anonymously, and enter 'symlink ../../../../../../../../../ rootfs</code> which traverses back to root and links that to your newly created directory. This gives read access to /etc/passwd remotely. Fortunately, permissions are somewhat limited as the user is anonymous. Otherwise, Metasploit can take care of this for us with the Samba Link Traversal <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/samba_symlink_traversal.rb">module</a>.</p>
 <figure><img src="https://www.thesubtlety.com/img/Selection_002.png"/>
 </figure>

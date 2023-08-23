@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.88.1" />
+  <meta name="generator" content="Hugo 0.117.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +44,7 @@
       </ul>
     </nav>
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <p>&copy; 2023. All rights reserved. </p>
   </div>
 </aside>
 
@@ -53,7 +53,7 @@
   <h1>Go Decrypt Jenkins</h1>
   <time datetime=2020-06-16T18:59:49-0700 class="post-date">Tue, Jun 16, 2020</time>
   <p>Over the past few years I&rsquo;ve run into vulnerable Jenkins backups with anywhere from half a dozen to several hundred encrypted passwords, secrets, and keys to critical infrastructure. While there are a multitude of tools out there none of them behaved quite like I wanted, so I wrote my own and learned some Golang in the process.</p>
-<p>The tool isn&rsquo;t groundbreaking but it does do something I haven&rsquo;t seen available else where, and that is the ability to decrypt files encrypted with Jenkins'  <code>SecretBytes</code> implementation offline - not using the Groovy console.</p>
+<p>The tool isn&rsquo;t groundbreaking but it does do something I haven&rsquo;t seen available else where, and that is the ability to decrypt files encrypted with Jenkins&rsquo;  <code>SecretBytes</code> implementation offline - not using the Groovy console.</p>
 <p>Go-Decrypt-Jenkins is on Github - <a href="https://github.com/thesubtlety/go-decrypt-jenkins">https://github.com/thesubtlety/go-decrypt-jenkins</a>.</p>
 <h3 id="masterkey-encrypts-hudsonutilsecret">master.key encrypts hudson.util.Secret</h3>
 <p>Back in 2014 someone did some code spelunking and reverse engineering and <a href="https://web.archive.org/web/20190916195518/http://xn--thibaud-dya.fr/jenkins_credentials.html">documented</a> how Jenkins credentials were being encrypted along with a decryption script. That script is still being used today.</p>
@@ -65,19 +65,19 @@
 <h3 id="decrypt-all-the-things">Decrypt all the things</h3>
 <p>And after working to understand how those algorithms worked, I rewrote them in Go.</p>
 <p>Prior to this the easiest way to decrypt files encrypted with <code>SecretBytes</code> was to use the Groovy Console and run something like</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">println<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>com<span style="color:#f92672">.</span><span style="color:#a6e22e">cloudbees</span><span style="color:#f92672">.</span><span style="color:#a6e22e">plugins</span><span style="color:#f92672">.</span><span style="color:#a6e22e">credentials</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SecretBytes</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{....}&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getPlainData</span><span style="color:#f92672">(),</span> <span style="color:#e6db74">&#34;ASCII&#34;</span><span style="color:#f92672">))</span>
-</code></pre></div><p>Now this can be done offline. Just point at a directory and go-decrypt-jenkins will do the rest.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">%</span> .<span style="color:#f92672">/</span><span style="color:#66d9ef">go</span><span style="color:#f92672">-</span><span style="color:#a6e22e">decrypt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">jenkins</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span> <span style="color:#a6e22e">jenkinsbackup</span><span style="color:#f92672">/</span>
-<span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
-<span style="color:#a6e22e">id</span>: <span style="color:#ae81ff">42e60</span><span style="color:#a6e22e">ee3</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fe19</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4e3</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">9</span><span style="color:#a6e22e">eec</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fec91e96e92e</span>
-<span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">jenkin</span>
-<span style="color:#a6e22e">privateKey</span>: <span style="color:#f92672">-----</span><span style="color:#a6e22e">BEGIN</span> <span style="color:#a6e22e">RSA</span> <span style="color:#a6e22e">PRIVATE</span> <span style="color:#a6e22e">KEY</span><span style="color:#f92672">-----</span>
-<span style="color:#a6e22e">MIIEpAIBAAKCAQEAx5T0czKNmNkA7k0mbBJkl8hTLAzy</span><span style="color:#f92672">...</span>
-
-<span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
-<span style="color:#a6e22e">id</span>: <span style="color:#a6e22e">al2e8dee</span><span style="color:#f92672">-</span><span style="color:#a6e22e">afe1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">e3be</span><span style="color:#f92672">-</span><span style="color:#a6e22e">b5e1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">7e797</span><span style="color:#a6e22e">e9a9ede</span>
-<span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">admin</span>
-<span style="color:#a6e22e">password</span>: <span style="color:#a6e22e">Password123</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>println<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>com<span style="color:#f92672">.</span><span style="color:#a6e22e">cloudbees</span><span style="color:#f92672">.</span><span style="color:#a6e22e">plugins</span><span style="color:#f92672">.</span><span style="color:#a6e22e">credentials</span><span style="color:#f92672">.</span><span style="color:#a6e22e">SecretBytes</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fromString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{....}&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getPlainData</span><span style="color:#f92672">(),</span> <span style="color:#e6db74">&#34;ASCII&#34;</span><span style="color:#f92672">))</span>
+</span></span></code></pre></div><p>Now this can be done offline. Just point at a directory and go-decrypt-jenkins will do the rest.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#f92672">%</span> .<span style="color:#f92672">/</span><span style="color:#66d9ef">go</span><span style="color:#f92672">-</span><span style="color:#a6e22e">decrypt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">jenkins</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">d</span> <span style="color:#a6e22e">jenkinsbackup</span><span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">id</span>: <span style="color:#ae81ff">42e60</span><span style="color:#a6e22e">ee3</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fe19</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4e3</span><span style="color:#a6e22e">e</span><span style="color:#f92672">-</span><span style="color:#ae81ff">9</span><span style="color:#a6e22e">eec</span><span style="color:#f92672">-</span><span style="color:#a6e22e">fec91e96e92e</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">jenkin</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">privateKey</span>: <span style="color:#f92672">-----</span><span style="color:#a6e22e">BEGIN</span> <span style="color:#a6e22e">RSA</span> <span style="color:#a6e22e">PRIVATE</span> <span style="color:#a6e22e">KEY</span><span style="color:#f92672">-----</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">MIIEpAIBAAKCAQEAx5T0czKNmNkA7k0mbBJkl8hTLAzy</span><span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">scope</span>: <span style="color:#a6e22e">GLOBAL</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">id</span>: <span style="color:#a6e22e">al2e8dee</span><span style="color:#f92672">-</span><span style="color:#a6e22e">afe1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">e3be</span><span style="color:#f92672">-</span><span style="color:#a6e22e">b5e1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">7e797</span><span style="color:#a6e22e">e9a9ede</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">username</span>: <span style="color:#a6e22e">admin</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">password</span>: <span style="color:#a6e22e">Password123</span></span></span></code></pre></div>
 <p><a href="https://github.com/thesubtlety/go-decrypt-jenkins">https://github.com/thesubtlety/go-decrypt-jenkins</a></p>
 
 </div>

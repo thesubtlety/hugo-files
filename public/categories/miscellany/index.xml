@@ -24,8 +24,8 @@ Since the lab is geared towards beginners, I thought it might be helpful to prov
       
       <guid>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</guid>
       <description>Since I&amp;rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.
-  Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
-  Generate a key and CSR on the server with the following two commands openssl genrsa -out .</description>
+Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
+Generate a key and CSR on the server with the following two commands openssl genrsa -out .</description>
     </item>
     
     <item>
