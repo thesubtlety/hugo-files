@@ -4,116 +4,93 @@
     <title>Categories on The Subtlety</title>
     <link>https://www.thesubtlety.com/categories/</link>
     <description>Recent content in Categories on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2016 17:19:40 -0800</lastBuildDate><atom:link href="https://www.thesubtlety.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Dec 2016 17:19:40 -0800</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Development</title>
       <link>https://www.thesubtlety.com/categories/development/</link>
       <pubDate>Mon, 19 Dec 2016 17:19:40 -0800</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/development/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>PenTesting</title>
       <link>https://www.thesubtlety.com/categories/pentesting/</link>
       <pubDate>Mon, 19 Dec 2016 17:19:40 -0800</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/pentesting/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Miscellany</title>
       <link>https://www.thesubtlety.com/categories/miscellany/</link>
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/miscellany/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Pen Testing</title>
       <link>https://www.thesubtlety.com/categories/pen-testing/</link>
       <pubDate>Sat, 20 Dec 2014 22:03:29 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/pen-testing/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Projects</title>
       <link>https://www.thesubtlety.com/categories/projects/</link>
       <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/projects/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Ruby on Rails</title>
       <link>https://www.thesubtlety.com/categories/ruby-on-rails/</link>
       <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/ruby-on-rails/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Security Onion</title>
       <link>https://www.thesubtlety.com/categories/security-onion/</link>
       <pubDate>Sat, 19 Oct 2013 02:41:57 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/security-onion/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Honeypot</title>
       <link>https://www.thesubtlety.com/categories/honeypot/</link>
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/honeypot/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Kippo</title>
       <link>https://www.thesubtlety.com/categories/kippo/</link>
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/kippo/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Raspberry Pi</title>
       <link>https://www.thesubtlety.com/categories/raspberry-pi/</link>
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/raspberry-pi/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>careers</title>
+      <title>Careers</title>
       <link>https://www.thesubtlety.com/categories/careers/</link>
       <pubDate>Thu, 04 Apr 2013 00:50:49 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/careers/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>misc</title>
+      <title>Misc</title>
       <link>https://www.thesubtlety.com/categories/misc/</link>
       <pubDate>Sun, 01 Jan 2012 00:00:00 -0500</pubDate>
-      
       <guid>https://www.thesubtlety.com/categories/misc/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

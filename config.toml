@@ -1,6 +1,7 @@
 baseurl = "https://www.thesubtlety.com/"
 languageCode = "en-us"
 title = "The Subtlety"
+theme = "hyde"
 canonifyurls = "true"
 googleAnalytics = "UA-29425132-1"
 
@@ -12,6 +13,7 @@ googleAnalytics = "UA-29425132-1"
   description = "Indiscriminate Idiotropics on Infosec"
   AuthorName = "Noah"
   googleAnalytics = "UA-29425132-1"
+  copyright = "C 2025. All rights reserved."
 
 [markup]
   [markup.goldmark]
@@ -20,7 +22,8 @@ googleAnalytics = "UA-29425132-1"
 
 [Menus]
   main = [
+      {Name = "Resources & Links", URL = "https://www.thesubtlety.com/resources/"},
       {Name = "About", URL = "https://www.thesubtlety.com/about/"},
       {Name = "Github", URL = "https://github.com/thesubtlety/"},
-      {Name = "Twitter", URL = "https://twitter.com/thesubtlety"}
+      {Name = "X", URL = "https://twitter.com/thesubtlety"}
   ]

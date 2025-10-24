@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>snort on The Subtlety</title>
+    <title>Snort on The Subtlety</title>
     <link>https://www.thesubtlety.com/tags/snort/</link>
-    <description>Recent content in snort on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Snort on The Subtlety</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Feb 2014 20:58:31 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/tags/snort/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Feb 2014 20:58:31 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/snort/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Just the Basics</title>
       <link>https://www.thesubtlety.com/post/just-the-basics/</link>
       <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/just-the-basics/</guid>
-      <description>Things have been busy lately, but I&amp;rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&amp;rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.
-___ ___ _ _ _ _ | \/ | | | | | (_)| | | . . | ___ | |_ __ _ ___ _ __ | | ___ _ | |_ | |\/| | / _ \| __|/ _` |/ __|| &#39;_ \ | | / _ \ | || __| | | | || __/| |_| (_| |\__ \| |_) || || (_) || || |_ \_| |_/ \___| \__|\__,_||___/| .</description>
+      <description>&lt;p&gt;Things have been busy lately, but I&amp;rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&amp;rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;___  ___       _                      _         _  _   &#xA;|  \/  |      | |                    | |       (_)| |  &#xA;| .  . |  ___ | |_  __ _  ___  _ __  | |  ___   _ | |_ &#xA;| |\/| | / _ \| __|/ _` |/ __|| &#39;_ \ | | / _ \ | || __|&#xA;| |  | ||  __/| |_| (_| |\__ \| |_) || || (_) || || |_ &#xA;\_|  |_/ \___| \__|\__,_||___/| .__/ |_| \___/ |_| \__|&#xA;                              | |                      &#xA;                              |_|&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;For this example I&amp;rsquo;ve got Kali Linux, Metasploitable, Windows XP SP2, and Security Onion running. (Time to add some RAM&amp;hellip;) There are a ton of good reference resources out there, and most of this is simply plug and play. The Kali distro isn&amp;rsquo;t packaged with &lt;a href=&#34;http://www.tenable.com/products/nessus/select-your-operating-system&#34;&gt;Nessus&lt;/a&gt;, so that may need downloaded and installed, although certainly not required for our purposes. Nothing fancy here as all machines are on the same subnet and bridged via my host NIC, making traffic sniffing trivial and allowing us to see the (mostly Snort rule) results of this nefarious-ness.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

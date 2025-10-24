@@ -18,6 +18,6 @@ Looking for an experienced offensive security engineer to help secure your compa
 
 Email: noah at this domain
 
-Twitter: [@thesubtlety](https://twitter.com/thesubtlety)
+X: [@thesubtlety](https://x.com/thesubtlety)
 
 Github: https://github.com/thesubtlety

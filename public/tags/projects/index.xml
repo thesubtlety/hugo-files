@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>projects on The Subtlety</title>
+    <title>Projects on The Subtlety</title>
     <link>https://www.thesubtlety.com/tags/projects/</link>
-    <description>Recent content in projects on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Projects on The Subtlety</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 11 Apr 2014 01:57:03 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/tags/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Apr 2014 01:57:03 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building a Web App in Rails</title>
       <link>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</link>
       <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</guid>
-      <description>A brilliant software engineering friend and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&amp;rsquo; productivity. A win win situation if there ever was one.</description>
+      <description>&lt;p&gt;A brilliant &lt;a href=&#34;http://blaedj.github.io/&#34;&gt;software engineering friend&lt;/a&gt; and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&amp;rsquo; productivity. A win win situation if there ever was one.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.117.0">
+  <meta name="generator" content="Hugo 0.152.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,21 @@
   <meta name="description" content="Indiscriminate Idiotropics on Infosec" />
 
   
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+  
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/print.min.46d9bcbd80937d55db06b7034dfed7fc48b2bfb13e535dd9eac5581bfbaa8ddf.css"
+      media="print"
+      integrity="sha256-Rtm8vYCTfVXbBrcDTf7X/Eiyv7E&#43;U13Z6sVYG/uqjd8="
+      crossorigin="anonymous" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/hyde-bundle.min.ac871d4f36866f82cec982ebbe8b6eb1d0a0d9908770ed436b9bd674012f7215.css"
+      media="all"
+      integrity="sha256-rIcdTzaGb4LOyYLrvotusdCg2ZCHcO1Da5vWdAEvchU="
+      crossorigin="anonymous" />  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
   
@@ -41,11 +51,11 @@
     <nav>
       <ul class="sidebar-nav">
         <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://www.thesubtlety.com/resources/"> Resources &amp; Links </a></li><li><a href="https://twitter.com/thesubtlety"> X </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2023. All rights reserved. </p>
+    <p>C 2025. All rights reserved.</p>
   </div>
 </aside>
 
@@ -56,8 +66,8 @@
     <a href="https://www.thesubtlety.com/post/high-output-management/">High Output Management</a>
   </h1>
   <time datetime="2023-08-23T13:48:22-0600" class="post-date">Wed, Aug 23, 2023</time>
-  High Output Management by Andy Grove is the best management book I’ve read. It is also the only one, but I don’t think that matters; it’s a classic for a reason. Written before I was born, the advice is timeless even if some of the terms aren’t. I had to look up what a “tickler” file was (a low tech reminder system).
-Your job as a manager starts to make more sense if you change your thinking to consider how you and your team can be leveraged, i.
+  <p>High Output Management by Andy Grove is the best management book I’ve read. It is also the only one, but I don’t think that matters; it’s a classic for a reason. Written before I was born, the advice is timeless even if some of the terms aren’t. I had to look up what a “tickler” file was (a low tech reminder system).</p>
+<p>Your job as a manager starts to make more sense if you change your thinking to consider how you and your team can be leveraged, i.e. making your team more effective. Prior experience leaves me realizing many managers don&rsquo;t think in this way.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/high-output-management/">Read More…</a>
@@ -68,8 +78,8 @@ Your job as a manager starts to make more sense if you change your thinking to c
     <a href="https://www.thesubtlety.com/post/adobe-acrobat-command-injection-cve-2021-28634/">Adobe Acrobat Command Injection (CVE-2021-28634)</a>
   </h1>
   <time datetime="2021-10-27T17:06:21-0600" class="post-date">Wed, Oct 27, 2021</time>
-  During a recent red team engagement I was looking into options for VB macro execution on MacOS. The enterprise system I was investigating had Adobe Acrobat installed along with Microsoft Office integrations basically adding an Adobe tab to Word and Excel to convert documents to PDF.
-On whim, I decided to take a look at how this might be working, and started poking around the file system. Turns out Adobe installs an AppleScript file to ~/Library/Application Scripts/com.
+  <p>During a recent red team engagement I was looking into options for VB macro execution on MacOS. The enterprise system I was investigating had Adobe Acrobat installed along with Microsoft Office integrations basically adding an Adobe tab to Word and Excel to convert documents to PDF.</p>
+<p>On whim, I decided to take a look at how this might be working, and started poking around the file system. Turns out Adobe installs an AppleScript file to <code>~/Library/Application Scripts/com.microsoft.{Word,Excel,Powerpoint}/AcrobatUtils.scpt</code>.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/adobe-acrobat-command-injection-cve-2021-28634/">Read More…</a>
@@ -80,8 +90,8 @@ On whim, I decided to take a look at how this might be working, and started poki
     <a href="https://www.thesubtlety.com/post/getting-started-golang-windows-apis/">Getting Started With Golang Windows APIs</a>
   </h1>
   <time datetime="2020-11-12T20:38:34-0800" class="post-date">Thu, Nov 12, 2020</time>
-  This post covers some notes on writing a small Go program to getsystem using named pipe impersonation.
-If calling Windows APIs from Golang is relatively new to you, this Breaking All the Rules: Using Go to Call Windows API is basically required reading. This how to is a good intro as well. I also appreciate ropnop&rsquo;s blog on Hosting CLR in GoLang both for its technical info and his willingness to show his learning progression.
+  <p>This post covers some notes on writing a small Go program to <code>getsystem</code> using named pipe impersonation.</p>
+<p>If calling Windows APIs from Golang is relatively new to you, this <a href="https://medium.com/@justen.walker/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724">Breaking All the Rules: Using Go to Call Windows API</a> is basically required reading. <a href="https://anubissec.github.io/How-To-Call-Windows-APIs-In-Golang/#">This</a> how to is a good intro as well. I also appreciate ropnop&rsquo;s blog on <a href="https://blog.ropnop.com/hosting-clr-in-golang/">Hosting CLR in GoLang</a> both for its technical info and his willingness to show his learning progression.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/getting-started-golang-windows-apis/">Read More…</a>
@@ -92,9 +102,13 @@ If calling Windows APIs from Golang is relatively new to you, this Breaking All 
     <a href="https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/">A Sublime Office Sandbox Bypass</a>
   </h1>
   <time datetime="2020-10-21T19:44:32-0700" class="post-date">Wed, Oct 21, 2020</time>
-  If an unwitting user runs a malicious macro-enabled document on a macOS system that has Sublime Text installed, an attacker can seamlessly escape the Office sandbox.
-In effect
-The MS Office sandbox allows writing files to arbitrary locations as long as they begin with ~$, with some exceptions The Sublime Text editor automatically loads (outside the sandbox) Python plugins from a user writable file path After reading Patrick Wardle&rsquo;s Office Drama on macOS which outlined a persistence method leveraging a sandbox escaped discovered by Adam Chester (see Escaping the Microsoft Office Sandbox), I did some rudimentary experimenting.
+  <p>If an unwitting user runs a malicious macro-enabled document on a macOS system that has Sublime Text installed, an attacker can seamlessly escape the Office sandbox.</p>
+<p>In effect</p>
+<ol>
+<li>The MS Office sandbox allows writing files to arbitrary locations as long as they begin with <code>~$</code>, with some exceptions</li>
+<li>The Sublime Text editor automatically loads (outside the sandbox) Python plugins from a user writable file path</li>
+</ol>
+<p>After reading Patrick Wardle&rsquo;s <a href="https://objective-see.com/blog/blog_0x4B.html">Office Drama on macOS</a> which outlined a persistence method leveraging a sandbox escaped discovered by Adam Chester (see <a href="https://objective-see.com/blog/blog_0x35.html">Escaping the Microsoft Office Sandbox</a>), I did some rudimentary experimenting. Recent patches have precluded directly writing to <code>LaunchAgents</code> or <code>Application Scripts</code> but files can still be written to other user writable paths as long as they start with <code>~$</code>.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2020-10-22-sublime-mac-sandbox-bypass/">Read More…</a>
@@ -105,8 +119,8 @@ The MS Office sandbox allows writing files to arbitrary locations as long as the
     <a href="https://www.thesubtlety.com/post/go-decrypt-jenkins/">Go Decrypt Jenkins</a>
   </h1>
   <time datetime="2020-06-16T18:59:49-0700" class="post-date">Tue, Jun 16, 2020</time>
-  Over the past few years I&rsquo;ve run into vulnerable Jenkins backups with anywhere from half a dozen to several hundred encrypted passwords, secrets, and keys to critical infrastructure. While there are a multitude of tools out there none of them behaved quite like I wanted, so I wrote my own and learned some Golang in the process.
-The tool isn&rsquo;t groundbreaking but it does do something I haven&rsquo;t seen available else where, and that is the ability to decrypt files encrypted with Jenkins&rsquo; SecretBytes implementation offline - not using the Groovy console.
+  <p>Over the past few years I&rsquo;ve run into vulnerable Jenkins backups with anywhere from half a dozen to several hundred encrypted passwords, secrets, and keys to critical infrastructure. While there are a multitude of tools out there none of them behaved quite like I wanted, so I wrote my own and learned some Golang in the process.</p>
+<p>The tool isn&rsquo;t groundbreaking but it does do something I haven&rsquo;t seen available else where, and that is the ability to decrypt files encrypted with Jenkins&rsquo;  <code>SecretBytes</code> implementation offline - not using the Groovy console.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/go-decrypt-jenkins/">Read More…</a>
@@ -117,8 +131,8 @@ The tool isn&rsquo;t groundbreaking but it does do something I haven&rsquo;t see
     <a href="https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/">How to Write a Hashcat Module</a>
   </h1>
   <time datetime="2020-03-02T16:30:56-0800" class="post-date">Mon, Mar 2, 2020</time>
-  There&rsquo;s not a lot written about creating new Hashcat modules. This is a brief tour of how I went about adding a new module and something I wish I had available a week ago. Hopefully after reading this you have a better understanding of how the pieces work and will enable you to more easily add new Hashcat modules.
-For what it&rsquo;s worth, this is written from the perspective of someone who care barely read C.
+  <p>There&rsquo;s not a lot written about creating new <a href="https://hashcat.net/hashcat/">Hashcat</a> modules. This is a brief tour of how I went about adding a new module and something I wish I had available a week ago. Hopefully after reading this you have a better understanding of how the pieces work and will enable you to more easily add new Hashcat modules.</p>
+<p>For what it&rsquo;s worth, this is written from the perspective of someone who care barely read C. And while I refer to OpenCL a few times, if your crypto primitives aren&rsquo;t supported already, this article probably won&rsquo;t help you.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/">Read More…</a>
@@ -129,8 +143,8 @@ For what it&rsquo;s worth, this is written from the perspective of someone who c
     <a href="https://www.thesubtlety.com/post/2019-12-07-how-to-use-shodan-api-at-scale/">How to Use the Shodan API at Scale</a>
   </h1>
   <time datetime="2019-12-10T18:07:57-0800" class="post-date">Tue, Dec 10, 2019</time>
-  This is a quick post mostly for refreshing my memory in the future. I recently wanted to download the data Shodan had on a large corporate IP space with disparate ranges and several hundred thousand IP addresses for post processing.
-As far as I can tell the Shodan help docs are scattered across too many pages and domains and subdomains. There are a few guides out there on the basics of Shodan CLI and API but I didn&rsquo;t see anything that documented things at a slightly larger scale so here are a few quick notes on gathering this data.
+  <p>This is a quick post mostly for refreshing my memory in the future. I recently wanted to download the data Shodan had on a large corporate IP space with disparate ranges and several hundred thousand IP addresses for post processing.</p>
+<p>As far as I can tell the Shodan help docs are scattered across too many pages and domains and subdomains. There are a few guides out there on the basics of Shodan CLI and API but I didn&rsquo;t see anything that documented things at a slightly larger scale so here are a few quick notes on gathering this data. Shodan needs no introduction, and the basics are well covered so I&rsquo;ll dive in.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2019-12-07-how-to-use-shodan-api-at-scale/">Read More…</a>
@@ -141,8 +155,8 @@ As far as I can tell the Shodan help docs are scattered across too many pages an
     <a href="https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/">Brute Forcing 389-ds PBKDF2 Passwords</a>
   </h1>
   <time datetime="2019-09-23T20:52:14-0700" class="post-date">Mon, Sep 23, 2019</time>
-  Several times now I&rsquo;ve run across password hashes created by 389-ds, RedHat&rsquo;s open source LDAP Directory Server solution. During a red team past operation I discovered a backup LDIF file which included hashed user passwords (think NTDS.dit but not as catastrophic). A number of the hashes were in prepended with PBKDF2_SHA256.
-While hashcat and john the ripper have support for most algorithms, they are at the moment lacking support for 389-ds&rsquo;s PBKDF2_SHA256 implementation.
+  <p>Several times now I&rsquo;ve run across password hashes created by <a href="https://directory.fedoraproject.org/">389-ds</a>, RedHat&rsquo;s open source LDAP Directory Server solution. During a red team past operation I discovered a backup <a href="https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format">LDIF file</a> which included hashed user passwords (think NTDS.dit but not as catastrophic). A number of the hashes were in prepended with <code>PBKDF2_SHA256</code>.</p>
+<p>While hashcat and john the ripper have support for most algorithms, they are at the moment lacking support for 389-ds&rsquo;s <code>PBKDF2_SHA256</code> implementation. And as far as I can tell, nothing currently exists to easily verify or check passwords against these hashes. Base64 decoding the hashes I discovered didn&rsquo;t immediately point to quick solutions either. But 389-ds is open source, so when you need to crack passwords, the source is good place to turn.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/">Read More…</a>
@@ -153,8 +167,8 @@ While hashcat and john the ripper have support for most algorithms, they are at 
     <a href="https://www.thesubtlety.com/post/empire-python-implant-on-windows/">Empire Python Implant on Windows</a>
   </h1>
   <time datetime="2019-08-29T16:40:37-0700" class="post-date">Thu, Aug 29, 2019</time>
-  A while back I was playing around with Empire (before it was shuttered, RIP) and bypassing a certain antivirus software. There were decent signatures for the basic powershell usage, but knowing Python was installed on the target Windows endpoints, I tried to run the Empire Python payload on Windows. It didn&rsquo;t work. Turns out, it&rsquo;s trivial to get things working again.
-If you generate a basic Python stager with stock Empire, we see an initial checkin to the server
+  <p>A while back I was playing around with Empire (before it was shuttered, RIP) and bypassing a certain antivirus software. There were decent signatures for the basic powershell usage, but knowing Python was installed on the target Windows endpoints, I tried to run the Empire Python payload on Windows. It didn&rsquo;t work. Turns out, it&rsquo;s trivial to get things working again.</p>
+<p>If you generate a basic Python stager with stock Empire, we see an initial checkin to the server</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/empire-python-implant-on-windows/">Read More…</a>
@@ -165,8 +179,8 @@ If you generate a basic Python stager with stock Empire, we see an initial check
     <a href="https://www.thesubtlety.com/post/patching-boto3-useragent/">Monkeying Around: Patching the boto3 User-Agent</a>
   </h1>
   <time datetime="2019-02-16T16:32:17-0800" class="post-date">Sat, Feb 16, 2019</time>
-  I was recently doing some testing in AWS with some &ldquo;obtained&rdquo; access keys. Part of this engagement was to identify some threshold at which the blue team was noticing and engaging with suspicious activity and as such we were running some automated tooling. In AWS this can mean bruteforcing services and creating quite a bit of logs.
-After not so long we got a request asking if we were up to anything - success!
+  <p>I was recently doing some testing in AWS with some &ldquo;obtained&rdquo; access keys. Part of this engagement was to identify some threshold at which the blue team was noticing and engaging with suspicious activity and as such we were running some automated tooling. In AWS this can mean bruteforcing services and creating quite a bit of logs.</p>
+<p>After not so long we got a request asking if we were up to anything - success! Blue had noticed something was up! But to be honest, I hadn&rsquo;t expected them to be on to us so quickly. And when we debriefed we discovered Amazon GuardDuty had alerted that someone was making requests from Kali (<a href="https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_pentest.html"><code>PenTest:IAMUser/KaliLinux</code></a>). This feature was released late December, 2018. Now how did GuardDuty know this? Their documentation states the following.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/patching-boto3-useragent/">Read More…</a>
@@ -177,8 +191,9 @@ After not so long we got a request asking if we were up to anything - success!
     <a href="https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/">Decrypting Jenkins 2 Credentials</a>
   </h1>
   <time datetime="2017-06-21T23:07:11-0700" class="post-date">Wed, Jun 21, 2017</time>
-  I like Jenkins. It&rsquo;s a good orchestration tool and provides remote code execution as a service.
-If your user permissions give you access to the script console /script it&rsquo;s trivial to obtain a shell. The developers explicitly call this out in their documentation as well so it&rsquo;s a feature, not a bug. Of course if you can create a job you can run shell commands as well, but I&rsquo;ll leave that for another time.
+  <p><img src="https://www.thesubtlety.com/img/jenkins.png#floatright" alt="jenkins">
+I like Jenkins. It&rsquo;s a good orchestration tool and provides remote code execution as a service.</p>
+<p>If your user permissions give you access to the script console <code>/script</code> it&rsquo;s trivial to obtain a shell. The developers explicitly call this out in their <a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+Script+Console">documentation</a> as well so it&rsquo;s a feature, not a bug.  Of course if you can create a job you can run shell commands as well, but I&rsquo;ll leave that for another time.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/">Read More…</a>
@@ -189,8 +204,9 @@ If your user permissions give you access to the script console /script it&rsquo;
     <a href="https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/">Using subTee&#39;s katz to Reflectively Load an exe</a>
   </h1>
   <time datetime="2017-04-19T18:19:01-0700" class="post-date">Wed, Apr 19, 2017</time>
-  I haven&rsquo;t seen this specifically outlined anywhere so I figured I&rsquo;d write a short post to go over using subTee&rsquo;s Katz2.0 program to create a custom binary that loads mimikatz (or whatever executable you&rsquo;d like) into memory. Casey Smith (subTee) and company have created some incredible tools that have made my life easier, so hats off to them.
-Reflective Injection The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through reflective PE injection.
+  <p>I haven&rsquo;t seen this specifically outlined anywhere so I figured I&rsquo;d write a short post to go over using subTee&rsquo;s <a href="https://github.com/subTee/Utils">Katz2.0</a> program to create a custom binary that loads mimikatz (or whatever executable you&rsquo;d like) into memory. Casey Smith (<a href="https://github.com/subTee">subTee</a>) and company have created some incredible tools that have made my life easier, so hats off to them.</p>
+<h3 id="reflective-injection">Reflective Injection</h3>
+<p>The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through <a href="https://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell/">reflective PE injection</a>.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/">Read More…</a>
@@ -201,8 +217,8 @@ Reflective Injection The following steps will create a custom binary with an enc
     <a href="https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/">Informacast Singlewire Insecure JMX Config to RCE</a>
   </h1>
   <time datetime="2017-03-13T23:17:52-0700" class="post-date">Mon, Mar 13, 2017</time>
-  I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the Informacast Singlewire Desktop Notifier v2.0 application. It allows organizations &ldquo;to display a pop-up window on top of other running applications to inform users of important information&rdquo; or to send desktop alerts to users in geographic regions.
-After some enumeration, it looked like it was exposing a JMX Remote management port of we&rsquo;ll say port 42424.
+  <p>I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the <a href="https://www.singlewire.com/informacast-desktop-notifier.html">Informacast Singlewire Desktop Notifier</a> v2.0 application. It allows organizations &ldquo;to display a pop-up window on top of other running applications to inform users of important information&rdquo; or to send desktop alerts to users in geographic regions.</p>
+<p>After some enumeration, it looked like it was exposing a <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html">JMX Remote management</a> port of we&rsquo;ll say port 42424. Nmap won&rsquo;t identify the service version in a normal scan, but if you request <code>--version-all</code>, you should see the port listed as rmiregistry.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/">Read More…</a>
@@ -213,8 +229,12 @@ After some enumeration, it looked like it was exposing a JMX Remote management p
     <a href="https://www.thesubtlety.com/post/2017-02-11-osce-review/">The OSCE | Cracking the Perimeter Review</a>
   </h1>
   <time datetime="2017-02-11T13:05:48-0800" class="post-date">Sat, Feb 11, 2017</time>
-  I recently took the CTP course by Offensive Security and passed the OSCE exam. Now there are a few dozen reviews on this thing, but I&rsquo;ll add my own take here anyway.
-Pre Course You can&rsquo;t just register for the CTP - you need to solve a small challenge first: http://fc4.me/. When I initially thought about taking this course, part of this challenge was beyond me. But to quote g0tmi1k:
+  <p><img src="https://www.thesubtlety.com/img/ctp-boxes-small.png#floatright" alt="ctp">
+I recently took the <a href="https://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP course</a> by Offensive Security and passed the OSCE exam. Now there are a few dozen <a href="https://www.google.com/search?q=osce+exam+review">reviews</a> on this thing, but I&rsquo;ll add my own take here anyway.</p>
+<h3 id="pre-course">Pre Course</h3>
+<p>You can&rsquo;t just register for the CTP - you need to solve a small challenge first: <a href="http://fc4.me/">http://fc4.me/</a>. When I initially thought about taking this course, part of this challenge was beyond me. But to quote <a href="https://blog.g0tmi1k.com/2013/08/cracking-perimeter-ctp-offensive/">g0tmi1k</a>:</p>
+<blockquote>
+<p>&ldquo;There isn&rsquo;t any shame in not being able to complete this. It simply means you&rsquo;re not ready&hellip; yet! If you look up the solution online, you&rsquo;re just cheating yourself and wasting both time and money. It&rsquo;s been put there for a reason. Offsec is trying to protect you from yourself (in their own frustrating but necessary way!).&rdquo;</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2017-02-11-osce-review/">Read More…</a>
@@ -225,8 +245,8 @@ Pre Course You can&rsquo;t just register for the CTP - you need to solve a small
     <a href="https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/">Search Shodan and Censys With Shocens</a>
   </h1>
   <time datetime="2017-01-25T21:06:57-0800" class="post-date">Wed, Jan 25, 2017</time>
-  Recon is close to step one in any pentest. When it comes to passively pulling data on infrastructure assets you have a number of options. ARIN can help identify an organization&rsquo;s registered net blocks, but that&rsquo;s only part of the picture. With many organizations based in or using cloud services, those assets won&rsquo;t necessarily be registered to your target.
-And when AWS for example can tie directly into a datacenter, these servers become quite valuable.
+  <p>Recon is close to <a href="http://www.pentest-standard.org/index.php/Intelligence_Gathering">step one</a> in any pentest. When it comes to passively pulling data on infrastructure assets you have a number of options. <a href="https://whois.arin.net/ui/advanced.jsp">ARIN</a> can help identify an organization&rsquo;s registered net blocks, but that&rsquo;s only part of the picture. With many organizations based in or using cloud services, those assets won&rsquo;t necessarily be registered to your target.</p>
+<p>And when AWS for example can tie <a href="https://aws.amazon.com/directconnect/">directly into a datacenter</a>, these servers become quite valuable. As an aside to AWS, check out <a href="https://media.ccc.de/v/33c3-7865-gone_in_60_milliseconds">Gone in 60 Milliseconds</a> by <a href="https://github.com/Miserlou">Rich Jones</a> - awesome talk. Now if a developer stands up a server with HTTPS using a corporate certificate it&rsquo;s likely going to be picked up and indexed by someone, Shodan, or Censys - so let&rsquo;s make use of that.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/">Read More…</a>
@@ -237,7 +257,7 @@ And when AWS for example can tie directly into a datacenter, these servers becom
     <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">Persistent C2 with dnscat2</a>
   </h1>
   <time datetime="2016-12-19T17:19:40-0800" class="post-date">Mon, Dec 19, 2016</time>
-  Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.
+  <p>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">Read More…</a>
@@ -248,8 +268,8 @@ And when AWS for example can tie directly into a datacenter, these servers becom
     <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">OpenDNS&#39;s AppSec Training Lab</a>
   </h1>
   <time datetime="2015-08-23T00:27:58Z" class="post-date">Sun, Aug 23, 2015</time>
-  I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&rsquo;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
-Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code.
+  <p>I came across OpenDNS Security Ninjas AppSec <a href="https://github.com/opendns/Security_Ninjas_AppSec_Training">Training Lab</a> not too long ago and found its simplicity rather enjoyable. It&rsquo;s a simple web app written in PHP which illustrates each of the <a href="https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents">OWASP Top 10</a> categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.</p>
+<p>Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code. For each level/OWASP vulnerability, I simply added a &ldquo;Why&rdquo; section to each &ldquo;Solution&rdquo; area linking to the sink on Github along with a brief explanation.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">Read More…</a>
@@ -260,9 +280,21 @@ Since the lab is geared towards beginners, I thought it might be helpful to prov
     <a href="https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/">The OSCP | Penetration Testing With Kali Linux</a>
   </h1>
   <time datetime="2014-12-20T22:03:29Z" class="post-date">Sat, Dec 20, 2014</time>
-  I&rsquo;ve spent the last few months working through the Penetration Testing with Kali Linux course by Offensive Security which has been an awesome learning experience.
-Much has been said on this course and I&rsquo;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.
-Review by g0tmi1k Review by recrudesce Review from Buffered.io Review from IODigitalSec Review from SecuritySift For a little preview of what's involved, check out the free [Metasploit Unleashed](http://www.
+  <figure><img src="https://www.thesubtlety.com/img/pwk-box-small-128x150.png">
+</figure>
+
+<p>I&rsquo;ve spent the last few months working through the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-kali-linux/">Penetration Testing with Kali Linux</a> course by Offensive Security which has been an awesome <a href="http://www.offensive-security.com/documentation/penetration-testing-with-kali.pdf">learning</a> experience.</p>
+<p>Much has been said on this course and I&rsquo;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.</p>
+<ul>
+<li>Review by <a href="https://blog.g0tmi1k.com/2011/07/pentesting-with-backtrack-pwb/">g0tmi1k</a></li>
+<li>Review by <a href="http://fourfourfourfour.co/2014/04/20/oscp-review/">recrudesce</a></li>
+<li>Review from <a href="http://buffered.io/posts/oscp-and-me/">Buffered.io</a></li>
+<li>Review from <a href="http://www.iodigitalsec.com/offensive-security-pwb-course-and-oscp-certification-review/">IODigitalSec</a></li>
+<li>Review from <a href="http://www.securitysift.com/offsec-pwb-oscp/">SecuritySift</a></li>
+</ul>
+  <br/>
+For a little preview of what's involved, check out the free [Metasploit Unleashed](http://www.offensive-security.com/metasploit-unleashed/Main_Page) course.
+<p><strong>Material, Course, and Exam</strong></p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/">Read More…</a>
@@ -273,7 +305,7 @@ Review by g0tmi1k Review by recrudesce Review from Buffered.io Review from IODig
     <a href="https://www.thesubtlety.com/post/building-a-web-app-in-rails/">Building a Web App in Rails</a>
   </h1>
   <time datetime="2014-04-11T01:57:03Z" class="post-date">Fri, Apr 11, 2014</time>
-  A brilliant software engineering friend and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&rsquo; productivity. A win win situation if there ever was one.
+  <p>A brilliant <a href="http://blaedj.github.io/">software engineering friend</a> and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&rsquo; productivity. A win win situation if there ever was one.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/building-a-web-app-in-rails/">Read More…</a>
@@ -284,9 +316,15 @@ Review by g0tmi1k Review by recrudesce Review from Buffered.io Review from IODig
     <a href="https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/">Renewing your StartCom SSL Cert</a>
   </h1>
   <time datetime="2014-03-15T00:57:49Z" class="post-date">Sat, Mar 15, 2014</time>
-  Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.
-Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
-Generate a key and CSR on the server with the following two commands openssl genrsa -out .
+  <p>Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.</p>
+<ol>
+<li>
+<p>Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.</p>
+</li>
+<li>
+<p>Generate a key and CSR on the server with the following two commands
+<code>openssl genrsa -out ./www.thesubtlety.com.key 2048</code> 
+<code>openssl req -new -key www.thesubtlety.com.key -out www.thesubtlety.com.csr</code></p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/">Read More…</a>
@@ -297,8 +335,17 @@ Generate a key and CSR on the server with the following two commands openssl gen
     <a href="https://www.thesubtlety.com/post/just-the-basics/">Just the Basics</a>
   </h1>
   <time datetime="2014-02-17T20:58:31Z" class="post-date">Mon, Feb 17, 2014</time>
-  Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.
-___ ___ _ _ _ _ | \/ | | | | | (_)| | | . . | ___ | |_ __ _ ___ _ __ | | ___ _ | |_ | |\/| | / _ \| __|/ _` |/ __|| '_ \ | | / _ \ | || __| | | | || __/| |_| (_| |\__ \| |_) || || (_) || || |_ \_| |_/ \___| \__|\__,_||___/| .
+  <p>Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.</p>
+<pre><code>___  ___       _                      _         _  _   
+|  \/  |      | |                    | |       (_)| |  
+| .  . |  ___ | |_  __ _  ___  _ __  | |  ___   _ | |_ 
+| |\/| | / _ \| __|/ _` |/ __|| '_ \ | | / _ \ | || __|
+| |  | ||  __/| |_| (_| |\__ \| |_) || || (_) || || |_ 
+\_|  |_/ \___| \__|\__,_||___/| .__/ |_| \___/ |_| \__|
+                              | |                      
+                              |_|
+</code></pre>
+<p>For this example I&rsquo;ve got Kali Linux, Metasploitable, Windows XP SP2, and Security Onion running. (Time to add some RAM&hellip;) There are a ton of good reference resources out there, and most of this is simply plug and play. The Kali distro isn&rsquo;t packaged with <a href="http://www.tenable.com/products/nessus/select-your-operating-system">Nessus</a>, so that may need downloaded and installed, although certainly not required for our purposes. Nothing fancy here as all machines are on the same subnet and bridged via my host NIC, making traffic sniffing trivial and allowing us to see the (mostly Snort rule) results of this nefarious-ness.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/just-the-basics/">Read More…</a>
@@ -309,8 +356,11 @@ ___ ___ _ _ _ _ | \/ | | | | | (_)| | | . . | ___ | |_ __ _ ___ _ __ | | ___ _ |
     <a href="https://www.thesubtlety.com/post/bsidesdc-badge/">BSidesDC Badge </a>
   </h1>
   <time datetime="2013-10-29T01:19:19Z" class="post-date">Tue, Oct 29, 2013</time>
-  I recently attended my first security conference: BSidesDC. This isn&rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by @grecs was Malware Analysis 101. Very well presented with lots of great getting started material.
-Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded binary.
+  <p>I recently attended my first security conference: BSidesDC. This isn&rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by <a href="https://twitter.com/grecs">@grecs</a> was <a href="https://www.novainfosec.com/2013/10/19/malware-analysis-slides-from-bsidesdc/">Malware Analysis 101</a>. Very well presented with lots of great getting started material.</p>
+<figure><img src="https://www.thesubtlety.com/img/bsides-150x150.jpg">
+</figure>
+
+<p>Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded <a href="https://en.wikipedia.org/wiki/Binary_code">binary</a>. The message is trivially found via google, but where&rsquo;s the fun in that? And wanting to play around with Python some more I decided to write something that could decode the binary. My first stab looks like this.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/bsidesdc-badge/">Read More…</a>
@@ -321,8 +371,13 @@ Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen b
     <a href="https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/">Security Onion Network Configuration and Install</a>
   </h1>
   <time datetime="2013-10-19T02:41:57Z" class="post-date">Sat, Oct 19, 2013</time>
-  With apologies to The Onion
-I&rsquo;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices. I also had a laptop lying around, not being frequently used; perfect for dedicated monitoring.
+  <figure><img src="https://www.thesubtlety.com/img/theonion-wait-what-150x150.jpeg"
+    alt="With apologies to The Onion"><figcaption>
+      <p>With apologies to The Onion</p>
+    </figcaption>
+</figure>
+
+<p>I&rsquo;ve played around with <a href="http://securityonion.blogspot.com/">Security Onion</a> in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices. I also had a laptop lying around, not being frequently used; perfect for dedicated monitoring. So I finally got around to working through the details and going through the setup and configuration. This is a little essay on how I did that.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/">Read More…</a>
@@ -333,8 +388,8 @@ I&rsquo;ve played around with Security Onion in the past, but have never set up 
     <a href="https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/">Kippo on the Raspberry Pi</a>
   </h1>
   <time datetime="2013-05-07T01:43:15Z" class="post-date">Tue, May 7, 2013</time>
-  I recently bought a Raspberry Pi and installed Arch Linux ARM on it. I came across a rather amusing blog post of someone using the honeypot Kippo and thought what fun. See here to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.
-Anyways, this post basically walks through what I did to get Kippo and kippo-graph up and running on my RPi.
+  <p>I recently bought a Raspberry Pi and installed <a href="http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2">Arch Linux ARM</a> on it. I came across a rather amusing blog post of someone using the <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)">honeypot</a> <a href="https://code.google.com/p/kippo/">Kippo</a> and thought what fun. See <a href="http://www.iwatchedyourhack.org/">here</a> to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.</p>
+<p>Anyways, this post basically walks through what I did to get Kippo and <a href="http://bruteforce.gr/kippo-graph">kippo-graph</a> up and running on my RPi. This isn&rsquo;t a walk-you-through-every-step guide, so if you&rsquo;re following along your mileage may vary. Of course, the <a href="https://code.google.com/p/kippo/w/list">Wiki pages</a> over on Google Code are a good place to start. Or <a href="http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html">here</a>. Or <a href="http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html">here</a>. Everyone&rsquo;s done this! But without further adieu&hellip;</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/">Read More…</a>
@@ -345,13 +400,23 @@ Anyways, this post basically walks through what I did to get Kippo and kippo-gra
     <a href="https://www.thesubtlety.com/post/career-readme-txt/">Career README.txt</a>
   </h1>
   <time datetime="2013-04-04T00:50:49Z" class="post-date">Thu, Apr 4, 2013</time>
-  I read this article by Patrick McKenzie a while back, came across it again, and decided it&rsquo;s worth reading weekly. I&rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&rsquo;s entirety. Again. And again.
-Don&rsquo;t Call Yourself a Programmer, And Other Career Advice
-Modesty is not a career enhancing character trait
-Network. In person.
-Learn how to negotiate
-Get good at Enterprise Sales
-Most jobs are never available publicly
+  <p>I read this <a href="http://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer">article</a> by Patrick McKenzie a while back, came across it again, and decided it&rsquo;s worth reading weekly. I&rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&rsquo;s entirety. Again. And again.</p>
+<p><strong>Don&rsquo;t Call Yourself a Programmer, And Other Career Advice</strong></p>
+<ul>
+<li>
+<p>Modesty is not a career enhancing character trait</p>
+</li>
+<li>
+<p>Network. In person.</p>
+</li>
+<li>
+<p>Learn how to negotiate</p>
+</li>
+<li>
+<p>Get good at Enterprise Sales</p>
+</li>
+<li>
+<p>Most jobs are never available publicly</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/career-readme-txt/">Read More…</a>
@@ -362,20 +427,19 @@ Most jobs are never available publicly
     <a href="https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/">Rob Fuller on Getting a Job in InfoSec</a>
   </h1>
   <time datetime="2013-02-22T01:12:37Z" class="post-date">Fri, Feb 22, 2013</time>
-  I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&rsquo;s not InfoSec.
-In my search for ways to break into InfoSec, I&rsquo;ve come across numerous posts, advice, and tips to do just that.
-  
-  <div class="read-more-link">
-    <a href="https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/">Read More…</a>
-  </div>
+  <p>I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&rsquo;s not InfoSec.</p>
+<p>In my search for ways to break into InfoSec, I&rsquo;ve come across numerous <a href="https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html">posts</a>, <a href="http://pauldotcom.com/2009/05/getting-started-in-information.html">advice</a>, and <a href="https://krebsonsecurity.com/category/how-to-break-into-security/">tips</a> to do just that. And this is great stuff - I&rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation <a href="http://vimeo.com/4108726">here</a>. (About 50 minutes)</p>
   
 </article><article class="post">
   <h1 class="post-title">
     <a href="https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/">On the Dumbest Ideas in Computer Security</a>
   </h1>
   <time datetime="2012-09-15T22:22:40Z" class="post-date">Sat, Sep 15, 2012</time>
-  The other day I came across an article by Marcus J Ranum on the six dumbest ideas in computer security which were very simple yet struck me as profound. I&rsquo;ll summarize them here for future reference.
-Default Permit Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &ldquo;default permit.&rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes.
+  <p>The other day I came across an article by <a href="http://en.wikipedia.org/wiki/Marcus_J._Ranum">Marcus J Ranum</a> on <a href="http://www.ranum.com/security/computer_security/editorials/dumb/index.html">the six dumbest ideas in computer security</a> which were very simple yet struck me as profound. I&rsquo;ll summarize them here for future reference.</p>
+<ol>
+<li>Default Permit</li>
+</ol>
+<p>Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &ldquo;default permit.&rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes. The proper solution here is default deny, but this, according to Ranum, takes dedication, thought, and understanding, and so is seldom done. And it allows one to sleep better at night.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/">Read More…</a>
@@ -386,8 +450,10 @@ Default Permit Back when computer networks were still in their infancy, there we
     <a href="https://www.thesubtlety.com/post/breaking-into-security/">Breaking into Security</a>
   </h1>
   <time datetime="2012-06-25T18:21:26Z" class="post-date">Mon, Jun 25, 2012</time>
-  This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from Krebs on Security, who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.
-Learn how to program.
+  <p>This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from <a href="http://m.krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/">Krebs on Security</a>,  who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.</p>
+<ol>
+<li>
+<p>Learn how to program. Plugging away with Ruby. Get dabbling in Python and C.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/post/breaking-into-security/">Read More…</a>
@@ -398,37 +464,99 @@ Learn how to program.
     <a href="https://www.thesubtlety.com/post/random-ramblings/">My Random Ramblings</a>
   </h1>
   <time datetime="2012-01-04T21:12:53Z" class="post-date">Wed, Jan 4, 2012</time>
-  Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.
-Apparently typing all this out helps the mind become better at communicating, and who doesn&rsquo;t want that?
-So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.
+  <p>Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.</p>
+<p>Apparently typing all this out helps the mind become better at communicating, and who doesn&rsquo;t want that?</p>
+<p>So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.</p>
   
 </article><article class="post">
   <h1 class="post-title">
     <a href="https://www.thesubtlety.com/about/">About</a>
   </h1>
   <time datetime="2012-01-01T00:00:00-0500" class="post-date">Sun, Jan 1, 2012</time>
-  Noah is an offensive security engineer with experience red teaming at several Fortune 500 companies in software and financial industries.
-With varied experience leading and managing operations including social engineering and covert physical entry into office buildings to stealthily gaining access to high value financial systems, to troubleshooting corporate networks, to securing web and mobile applications, Noah has a strong track record of applying creative thinking and determination to solve challenging technical problems.
+  <p>Noah is an offensive security engineer with experience red teaming at several Fortune 500 companies in software and financial industries.</p>
+<p>With varied experience leading and managing operations including social engineering and covert physical entry into office buildings to stealthily gaining access to high value financial systems, to troubleshooting corporate networks, to securing web and mobile applications, Noah has a strong track record of applying creative thinking and determination to solve challenging technical problems.</p>
   
   <div class="read-more-link">
     <a href="https://www.thesubtlety.com/about/">Read More…</a>
   </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/resources/">Resources</a>
+  </h1>
+  <time datetime="0001-01-01T00:00:00Z" class="post-date">Mon, Jan 1, 0001</time>
+  <h1 id="security-reference-wiki">Security Reference Wiki</h1>
+<p>A collection of enduring references on security, risk, and adversarial thinking. In short:</p>
+<ul>
+<li>We have no idea if anything we do actually works[<a href="https://magoo.medium.com/next50-ea33c5db5930">1</a>]. Measurement and root causes remain security&rsquo;s fundamental unsolved problem</li>
+<li>The industry thinks training fixes people but research shows it makes things worse [<a href="https://arxiv.org/pdf/2112.07498">2</a>]. Use passkeys/webauthn/yubikeys.</li>
+<li>Most breaches don&rsquo;t matter for most orgs. [<a href="https://www.cisa.gov/sites/default/files/publications/CISA-OCE_Cost_of_Cyber_Incidents_Study-FINAL_508.pdf">3</a>] 85% fail to meet accounting materiality thresholds and the median cost-to-revenue ratio: 0.37%</li>
+<li>Only 12% of patches matter for APT defense. But immediate patching = 4.9x lower compromise odds vs. 1 month delay. [<a href="https://arxiv.org/pdf/2205.07759">4</a>]</li>
+<li>While useful, EDRs are fundamentally ineffective against actual APT actors[<a href="https://www.mdpi.com/2624-800X/1/3/21">5</a>]</li>
+</ul>
+<h2 id="red-teaming--adversarial-assessment">Red Teaming &amp; Adversarial Assessment</h2>
+<ul>
+<li><a href="https://www.osti.gov/servlets/purl/1252941">An Adversary&rsquo;s View of Your Digital System</a> <code>2015 [PDF]</code> - Sandia National Labs - Adversary-based assessment methodology. Attack graphs and identifying critical paths. Nice Generic Threat Matrix (GTM).</li>
+<li><a href="https://assets.publishing.service.gov.uk/media/61702155e90e07197867eb93/20210625-Red_Teaming_Handbook.pdf">Red Teaming Handbook (3rd Edition)</a> <code>2021 [PDF]</code> - UK Ministry of Defence - Guide to red team mindset and formal methodologies. Apply fast, simple red teaming techniques as part of everyday routines rather than waiting for formal engagements</li>
+<li><a href="https://oodaloop.com/analysis/ooda-original/10-red-teaming-lessons-learned-over-20-years/">10 Red Teaming Lessons Learned Over 20 Years</a> <code>2015 [Website]</code> - Matt Devost - Asymmetry, OODA loops, and avoiding artificial constraints. 10th man rule - if nine analysts reach the same conclusion, the tenth must disagree and explore unlikely scenarios. A red team should never compromise integrity to satisfy sponsors - speak truth to power even when findings are unpopular.</li>
+<li><a href="https://www.dst.defence.gov.au/sites/default/files/publications/documents/DST-Group-TR-3335.pdf">Adversarial Red Team Assessment Framework</a> <code>2017 [PDF]</code> - Australian Defence Science and Technology Group. Cognitive bias mitigation strategy. Red Teaming Umbrella framework as a spectrum from simple critical analysis to complex field exercises - Critical Analysis, Tabletop, Functional/Attack pathing, Computational/Purple teaming, Cyber/&ldquo;Red Teaming&rdquo;, Wargaming (Physical element), Field Exercises (live tests)</li>
+<li><a href="https://warontherocks.com/2015/11/six-rules-for-wargaming-the-lessons-of-millennium-challenge-02/">Six Rules for Wargaming</a> <code>2015 [Website]</code> - Lessons from Millennium Challenge 02&rsquo;s red team victory. Validation should NEVER come from a single wargame. Never allow concept developers to run their own analysis, &ldquo;akin to allowing students to grade their own tests.&rdquo;&quot;</li>
+</ul>
+<h2 id="risk-measurement--cybersecurity-economics">Risk Measurement &amp; Cybersecurity Economics</h2>
+<ul>
+<li><a href="http://www.dtc.umn.edu/~odlyzko/doc/cyberinsecurity.pdf">Cybersecurity is not very important</a> <code>2019 [PDF]</code> - Andrew Odlyzko - Contrarian view on risk, resilience, and the muddle-through approach. Complexity and &ldquo;security through obscurity&rdquo; are essential elements of imperfect security. We haven&rsquo;t suffered major tech catastrophes despite decades of insecurity, suggesting threats are manageable within acceptable risk tolerance.</li>
+<li><a href="https://nps.edu/documents/103424423/106950799/DRMI+Working+Paper+2011-3.pdf">Defense Acquisition and Operational Risk</a> <code>2011 [PDF]</code> - Naval Postgraduate School - Risk management frameworks. Without knowledge of decision maker preferences, there is no risk. Kaplan-Garrick risk definition (eg what can go wrong, how likely, what consequences) is incomplete. A fourth question must be asked - &ldquo;How do you feel about it?&rdquo;</li>
+<li><a href="https://all.net/Metricon/measuringsecurity.tutorial.pdf">Measuring Security (And Risk) - Geer</a> <code>2006 [PDF]</code> - Dan Geer- Foundational work on security measurement. Security metrics must be &ldquo;decision support, possibly under fire&rdquo;. Early investment pays exponentially - empirical data shows 21%/15%/12% returns on security investment at design/implementation/maintenance stages. Design-stage security being 100x more cost-effective than maintenance-stage fixes.</li>
+<li><a href="https://magoo.medium.com/next50-ea33c5db5930">Next50: Measuring and Managing Organizational Security</a> <code>2018 [Medium]</code> - Ryan McGeehan (Magoo) - Modern enterprise security measurement. Information security industry is stalling due to lack of a &ldquo;measurement revolution&rdquo; comparable to meteorology&rsquo;s post-1950 transformation. Security teams operate irrationally because they lack classification methods for breach root causes, transparency into breach causation, and probabilistic forecasting.</li>
+<li><a href="https://www.cisa.gov/sites/default/files/publications/CISA-OCE_Cost_of_Cyber_Incidents_Study-FINAL_508.pdf">Cost of a Cyber Incident</a> <code>2020 [PDF]</code> - CISA systematic review - Per-incident costs, aggregate losses, and defensible estimates. Incident costs have extreme variability with heavy-tailed distributions where the mean is a poor indicator. 85% of cyber incidents fail to meet financial materiality thresholds (of 2-10%). The median cost-to-revenue ratio across all sectors is only 0.37%. Per-record cost estimates are flawed because breach costs don&rsquo;t correlate strongly with breach size for large incidents.</li>
+</ul>
+<h2 id="phishing--security-awareness">Phishing &amp; Security Awareness</h2>
+<ul>
+<li><a href="https://security.googleblog.com/2024/05/on-fire-drills-and-phishing-tests.html">On Fire Drills and Phishing Tests</a> <code>2024 [Google Blog]</code> - Google Security - Why phishing tests don&rsquo;t work and what to do instead. No evidence exists that phishing tests reduce successful phishing incidents. Traditional tests cause harmful side effects: they bypass systematic security controls, degrade trust between users and security teams, create incident response burden, and make employees feel &ldquo;tricked.&rdquo; Alternative: &ldquo;phishing fire drills&rdquo; - pre-announced training emails that clearly identify themselves, focusing on education and practicing reporting. Fix tools, not people - use phishing-resistant authenticators.</li>
+<li><a href="https://arxiv.org/pdf/2112.07498">The Ineffectiveness of Phishing Security Education</a> <code>2021 [arXiv PDF]</code> - 14,000 participant study showing repeat clickers fail despite interventions. Embedded phishing training is counterproductive. Training fosters false sense of security or over-reliance on institutional defense. Use employees as collective detection mechanism is practical, efficient, and sustainable. Tested with 14,000 people over 15 months.</li>
+</ul>
+<h2 id="incident-response--detection">Incident Response &amp; Detection</h2>
+<ul>
+<li><a href="https://www.mdpi.com/2624-800X/1/3/21">Empirical Assessment of EDR Systems Against APTs</a> <code>2021 [Journal Article]</code> - Testing 11 endpoint detection tools against advanced attack vectors. State-of-the-art EDRs failed to prevent and log the bulk of APT attacks tested. 11 EDR products using 20 diverse attack vectors, 10 attacks were completely successful with no alerts issued, 3 were successful with low-significance alerts, and only 6 were detected correctly.</li>
+<li><a href="https://www.thesubtlety.com/incident-response-scenarios/">Incident Response Scenarios</a> <code>[Website]</code> - Practical tabletop exercises for IR teams with scenarios from @Magoo, not affiliated</li>
+<li><a href="https://www.usenix.org/system/files/sec21-ferguson-walter.pdf">Canary Tokens at Scale (Tularosa Study)</a> <code>2021 [USENIX PDF]</code> - USENIX research on deploying deception at enterprise scale. Cyber deception significantly impedes attacker progress (tested with 130 red teamers). Physical presence of deception and psychological awareness of deception technologies affected behavior - effective defensive strategy at scale</li>
+<li><a href="https://thinkst.com/ts/">Thinkst Canary</a> <code>[Website]</code> - Honeypot/canary tokens (free and paid)</li>
+</ul>
+<h2 id="threat-intelligence">Threat Intelligence</h2>
+<ul>
+<li><a href="https://ethz.ch/content/dam/ethz/special-interest/gess/cis/center-for-securities-studies/pdfs/before-vegas-cyberdefense-report.pdf">China&rsquo;s Offensive Cyber Ecosystem</a> <code>2024 [PDF]</code> - ETH Zurich - Analysis of Chinese bug bounty programs and hacking contests. Chinese security agencies gain exclusive access to zero-days granting them first access to vulnerabilities discovered by civilian researchers (who must report within 2 days under 2021 RMSV regulations), then outsources actual operations to private contractors.</li>
+<li><a href="https://arxiv.org/pdf/2205.07759">Patch Management: Only 12% of Public Exploits Get Patched</a> <code>2022 [arXiv PDF]</code> - Empirical study on patch deployment rates. Performing only 12% of all possible updates - only patching publicly known vulnerabilities exploited in documented APT campaigns wouldn&rsquo;t significantly change compromise odds compared to organizations updating for all versions. Update immediately faces 4.9x lower odds of compromise than those waiting one month and 9.1x lower than those waiting three months.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://www.vx-underground.org/apts.html">APT Groups and Operations</a> <code>[Website]</code> - VX-Underground comprehensive APT reference - largest publicly accessible collections of APT malware samples and campaign documentation,</li>
+<li><a href="https://www.amanhardikar.com/mindmaps.html">Security Mindmaps</a> <code>[Website]</code> - Aman Hardikar - Visual knowledge maps for security domains</li>
+<li><a href="https://rmusser.net/docs/#/">Infosec Reference</a> <code>[Website]</code> - Comprehensive knowledge base by rmusser - technical references</li>
+</ul>
+<h2 id="leadership--organizational-strategy">Leadership &amp; Organizational Strategy</h2>
+<ul>
+<li><a href="https://govleaders.org/rickover.htm">Doing a Job - Admiral Hyman Rickover</a> <code>1982 [Website]</code> - Classic leadership text on responsibility and standards. &ldquo;Ownership without formal structure&rdquo; - eliminate job descriptions and organizational charts, giving subordinates authority and responsibility early while defining roles broadly so people are &ldquo;limited only by their own ability.&rdquo; &ldquo;When doing a job—any job—one must feel that he owns it&rdquo;</li>
+<li><a href="https://brianlangis.wordpress.com/wp-content/uploads/2018/02/williams-trying_too_hard.pdf">Trying Too Hard</a> <code>1981 [PDF]</code> - Essay on organizational effectiveness. &ldquo;Confidence in a forecast rises with the amount of information that goes into it, but the accuracy of the forecast stays the same.&rdquo; Stop trying to forecast every threat scenario and instead focus on measuring current vulnerabilities and value</li>
+<li><a href="https://www.youtube.com/watch?v=rXG6ExQbIZo">Strategy is About What You Don&rsquo;t Do - Jason Chan</a> <code>[YouTube]</code> - Strategic focus and prioritization</li>
+<li><strong>Turn the Ship Around</strong> (L. David Marquet) <code>2013 [Book]</code> - &ldquo;Intent-based leadership&rdquo; uses language shift from &ldquo;request permission&rdquo; to &ldquo;I intend to&hellip;&rdquo; - forces subordinates to think like leaders while maintaining accountability.</li>
+<li><strong>Drive</strong> (Daniel Pink) <code>2009 [Book]</code> - Great book on intent-based leadership and motivation. Extrinsic rewards (money, bonuses) actually reduce performance for complex cognitive work. Autonomy-Mastery-Purpose (AMP) shows that for complex work requiring creativity, the key is to &ldquo;pay enough to take the issue of money off the table&rdquo; then motivate through autonomy (control over time/technique), mastery (progress at meaningful skills), and purpose (contribution to mission larger than self).</li>
+</ul>
+<h2 id="technical-papers--detailed-analysis">Technical Papers &amp; Detailed Analysis</h2>
+<ul>
+<li><a href="https://www.usenix.org/system/files/1401_08-12_mickens.pdf">This World of Ours</a> <code>2014 [USENIX PDF]</code> - James Mickens - The security threat model spectrum. &ldquo;Mossad or not-Mossad&rdquo; threat model -  security threat models should be binary rather than elaborate. Either you&rsquo;re facing nation-state adversary (Mossad) who will defeat any defenses regardless, or you&rsquo;re not (in which case basic security hygiene suffices)</li>
+<li><a href="https://www.usenix.org/system/files/usenixsecurity23-hielscher.pdf">Security Analysis of System</a> <code>2023 [USENIX PDF]</code> - USENIX Security 2023 - Deep technical security analysis. Security managers are fully aware their measures cause significant friction reducing productivity and increasing vulnerability, and they can identify underlying causes. But organizations prioritize compliance with external standards over usability. Regulatory requirements prevent implementing more usable security solutions.</li>
+<li><a href="https://www.youtube.com/watch?v=PGLYEDpNu60">Measuring Information Security</a> <code>2025 [YouTube]</code> - Video lecture on security metrics. 40 elite Chinese hackers from late 1990s-2000s red hacker groups formed the foundation of China&rsquo;s modern cyber ecosystem.  Individuals moved from grassroots patriotic hacktivists in informal collectives (Green Army, Xfocus, 0x557, NCPH) to industry leaders, founding  cybersecurity firms (NSFOCUS, Knownsec, Pangu Lab), leading security teams at tech giants (Alibaba, Tencent, Baidu), and in some cases transitioning into state APT operations (APT17, APT27, APT41). &ldquo;New School&rdquo; era with structured CTF competitions, bug bounties, university programs, state alignment.</li>
+<li><a href="https://www.youtube.com/watch?v=AQfbPpkaq88">Learning the wrong lessons from Offense (Haroon Meer)</a> <code>2016 [YouTube]</code></li>
+<li><a href="https://www.youtube.com/watch?v=BSDIhZYR4E4">Attack Driven Defense - Zane Lackey</a> <code>2014 [YouTube]</code></li>
+<li><a href="https://www.youtube.com/watch?v=2kWMIffjNXI">Building and Leading Corporate Red Teams by Dale Pearson</a> <code>2018 [YouTube]</code></li>
+</ul>
   
 </article>
 </div>
     </main>
 
     
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-29425132-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
+      
+    
   </body>
 </html>

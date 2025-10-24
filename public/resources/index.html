@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.152.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Resources &middot; The Subtlety</title>
+  <meta name="description" content="" />
+
+  
+  
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/print.min.46d9bcbd80937d55db06b7034dfed7fc48b2bfb13e535dd9eac5581bfbaa8ddf.css"
+      media="print"
+      integrity="sha256-Rtm8vYCTfVXbBrcDTf7X/Eiyv7E&#43;U13Z6sVYG/uqjd8="
+      crossorigin="anonymous" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/hyde-bundle.min.ac871d4f36866f82cec982ebbe8b6eb1d0a0d9908770ed436b9bd674012f7215.css"
+      media="all"
+      integrity="sha256-rIcdTzaGb4LOyYLrvotusdCg2ZCHcO1Da5vWdAEvchU="
+      crossorigin="anonymous" />  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.thesubtlety.com/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
+      <p class="lead">
+       Indiscriminate Idiotropics on Infosec 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://www.thesubtlety.com/resources/"> Resources &amp; Links </a></li><li><a href="https://twitter.com/thesubtlety"> X </a></li>
+      </ul>
+    </nav>
+
+    <p>C 2025. All rights reserved.</p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Resources</h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  <h1 id="security-reference-wiki">Security Reference Wiki</h1>
+<p>A collection of enduring references on security, risk, and adversarial thinking. In short:</p>
+<ul>
+<li>We have no idea if anything we do actually works[<a href="https://magoo.medium.com/next50-ea33c5db5930">1</a>]. Measurement and root causes remain security&rsquo;s fundamental unsolved problem</li>
+<li>The industry thinks training fixes people but research shows it makes things worse [<a href="https://arxiv.org/pdf/2112.07498">2</a>]. Use passkeys/webauthn/yubikeys.</li>
+<li>Most breaches don&rsquo;t matter for most orgs. [<a href="https://www.cisa.gov/sites/default/files/publications/CISA-OCE_Cost_of_Cyber_Incidents_Study-FINAL_508.pdf">3</a>] 85% fail to meet accounting materiality thresholds and the median cost-to-revenue ratio: 0.37%</li>
+<li>Only 12% of patches matter for APT defense. But immediate patching = 4.9x lower compromise odds vs. 1 month delay. [<a href="https://arxiv.org/pdf/2205.07759">4</a>]</li>
+<li>While useful, EDRs are fundamentally ineffective against actual APT actors[<a href="https://www.mdpi.com/2624-800X/1/3/21">5</a>]</li>
+</ul>
+<h2 id="red-teaming--adversarial-assessment">Red Teaming &amp; Adversarial Assessment</h2>
+<ul>
+<li><a href="https://www.osti.gov/servlets/purl/1252941">An Adversary&rsquo;s View of Your Digital System</a> <code>2015 [PDF]</code> - Sandia National Labs - Adversary-based assessment methodology. Attack graphs and identifying critical paths. Nice Generic Threat Matrix (GTM).</li>
+<li><a href="https://assets.publishing.service.gov.uk/media/61702155e90e07197867eb93/20210625-Red_Teaming_Handbook.pdf">Red Teaming Handbook (3rd Edition)</a> <code>2021 [PDF]</code> - UK Ministry of Defence - Guide to red team mindset and formal methodologies. Apply fast, simple red teaming techniques as part of everyday routines rather than waiting for formal engagements</li>
+<li><a href="https://oodaloop.com/analysis/ooda-original/10-red-teaming-lessons-learned-over-20-years/">10 Red Teaming Lessons Learned Over 20 Years</a> <code>2015 [Website]</code> - Matt Devost - Asymmetry, OODA loops, and avoiding artificial constraints. 10th man rule - if nine analysts reach the same conclusion, the tenth must disagree and explore unlikely scenarios. A red team should never compromise integrity to satisfy sponsors - speak truth to power even when findings are unpopular.</li>
+<li><a href="https://www.dst.defence.gov.au/sites/default/files/publications/documents/DST-Group-TR-3335.pdf">Adversarial Red Team Assessment Framework</a> <code>2017 [PDF]</code> - Australian Defence Science and Technology Group. Cognitive bias mitigation strategy. Red Teaming Umbrella framework as a spectrum from simple critical analysis to complex field exercises - Critical Analysis, Tabletop, Functional/Attack pathing, Computational/Purple teaming, Cyber/&ldquo;Red Teaming&rdquo;, Wargaming (Physical element), Field Exercises (live tests)</li>
+<li><a href="https://warontherocks.com/2015/11/six-rules-for-wargaming-the-lessons-of-millennium-challenge-02/">Six Rules for Wargaming</a> <code>2015 [Website]</code> - Lessons from Millennium Challenge 02&rsquo;s red team victory. Validation should NEVER come from a single wargame. Never allow concept developers to run their own analysis, &ldquo;akin to allowing students to grade their own tests.&rdquo;&quot;</li>
+</ul>
+<h2 id="risk-measurement--cybersecurity-economics">Risk Measurement &amp; Cybersecurity Economics</h2>
+<ul>
+<li><a href="http://www.dtc.umn.edu/~odlyzko/doc/cyberinsecurity.pdf">Cybersecurity is not very important</a> <code>2019 [PDF]</code> - Andrew Odlyzko - Contrarian view on risk, resilience, and the muddle-through approach. Complexity and &ldquo;security through obscurity&rdquo; are essential elements of imperfect security. We haven&rsquo;t suffered major tech catastrophes despite decades of insecurity, suggesting threats are manageable within acceptable risk tolerance.</li>
+<li><a href="https://nps.edu/documents/103424423/106950799/DRMI+Working+Paper+2011-3.pdf">Defense Acquisition and Operational Risk</a> <code>2011 [PDF]</code> - Naval Postgraduate School - Risk management frameworks. Without knowledge of decision maker preferences, there is no risk. Kaplan-Garrick risk definition (eg what can go wrong, how likely, what consequences) is incomplete. A fourth question must be asked - &ldquo;How do you feel about it?&rdquo;</li>
+<li><a href="https://all.net/Metricon/measuringsecurity.tutorial.pdf">Measuring Security (And Risk) - Geer</a> <code>2006 [PDF]</code> - Dan Geer- Foundational work on security measurement. Security metrics must be &ldquo;decision support, possibly under fire&rdquo;. Early investment pays exponentially - empirical data shows 21%/15%/12% returns on security investment at design/implementation/maintenance stages. Design-stage security being 100x more cost-effective than maintenance-stage fixes.</li>
+<li><a href="https://magoo.medium.com/next50-ea33c5db5930">Next50: Measuring and Managing Organizational Security</a> <code>2018 [Medium]</code> - Ryan McGeehan (Magoo) - Modern enterprise security measurement. Information security industry is stalling due to lack of a &ldquo;measurement revolution&rdquo; comparable to meteorology&rsquo;s post-1950 transformation. Security teams operate irrationally because they lack classification methods for breach root causes, transparency into breach causation, and probabilistic forecasting.</li>
+<li><a href="https://www.cisa.gov/sites/default/files/publications/CISA-OCE_Cost_of_Cyber_Incidents_Study-FINAL_508.pdf">Cost of a Cyber Incident</a> <code>2020 [PDF]</code> - CISA systematic review - Per-incident costs, aggregate losses, and defensible estimates. Incident costs have extreme variability with heavy-tailed distributions where the mean is a poor indicator. 85% of cyber incidents fail to meet financial materiality thresholds (of 2-10%). The median cost-to-revenue ratio across all sectors is only 0.37%. Per-record cost estimates are flawed because breach costs don&rsquo;t correlate strongly with breach size for large incidents.</li>
+</ul>
+<h2 id="phishing--security-awareness">Phishing &amp; Security Awareness</h2>
+<ul>
+<li><a href="https://security.googleblog.com/2024/05/on-fire-drills-and-phishing-tests.html">On Fire Drills and Phishing Tests</a> <code>2024 [Google Blog]</code> - Google Security - Why phishing tests don&rsquo;t work and what to do instead. No evidence exists that phishing tests reduce successful phishing incidents. Traditional tests cause harmful side effects: they bypass systematic security controls, degrade trust between users and security teams, create incident response burden, and make employees feel &ldquo;tricked.&rdquo; Alternative: &ldquo;phishing fire drills&rdquo; - pre-announced training emails that clearly identify themselves, focusing on education and practicing reporting. Fix tools, not people - use phishing-resistant authenticators.</li>
+<li><a href="https://arxiv.org/pdf/2112.07498">The Ineffectiveness of Phishing Security Education</a> <code>2021 [arXiv PDF]</code> - 14,000 participant study showing repeat clickers fail despite interventions. Embedded phishing training is counterproductive. Training fosters false sense of security or over-reliance on institutional defense. Use employees as collective detection mechanism is practical, efficient, and sustainable. Tested with 14,000 people over 15 months.</li>
+</ul>
+<h2 id="incident-response--detection">Incident Response &amp; Detection</h2>
+<ul>
+<li><a href="https://www.mdpi.com/2624-800X/1/3/21">Empirical Assessment of EDR Systems Against APTs</a> <code>2021 [Journal Article]</code> - Testing 11 endpoint detection tools against advanced attack vectors. State-of-the-art EDRs failed to prevent and log the bulk of APT attacks tested. 11 EDR products using 20 diverse attack vectors, 10 attacks were completely successful with no alerts issued, 3 were successful with low-significance alerts, and only 6 were detected correctly.</li>
+<li><a href="https://www.thesubtlety.com/incident-response-scenarios/">Incident Response Scenarios</a> <code>[Website]</code> - Practical tabletop exercises for IR teams with scenarios from @Magoo, not affiliated</li>
+<li><a href="https://www.usenix.org/system/files/sec21-ferguson-walter.pdf">Canary Tokens at Scale (Tularosa Study)</a> <code>2021 [USENIX PDF]</code> - USENIX research on deploying deception at enterprise scale. Cyber deception significantly impedes attacker progress (tested with 130 red teamers). Physical presence of deception and psychological awareness of deception technologies affected behavior - effective defensive strategy at scale</li>
+<li><a href="https://thinkst.com/ts/">Thinkst Canary</a> <code>[Website]</code> - Honeypot/canary tokens (free and paid)</li>
+</ul>
+<h2 id="threat-intelligence">Threat Intelligence</h2>
+<ul>
+<li><a href="https://ethz.ch/content/dam/ethz/special-interest/gess/cis/center-for-securities-studies/pdfs/before-vegas-cyberdefense-report.pdf">China&rsquo;s Offensive Cyber Ecosystem</a> <code>2024 [PDF]</code> - ETH Zurich - Analysis of Chinese bug bounty programs and hacking contests. Chinese security agencies gain exclusive access to zero-days granting them first access to vulnerabilities discovered by civilian researchers (who must report within 2 days under 2021 RMSV regulations), then outsources actual operations to private contractors.</li>
+<li><a href="https://arxiv.org/pdf/2205.07759">Patch Management: Only 12% of Public Exploits Get Patched</a> <code>2022 [arXiv PDF]</code> - Empirical study on patch deployment rates. Performing only 12% of all possible updates - only patching publicly known vulnerabilities exploited in documented APT campaigns wouldn&rsquo;t significantly change compromise odds compared to organizations updating for all versions. Update immediately faces 4.9x lower odds of compromise than those waiting one month and 9.1x lower than those waiting three months.</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://www.vx-underground.org/apts.html">APT Groups and Operations</a> <code>[Website]</code> - VX-Underground comprehensive APT reference - largest publicly accessible collections of APT malware samples and campaign documentation,</li>
+<li><a href="https://www.amanhardikar.com/mindmaps.html">Security Mindmaps</a> <code>[Website]</code> - Aman Hardikar - Visual knowledge maps for security domains</li>
+<li><a href="https://rmusser.net/docs/#/">Infosec Reference</a> <code>[Website]</code> - Comprehensive knowledge base by rmusser - technical references</li>
+</ul>
+<h2 id="leadership--organizational-strategy">Leadership &amp; Organizational Strategy</h2>
+<ul>
+<li><a href="https://govleaders.org/rickover.htm">Doing a Job - Admiral Hyman Rickover</a> <code>1982 [Website]</code> - Classic leadership text on responsibility and standards. &ldquo;Ownership without formal structure&rdquo; - eliminate job descriptions and organizational charts, giving subordinates authority and responsibility early while defining roles broadly so people are &ldquo;limited only by their own ability.&rdquo; &ldquo;When doing a job—any job—one must feel that he owns it&rdquo;</li>
+<li><a href="https://brianlangis.wordpress.com/wp-content/uploads/2018/02/williams-trying_too_hard.pdf">Trying Too Hard</a> <code>1981 [PDF]</code> - Essay on organizational effectiveness. &ldquo;Confidence in a forecast rises with the amount of information that goes into it, but the accuracy of the forecast stays the same.&rdquo; Stop trying to forecast every threat scenario and instead focus on measuring current vulnerabilities and value</li>
+<li><a href="https://www.youtube.com/watch?v=rXG6ExQbIZo">Strategy is About What You Don&rsquo;t Do - Jason Chan</a> <code>[YouTube]</code> - Strategic focus and prioritization</li>
+<li><strong>Turn the Ship Around</strong> (L. David Marquet) <code>2013 [Book]</code> - &ldquo;Intent-based leadership&rdquo; uses language shift from &ldquo;request permission&rdquo; to &ldquo;I intend to&hellip;&rdquo; - forces subordinates to think like leaders while maintaining accountability.</li>
+<li><strong>Drive</strong> (Daniel Pink) <code>2009 [Book]</code> - Great book on intent-based leadership and motivation. Extrinsic rewards (money, bonuses) actually reduce performance for complex cognitive work. Autonomy-Mastery-Purpose (AMP) shows that for complex work requiring creativity, the key is to &ldquo;pay enough to take the issue of money off the table&rdquo; then motivate through autonomy (control over time/technique), mastery (progress at meaningful skills), and purpose (contribution to mission larger than self).</li>
+</ul>
+<h2 id="technical-papers--detailed-analysis">Technical Papers &amp; Detailed Analysis</h2>
+<ul>
+<li><a href="https://www.usenix.org/system/files/1401_08-12_mickens.pdf">This World of Ours</a> <code>2014 [USENIX PDF]</code> - James Mickens - The security threat model spectrum. &ldquo;Mossad or not-Mossad&rdquo; threat model -  security threat models should be binary rather than elaborate. Either you&rsquo;re facing nation-state adversary (Mossad) who will defeat any defenses regardless, or you&rsquo;re not (in which case basic security hygiene suffices)</li>
+<li><a href="https://www.usenix.org/system/files/usenixsecurity23-hielscher.pdf">Security Analysis of System</a> <code>2023 [USENIX PDF]</code> - USENIX Security 2023 - Deep technical security analysis. Security managers are fully aware their measures cause significant friction reducing productivity and increasing vulnerability, and they can identify underlying causes. But organizations prioritize compliance with external standards over usability. Regulatory requirements prevent implementing more usable security solutions.</li>
+<li><a href="https://www.youtube.com/watch?v=PGLYEDpNu60">Measuring Information Security</a> <code>2025 [YouTube]</code> - Video lecture on security metrics. 40 elite Chinese hackers from late 1990s-2000s red hacker groups formed the foundation of China&rsquo;s modern cyber ecosystem.  Individuals moved from grassroots patriotic hacktivists in informal collectives (Green Army, Xfocus, 0x557, NCPH) to industry leaders, founding  cybersecurity firms (NSFOCUS, Knownsec, Pangu Lab), leading security teams at tech giants (Alibaba, Tencent, Baidu), and in some cases transitioning into state APT operations (APT17, APT27, APT41). &ldquo;New School&rdquo; era with structured CTF competitions, bug bounties, university programs, state alignment.</li>
+<li><a href="https://www.youtube.com/watch?v=AQfbPpkaq88">Learning the wrong lessons from Offense (Haroon Meer)</a> <code>2016 [YouTube]</code></li>
+<li><a href="https://www.youtube.com/watch?v=BSDIhZYR4E4">Attack Driven Defense - Zane Lackey</a> <code>2014 [YouTube]</code></li>
+<li><a href="https://www.youtube.com/watch?v=2kWMIffjNXI">Building and Leading Corporate Red Teams by Dale Pearson</a> <code>2018 [YouTube]</code></li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

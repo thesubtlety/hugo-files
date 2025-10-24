@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.117.0">
+  <meta name="generator" content="Hugo 0.152.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,21 @@
   <meta name="description" content="" />
 
   
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+  
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/print.min.46d9bcbd80937d55db06b7034dfed7fc48b2bfb13e535dd9eac5581bfbaa8ddf.css"
+      media="print"
+      integrity="sha256-Rtm8vYCTfVXbBrcDTf7X/Eiyv7E&#43;U13Z6sVYG/uqjd8="
+      crossorigin="anonymous" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/hyde-bundle.min.ac871d4f36866f82cec982ebbe8b6eb1d0a0d9908770ed436b9bd674012f7215.css"
+      media="all"
+      integrity="sha256-rIcdTzaGb4LOyYLrvotusdCg2ZCHcO1Da5vWdAEvchU="
+      crossorigin="anonymous" />  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
   
@@ -40,11 +50,11 @@
     <nav>
       <ul class="sidebar-nav">
         <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://www.thesubtlety.com/resources/"> Resources &amp; Links </a></li><li><a href="https://twitter.com/thesubtlety"> X </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2023. All rights reserved. </p>
+    <p>C 2025. All rights reserved.</p>
   </div>
 </aside>
 
@@ -84,7 +94,7 @@ host              port  proto  name   state    info
 ...
 </code></pre>
 <p>Nmap can be a fairly noisy tool as far as traffic generated though, as Sguil/Snorby results show. Snort alerts on fifty or so &lsquo;potential scans&rsquo; and the Nmap scripting engine has very recognizable traffic. If we run nmap without the -A agressive option, we reduce the amount of alerts considerably (from nearly 50 to about 7 or so events generated without the nmap scripts). </p>
-<figure><img src="https://www.thesubtlety.com/img/nmap_snorby.png"/>
+<figure><img src="https://www.thesubtlety.com/img/nmap_snorby.png">
 </figure>
 
 <p>Tip toeing around Snort rules and timers is an interesting game. Fyodor&rsquo;s Nmap <a href="http://nmap.org/book/">book</a> has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to <a href="http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html">this guy</a>, that can be easily changed in the nse lua settings.</p>
@@ -124,7 +134,7 @@ smb: \&gt; ls
 </code></pre>
 <p>If we access this  share, we only see the /tmp directory and nothing more. But if the samba configuration allows &lsquo;wide links&rsquo; (which allow symbolic links to be added to a share) and allows write access to a directory, this is &rsquo;exploitable&rsquo; by linking the file system to a directory in /tmp. A decent explanation how this works is on <a href="https://www.samba.org/samba/news/symlink_attack.html">Samba.org</a> and the <a href="http://lists.grok.org.uk/pipermail/full-disclosure/2010-February/072944.html">mailing list.</a></p>
 <p>Manually, you simply connect via <code>smbclient //192.168.100.192/tmp' anonymously, and enter 'symlink ../../../../../../../../../ rootfs</code> which traverses back to root and links that to your newly created directory. This gives read access to /etc/passwd remotely. Fortunately, permissions are somewhat limited as the user is anonymous. Otherwise, Metasploit can take care of this for us with the Samba Link Traversal <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/samba_symlink_traversal.rb">module</a>.</p>
-<figure><img src="https://www.thesubtlety.com/img/Selection_002.png"/>
+<figure><img src="https://www.thesubtlety.com/img/Selection_002.png">
 </figure>
 
 <p>Once that has completed, open up a terminal, run <code>smbclient -L //192.168.100.192</code>, enter &lsquo;cd rootfs2`, and \etc\passwd is ours. </p>
@@ -135,7 +145,7 @@ smb: \&gt; ls
 msf &gt; set payload windows/meterpreter/reverse_tcp
 </code></pre>
 <p>Snort catches this with the high severity events** &lsquo;**ET SHELLCODE Possible call with a No Offset TCP Shellcode event&rsquo; and an &lsquo;ET POLICY PE EXE or DLL Windows file download&rsquo;.</p>
-<figure><img src="https://www.thesubtlety.com/img/Selection_003.png"/>
+<figure><img src="https://www.thesubtlety.com/img/Selection_003.png">
 </figure>
 
 <p>This isn&rsquo;t an exploit so to speak, but is an easy way to play around with Meterpreter. <a href="http://www.offensive-security.com/metasploit-unleashed/About_Meterpreter">Meterpreter</a> exists only in memory, but does require a DLL sent to the victim, which as we saw, Snort detected. Meterpreter is an impressive tool; an in depth guide exists <a href="http://dev.metasploit.com/documents/meterpreter.pdf">here</a> (pdf).</p>
@@ -147,16 +157,7 @@ msf &gt; set payload windows/meterpreter/reverse_tcp
     </main>
 
     
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-29425132-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
+      
+    
   </body>
 </html>

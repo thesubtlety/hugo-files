@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.117.0">
+  <meta name="generator" content="Hugo 0.152.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,21 @@
   <meta name="description" content="" />
 
   
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+  
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/print.min.46d9bcbd80937d55db06b7034dfed7fc48b2bfb13e535dd9eac5581bfbaa8ddf.css"
+      media="print"
+      integrity="sha256-Rtm8vYCTfVXbBrcDTf7X/Eiyv7E&#43;U13Z6sVYG/uqjd8="
+      crossorigin="anonymous" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/hyde-bundle.min.ac871d4f36866f82cec982ebbe8b6eb1d0a0d9908770ed436b9bd674012f7215.css"
+      media="all"
+      integrity="sha256-rIcdTzaGb4LOyYLrvotusdCg2ZCHcO1Da5vWdAEvchU="
+      crossorigin="anonymous" />  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
   
@@ -40,11 +50,11 @@
     <nav>
       <ul class="sidebar-nav">
         <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://www.thesubtlety.com/resources/"> Resources &amp; Links </a></li><li><a href="https://twitter.com/thesubtlety"> X </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2023. All rights reserved. </p>
+    <p>C 2025. All rights reserved.</p>
   </div>
 </aside>
 
@@ -59,16 +69,16 @@
 </code></pre><p>I previously <a href="https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/">wrote about</a> cracking Red Hat&rsquo;s <a href="https://directory.fedoraproject.org/">389-DS</a> hashes in PBKDF2_SHA256 format and was under the impression that cracking those hashes required the same Netscape Security Services libraries that 389-DS used behind the scenes to recreate the key material. After some additional testing, I realized they were simply using the standard &ldquo;Password-Based Cryptography Specification&rdquo; as defined in PKCS#5 <a href="https://tools.ietf.org/html/rfc2898">RFC2898</a>.</p>
 <p>Since these PKCS5 libraries are supported in multiple languages including Perl, which is what Hashcat&rsquo;s test modules use, the PBKDF2-HMAC-SHA256 primitives are already supported in Hashcat, and I wouldn&rsquo;t need to write any OpenCL code, I dived into adding a new module.</p>
 <p>If we look at the the <a href="https://pagure.io/389-ds-base/blob/542287c/f/ldap/servers/plugins/pwdstorage/pbkdf2_pwd.c">implemention</a> we see that it refers to PKCS5 and PKCS11 to get key data.
-<figure><img src="https://www.thesubtlety.com/img/PKCS5.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/PKCS5.jpg">
 </figure>
 </p>
 <p>Since we know how to extract the necessary components from a password hash from <a href="https://github.com/thesubtlety/389-ds-password-check/blob/master/389ds-pwdcheck.py">prior work</a>, we can easily plug the key material into a standard implementation of Python&rsquo;s <code>hashlib</code> or Perl&rsquo;s <code>Crypt::PBKDF2</code> library. To briefly recap, the hash is composed of <code>base64(ntohl(iterations)[4] + salt[64] + digest[256])</code></p>
 <p>First we create a key and extract the values.</p>
-<figure><img src="https://www.thesubtlety.com/img/create-a-key.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/create-a-key.jpg">
 </figure>
 
 <p>Then plug those values into python&rsquo;s hashlib library. If the underlying implementation is the same we should see the same key value created.</p>
-<figure><img src="https://www.thesubtlety.com/img/create-a-key-hashlib.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/create-a-key-hashlib.jpg">
 </figure>
 
 <p>And sure enough, the keys match, starting with <code>\xcd\x02\xd3</code>. So no more needing to use the NSS libraries as I initially thought.</p>
@@ -158,12 +168,12 @@ tools/test_modules/ 	&lt;-- Perl test modules
 <p>Searching the repo for references to 10900 there are four hashcat modules using this kernel. One is for Python&rsquo;s hashlib (<a href="https://github.com/hashcat/hashcat/blob/master/src/modules/module_20300.c">20300</a>), Django, IOS, and a generic function. All of these are good references but I&rsquo;ll use the 20300 hashlib module as a template. Doing some additional digging, the Atlassian module (<a href="https://github.com/hashcat/hashcat/blob/master/src/modules/module_12001.c">12001</a>) has a very similar hash but is using a different kernel. We can borrow some code from there too.</p>
 <h2 id="hashcat-modules">Hashcat Modules</h2>
 <p>If you look at any module in <code>src/modules</code> you see they all start in the same way. At this point I&rsquo;ll walk through the module I ended up writing.</p>
-<figure><img src="https://www.thesubtlety.com/img/module23911.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/module23911.jpg">
 </figure>
 
 <p>These initial declarations tell hashcat about the module, its name, the OpenCL kernel it should use, optimization types to use, and a password and hash to be used in a kernel self test run before cracking begins. The only change of significance I made other than the name was to the <code>DGST_SIZE</code>. 389-DS has a 256 <em>byte</em> key so I changed that to <code>DGST_SIZE_4_64</code> as defined in <a href="https://github.com/thesubtlety/hashcat/blob/master/include/types.h#L446">types.h</a>.</p>
 <p>Further down are some structs to hold salt and hmac information which is handed to the kernel. No need for making changes here since we&rsquo;re using the same primitives defined in the 10900 kernel and 20300 module.</p>
-<figure><img src="https://www.thesubtlety.com/img/structs.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/structs.jpg">
 </figure>
 
 <p>The next few functions (<code>module_esalt_size</code>, <code>module_tmp_size</code>, <code>module_pw_max</code>) won&rsquo;t need changed in this case.</p>
@@ -171,7 +181,7 @@ tools/test_modules/ 	&lt;-- Perl test modules
 <p>And finally at the bottom is a <code>module_init</code> section which I made no changes to as the defaults were appropriate.</p>
 <h3 id="decoding">Decoding</h3>
 <p>The <code>module_hash_decode</code> function is run after hashcat reads a hash value.</p>
-<figure><img src="https://www.thesubtlety.com/img/decode-token.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/decode-token.jpg">
 </figure>
 
 <p><strong>Tokenizing</strong></p>
@@ -180,28 +190,28 @@ tools/test_modules/ 	&lt;-- Perl test modules
 <pre tabindex="0"><code>{PBKDF2_SHA256}AACkEGhlaiBqZW5z/jtuSox0CrtV9S...QRevNx
 </code></pre><p>Once the major pieces of the hash are obtained, <code>input_tokenizer</code> verifies things are okay.</p>
 <p><strong>Buffering the Hash</strong></p>
-<figure><img src="https://www.thesubtlety.com/img/reading-hash.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/reading-hash.jpg">
 </figure>
 
 <p>At this point our tasks is to extract the various elements from the hash. The second token buffer (in <code>token.buf[1]</code>) contains the hash without the signature. We create a new buffer to hold our base64 decoded bytes and decode them followed by a sanity check. The 389-DS hash should contain 4 bytes for iterations plus 64 bytes of salt plus 256 bytes of key material.</p>
 <p>With <code>tmp_buf</code> containing our decoded hash, we can now parse out the iterations, salt, and digest.</p>
 <p><strong>Identifying the Iterations</strong></p>
-<figure><img src="https://www.thesubtlety.com/img/getting-iterations.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/getting-iterations.jpg">
 </figure>
 
 <p>The first four bytes contain the iteration count so we set our iterator at the beginning of the buffer, create a new variable to hold the iterations and <code>memcpy</code> the data over. The 389-DS implementation does a <code>ntohl</code> on the iteration count so we do that here with Hashcat&rsquo;s <code>byte_swap_32</code> function. One thing that threw me for a loop was the requirement to subtract one from the count. My C skills are non-existant so this may be a well known thing but it tripped me up until I realized a number of other modules were doing the same.</p>
 <p><strong>Selecting the Salt</strong></p>
-<figure><img src="https://www.thesubtlety.com/img/getting-salt.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/getting-salt.jpg">
 </figure>
 
 <p>Here we copy the next 64 bytes of salt into both the <code>salt-&gt;salt_buf</code> and <code>pbkdf2_sha256-&gt;salt_buf</code> structures.</p>
 <p><strong>Catching the Key</strong></p>
-<figure><img src="https://www.thesubtlety.com/img/getting-key.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/getting-key.jpg">
 </figure>
 
 <p>And finally we copy the next 256 key bytes into <code>digest</code>. As this is written to memory in little endian format, but we want to preserve the order of the bytes, each 4 bytes of uint32 needs to account for that with the <code>byte_swap_32</code> hashcat function. Since there are 256 bytes of keys we do this <code>256/4 = 64</code> times.</p>
 <h3 id="encoding">Encoding</h3>
-<figure><img src="https://www.thesubtlety.com/img/encode.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/encode.jpg">
 </figure>
 
 <p>After the kernel computes a digest and finds a matching digest from a guessed password, hashcat passes the information to <code>module_hash_encode</code> which encodes a new hash which should match the original.</p>
@@ -211,7 +221,7 @@ tools/test_modules/ 	&lt;-- Perl test modules
 <p>Assuming all that goes well, hashcat has some test modules which are written in Perl and can be found in <code>tools/test_modules/</code>. These modules are independent from the <code>src/modules</code>. You may first want to install Perl and Python depedencies with <a href="https://github.com/hashcat/hashcat/blob/master/tools/install_modules.sh">install_modules.sh</a>.</p>
 <p>The <a href="https://github.com/hashcat/hashcat/blob/master/tools/test_modules/README.md">readme </a> is a good place to start. In essence there are three functions in a test module: a constraints function, a generate hash module, and a verify hash module each of which is fairly self explanatory.</p>
 <p><code>module_verify_hash</code> takes in a line <code>hash:password</code> and you define how to extract the necessary values, passing the appropriate data to <code>module_generate_hash</code>. Generate takes those values, creates a new hash from them, and returns it.</p>
-<figure><img src="https://www.thesubtlety.com/img/test-generate.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/test-generate.jpg">
 </figure>
 
 <p>There are a few test scripts in the <a href="https://github.com/hashcat/hashcat/tree/master/tools">tools directory</a> including <a href="https://github.com/hashcat/hashcat/blob/master/tools/test.pl#L576-L593">test.pl</a> which among other things will use the test module to create password hashes, and check that passwords create the appropriate hashes.</p>
@@ -248,16 +258,7 @@ Hardware.Mon.#1..: Temp: 73c Fan: 49% Util: 99% Core:1898MHz Mem:3802MHz Bus:16
     </main>
 
     
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-29425132-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
+      
+    
   </body>
 </html>

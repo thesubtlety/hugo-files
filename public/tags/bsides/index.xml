@@ -4,18 +4,16 @@
     <title>BSides on The Subtlety</title>
     <link>https://www.thesubtlety.com/tags/bsides/</link>
     <description>Recent content in BSides on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Oct 2013 01:19:19 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/tags/bsides/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Oct 2013 01:19:19 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/bsides/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BSidesDC Badge </title>
       <link>https://www.thesubtlety.com/post/bsidesdc-badge/</link>
       <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/bsidesdc-badge/</guid>
-      <description>I recently attended my first security conference: BSidesDC. This isn&amp;rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by @grecs was Malware Analysis 101. Very well presented with lots of great getting started material.
-Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded binary.</description>
+      <description>&lt;p&gt;I recently attended my first security conference: BSidesDC. This isn&amp;rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by &lt;a href=&#34;https://twitter.com/grecs&#34;&gt;@grecs&lt;/a&gt; was &lt;a href=&#34;https://www.novainfosec.com/2013/10/19/malware-analysis-slides-from-bsidesdc/&#34;&gt;Malware Analysis 101&lt;/a&gt;. Very well presented with lots of great getting started material.&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;https://www.thesubtlety.com/img/bsides-150x150.jpg&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded &lt;a href=&#34;https://en.wikipedia.org/wiki/Binary_code&#34;&gt;binary&lt;/a&gt;. The message is trivially found via google, but where&amp;rsquo;s the fun in that? And wanting to play around with Python some more I decided to write something that could decode the binary. My first stab looks like this.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -98,10 +98,10 @@
     <loc>https://www.thesubtlety.com/tags/develop/</loc>
     <lastmod>2014-04-11T01:57:03+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/tags/projects/</loc>
+    <loc>https://www.thesubtlety.com/categories/projects/</loc>
     <lastmod>2014-04-11T01:57:03+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/categories/projects/</loc>
+    <loc>https://www.thesubtlety.com/tags/projects/</loc>
     <lastmod>2014-04-11T01:57:03+00:00</lastmod>
   </url><url>
     <loc>https://www.thesubtlety.com/tags/rails/</loc>
@@ -146,25 +146,25 @@
     <loc>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</loc>
     <lastmod>2013-10-19T02:41:57+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/tags/honeypot/</loc>
-    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
-  </url><url>
     <loc>https://www.thesubtlety.com/categories/honeypot/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
+    <loc>https://www.thesubtlety.com/tags/honeypot/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
     <loc>https://www.thesubtlety.com/categories/kippo/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
+    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+  </url><url>
     <loc>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/tags/raspberry-pi/</loc>
+    <loc>https://www.thesubtlety.com/categories/raspberry-pi/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
-    <loc>https://www.thesubtlety.com/categories/raspberry-pi/</loc>
+    <loc>https://www.thesubtlety.com/tags/raspberry-pi/</loc>
     <lastmod>2013-05-07T01:43:15+00:00</lastmod>
   </url><url>
     <loc>https://www.thesubtlety.com/post/career-readme-txt/</loc>
@@ -190,5 +190,7 @@
   </url><url>
     <loc>https://www.thesubtlety.com/categories/misc/</loc>
     <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>https://www.thesubtlety.com/resources/</loc>
   </url>
 </urlset>

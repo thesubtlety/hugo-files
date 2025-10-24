@@ -1,56 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>careers on The Subtlety</title>
+    <title>Careers on The Subtlety</title>
     <link>https://www.thesubtlety.com/categories/careers/</link>
-    <description>Recent content in careers on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Careers on The Subtlety</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Apr 2013 00:50:49 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/categories/careers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Apr 2013 00:50:49 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/categories/careers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Career README.txt</title>
       <link>https://www.thesubtlety.com/post/career-readme-txt/</link>
       <pubDate>Thu, 04 Apr 2013 00:50:49 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/career-readme-txt/</guid>
-      <description>I read this article by Patrick McKenzie a while back, came across it again, and decided it&amp;rsquo;s worth reading weekly. I&amp;rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&amp;rsquo;s entirety. Again. And again.
-Don&amp;rsquo;t Call Yourself a Programmer, And Other Career Advice
-Modesty is not a career enhancing character trait
-Network. In person.
-Learn how to negotiate
-Get good at Enterprise Sales
-Most jobs are never available publicly</description>
+      <description>&lt;p&gt;I read this &lt;a href=&#34;http://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer&#34;&gt;article&lt;/a&gt; by Patrick McKenzie a while back, came across it again, and decided it&amp;rsquo;s worth reading weekly. I&amp;rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&amp;rsquo;s entirety. Again. And again.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Don&amp;rsquo;t Call Yourself a Programmer, And Other Career Advice&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Modesty is not a career enhancing character trait&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Network. In person.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Learn how to negotiate&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Get good at Enterprise Sales&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Most jobs are never available publicly&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Rob Fuller on Getting a Job in InfoSec</title>
       <link>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</link>
       <pubDate>Fri, 22 Feb 2013 01:12:37 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</guid>
-      <description>I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&amp;rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&amp;rsquo;s not InfoSec.
-In my search for ways to break into InfoSec, I&amp;rsquo;ve come across numerous posts, advice, and tips to do just that.</description>
+      <description>&lt;p&gt;I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&amp;rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&amp;rsquo;s not InfoSec.&lt;/p&gt;&#xA;&lt;p&gt;In my search for ways to break into InfoSec, I&amp;rsquo;ve come across numerous &lt;a href=&#34;https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html&#34;&gt;posts&lt;/a&gt;, &lt;a href=&#34;http://pauldotcom.com/2009/05/getting-started-in-information.html&#34;&gt;advice&lt;/a&gt;, and &lt;a href=&#34;https://krebsonsecurity.com/category/how-to-break-into-security/&#34;&gt;tips&lt;/a&gt; to do just that. And this is great stuff - I&amp;rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation &lt;a href=&#34;http://vimeo.com/4108726&#34;&gt;here&lt;/a&gt;. (About 50 minutes)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>On the Dumbest Ideas in Computer Security</title>
       <link>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</link>
       <pubDate>Sat, 15 Sep 2012 22:22:40 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</guid>
-      <description>The other day I came across an article by Marcus J Ranum on the six dumbest ideas in computer security which were very simple yet struck me as profound. I&amp;rsquo;ll summarize them here for future reference.
-Default Permit Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &amp;ldquo;default permit.&amp;rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes.</description>
+      <description>&lt;p&gt;The other day I came across an article by &lt;a href=&#34;http://en.wikipedia.org/wiki/Marcus_J._Ranum&#34;&gt;Marcus J Ranum&lt;/a&gt; on &lt;a href=&#34;http://www.ranum.com/security/computer_security/editorials/dumb/index.html&#34;&gt;the six dumbest ideas in computer security&lt;/a&gt; which were very simple yet struck me as profound. I&amp;rsquo;ll summarize them here for future reference.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Default Permit&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &amp;ldquo;default permit.&amp;rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes. The proper solution here is default deny, but this, according to Ranum, takes dedication, thought, and understanding, and so is seldom done. And it allows one to sleep better at night.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Breaking into Security</title>
       <link>https://www.thesubtlety.com/post/breaking-into-security/</link>
       <pubDate>Mon, 25 Jun 2012 18:21:26 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/breaking-into-security/</guid>
-      <description>This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from Krebs on Security, who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.
-Learn how to program.</description>
+      <description>&lt;p&gt;This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from &lt;a href=&#34;http://m.krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/&#34;&gt;Krebs on Security&lt;/a&gt;,  who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Learn how to program. Plugging away with Ruby. Get dabbling in Python and C.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

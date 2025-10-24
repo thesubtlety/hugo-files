@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.117.0">
+  <meta name="generator" content="Hugo 0.152.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,21 @@
   <meta name="description" content="" />
 
   
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+  
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/print.min.46d9bcbd80937d55db06b7034dfed7fc48b2bfb13e535dd9eac5581bfbaa8ddf.css"
+      media="print"
+      integrity="sha256-Rtm8vYCTfVXbBrcDTf7X/Eiyv7E&#43;U13Z6sVYG/uqjd8="
+      crossorigin="anonymous" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.thesubtlety.com/css/hyde-bundle.min.ac871d4f36866f82cec982ebbe8b6eb1d0a0d9908770ed436b9bd674012f7215.css"
+      media="all"
+      integrity="sha256-rIcdTzaGb4LOyYLrvotusdCg2ZCHcO1Da5vWdAEvchU="
+      crossorigin="anonymous" />  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
 
   
@@ -40,11 +50,11 @@
     <nav>
       <ul class="sidebar-nav">
         <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://twitter.com/thesubtlety"> Twitter </a></li>
+        <li><a href="https://www.thesubtlety.com/about/"> About </a></li><li><a href="https://github.com/thesubtlety/"> Github </a></li><li><a href="https://www.thesubtlety.com/resources/"> Resources &amp; Links </a></li><li><a href="https://twitter.com/thesubtlety"> X </a></li>
       </ul>
     </nav>
 
-    <p>&copy; 2023. All rights reserved. </p>
+    <p>C 2025. All rights reserved.</p>
   </div>
 </aside>
 
@@ -93,47 +103,47 @@
 <li>For 16-bit unicode like <code>LPWSTR</code> or <code>LPCWSTR</code>, use <code>syscall.UTF16PtrFromString(&quot;&quot;)</code></li>
 <li>For 8-bit strings like <code>LPSTR</code> or <code>LPCSTR</code>, use <code>StringToCharPtr</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//https://medium.com/@justen.walker/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">StringToCharPtr</span>(<span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#66d9ef">uint8</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">chars</span> <span style="color:#f92672">:=</span> append([]byte(<span style="color:#a6e22e">str</span>), <span style="color:#ae81ff">0</span>) <span style="color:#75715e">// null terminated
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">chars</span>[<span style="color:#ae81ff">0</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//https://medium.com/@justen.walker/breaking-all-the-rules-using-go-to-call-windows-api-2cbfd8c79724</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">StringToCharPtr</span>(<span style="color:#a6e22e">str</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#66d9ef">uint8</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">chars</span> <span style="color:#f92672">:=</span> append([]byte(<span style="color:#a6e22e">str</span>), <span style="color:#ae81ff">0</span>) <span style="color:#75715e">// null terminated</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">chars</span>[<span style="color:#ae81ff">0</span>]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And putting the prior information together we can start <code>Call</code>&lsquo;ing our function. The <code>uintptr</code> references are explained elsewhere but for relatively simple functions there are only a few patterns to keep in mind:</p>
 <ul>
 <li>All arguments wrapped in <code>uintptr</code></li>
 <li>Individual arguments wrapped in the appropriate data type (often <code>unsafe.Pointer(..)</code>)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//CreateNamedPipeA(g_szNamedPipe, PIPE_ACCESS_DUPLEX, 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//PIPE_TYPE_MESSAGE | PIPE_WAIT, 2, 0, 0, 0, NULL);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createNamedPipeA</span>() (<span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Handle</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//pointer to null terminated 8-bit ANSI string
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">pName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StringToCharPtr</span>(<span style="color:#e6db74">&#34;\\\\.\\pipe\\ASTMA53&#34;</span>) 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//CreateNamedPipeA(g_szNamedPipe, PIPE_ACCESS_DUPLEX, </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//PIPE_TYPE_MESSAGE | PIPE_WAIT, 2, 0, 0, 0, NULL);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//r1 is the return value
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//err can be compared with syscall.Errno(0))
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">r1</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">procCreateNamedPipeA</span>.<span style="color:#a6e22e">Call</span>( 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createNamedPipeA</span>() (<span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Handle</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//pointer to null terminated 8-bit ANSI string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pName</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">StringToCharPtr</span>(<span style="color:#e6db74">&#34;\\\\.\\pipe\\ASTMA53&#34;</span>) 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//r1 is the return value</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//err can be compared with syscall.Errno(0))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r1</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">procCreateNamedPipeA</span>.<span style="color:#a6e22e">Call</span>( 
 </span></span><span style="display:flex;"><span>		uintptr(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#a6e22e">pName</span>)),
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//define constants, but check if defined in syscall._NAME_
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		uintptr(uint32(<span style="color:#a6e22e">PIPE_ACCESS_DUPLEX</span>)),
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//define constants, but check if defined in syscall._NAME_</span>
+</span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#a6e22e">PIPE_ACCESS_DUPLEX</span>)),
 </span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#a6e22e">PIPE_TYPE_MESSAGE</span>|<span style="color:#a6e22e">PIPE_WAIT</span>)), 
 </span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#ae81ff">2</span>)),
 </span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#ae81ff">0</span>)),
 </span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#ae81ff">0</span>)),
-</span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#ae81ff">0</span>)), <span style="color:#75715e">//DWORD represented by uint32(int)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//NULL represented by unsafe.Pointer(nil)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		uintptr(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#66d9ef">nil</span>)), 
+</span></span><span style="display:flex;"><span>		uintptr(uint32(<span style="color:#ae81ff">0</span>)), <span style="color:#75715e">//DWORD represented by uint32(int)</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//NULL represented by unsafe.Pointer(nil)</span>
+</span></span><span style="display:flex;"><span>		uintptr(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>(<span style="color:#66d9ef">nil</span>)), 
 </span></span><span style="display:flex;"><span>	)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">r1</span>), <span style="color:#a6e22e">err</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Using handles tripped me up for a bit as I was seeing <code>Access Denied</code> and <code>Incorrect username or password</code> errors when I didn&rsquo;t expect to. In the following <code>OpenThreadToken</code> call we want to get the TokenHandle (type <code>PHANDLE</code>), and to do that successfully you need to return the correct value (I was initially returning the wrong handle I think).</p>
 <p>When calling <code>OpenThreadToken</code> we define the <code>tokenHandle syscall.Handle</code> in the return values, and reference it in the final argument as <code>&amp;tokenHandle</code>.
 That value is then returned and used in a subsequent <code>createProcessWithTokenW(tokenHandle)</code> call.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//OpenThreadToken(GetCurrentThread(), TOKEN_ALL_ACCESS,
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//FALSE, &amp;hToken)
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">//OpenThreadToken(GetCurrentThread(), TOKEN_ALL_ACCESS,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//FALSE, &amp;hToken)</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">openThreadToken</span>(<span style="color:#a6e22e">threadHandle</span> <span style="color:#66d9ef">uintptr</span>) (<span style="color:#a6e22e">tokenHandle</span> <span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Handle</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">procOpenThreadToken</span>.<span style="color:#a6e22e">Call</span>(
 </span></span><span style="display:flex;"><span>		uintptr(<span style="color:#a6e22e">syscall</span>.<span style="color:#a6e22e">Handle</span>(<span style="color:#a6e22e">threadHandle</span>)),
@@ -147,7 +157,7 @@ That value is then returned and used in a subsequent <code>createProcessWithToke
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Keep in mind that some things are already implemented in <code>syscall</code>, so you don&rsquo;t need to open the DLL and pass uintptr&rsquo;d arguments to it. Check there first before reinventing the wheel.</p>
 <p>And after a bit of reading and experimenting, system was got.</p>
-<figure><img src="https://www.thesubtlety.com/img/getsystem.jpg"/>
+<figure><img src="https://www.thesubtlety.com/img/getsystem.jpg">
 </figure>
 
 <p>This post and code are at <a href="https://github.com/thesubtlety/offsec-golang-utilities/tree/main/getsystem">https://github.com/thesubtlety/offsec-golang-utilities/tree/main/getsystem</a></p>
@@ -162,16 +172,7 @@ That value is then returned and used in a subsequent <code>createProcessWithToke
     </main>
 
     
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-29425132-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
+      
+    
   </body>
 </html>

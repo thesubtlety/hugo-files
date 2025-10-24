@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>honeypot on The Subtlety</title>
+    <title>Honeypot on The Subtlety</title>
     <link>https://www.thesubtlety.com/tags/honeypot/</link>
-    <description>Recent content in honeypot on The Subtlety</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Honeypot on The Subtlety</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 May 2013 01:43:15 +0000</lastBuildDate><atom:link href="https://www.thesubtlety.com/tags/honeypot/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 May 2013 01:43:15 +0000</lastBuildDate>
+    <atom:link href="https://www.thesubtlety.com/tags/honeypot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kippo on the Raspberry Pi</title>
       <link>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</link>
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
-      
       <guid>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</guid>
-      <description>I recently bought a Raspberry Pi and installed Arch Linux ARM on it. I came across a rather amusing blog post of someone using the honeypot Kippo and thought what fun. See here to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.
-Anyways, this post basically walks through what I did to get Kippo and kippo-graph up and running on my RPi.</description>
+      <description>&lt;p&gt;I recently bought a Raspberry Pi and installed &lt;a href=&#34;http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2&#34;&gt;Arch Linux ARM&lt;/a&gt; on it. I came across a rather amusing blog post of someone using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Honeypot_(computing)&#34;&gt;honeypot&lt;/a&gt; &lt;a href=&#34;https://code.google.com/p/kippo/&#34;&gt;Kippo&lt;/a&gt; and thought what fun. See &lt;a href=&#34;http://www.iwatchedyourhack.org/&#34;&gt;here&lt;/a&gt; to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.&lt;/p&gt;&#xA;&lt;p&gt;Anyways, this post basically walks through what I did to get Kippo and &lt;a href=&#34;http://bruteforce.gr/kippo-graph&#34;&gt;kippo-graph&lt;/a&gt; up and running on my RPi. This isn&amp;rsquo;t a walk-you-through-every-step guide, so if you&amp;rsquo;re following along your mileage may vary. Of course, the &lt;a href=&#34;https://code.google.com/p/kippo/w/list&#34;&gt;Wiki pages&lt;/a&gt; over on Google Code are a good place to start. Or &lt;a href=&#34;http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html&#34;&gt;here&lt;/a&gt;. Or &lt;a href=&#34;http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html&#34;&gt;here&lt;/a&gt;. Everyone&amp;rsquo;s done this! But without further adieu&amp;hellip;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
